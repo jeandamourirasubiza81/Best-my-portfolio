@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills-Jean d'Amour</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #071D2B;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+
+        .navigation {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: #F75702;
+            font-size: 32px;
+        }
+
+        .logo b {
+            color: white;
+            font-size: 32px;
+        }
+
+        .logo i {
+            color: #0EB4F7;
+            font-size: 32px;
+            font-style: normal;
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 7px 5px;
+            transition: 0.3s;
+        }
+
+        .menu li a:hover {
+            background-color: #F75702;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .Skills{
+            text-align:center;
+            padding:80px 8%;
+            color:white;
+
+        }
+        h2{
+            font-size: 32px;
+            margin-bottom: 24px;
+            color:#fff;
+        }
+        h2 span{
+            color:#F75702;
+        }
+        h3{
+            font-size:24px;
+            margin-bottom:16px;
+            color:#F75702;
+        }
+        .icons{
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .fa-html5{
+            color:red;
+
+        }
+        .fa-css3-alt{
+            color:blue;
+        }
+        .fa-js{
+            color:yellow;
+        }
+        .fa-figma{
+            color:#F24E1E;
+        }
+        img{
+            width: 30px;
+            height: 30px;
+            border-radius:50%;
+        }
+        
+        .fa-git{
+            color:#F1502F;
+        }
+        
+        .cards p {
+         color:white;
+         line-height: 1.6;
+         font-size: 16px;
+        }
+        .cards{
+            flex:1;
+            width:300px;
+            display:inline-block;
+
+            margin:15px;
+            padding:25px;
+            vertical-align:top;
+            min-height:330px;
+            background-color:#313848;
+            border-radius:15px;
+            border:none;
+            }
+        .cards:hover{
+               
+               border: 3px solid #ff5a00;
+               transform: translateY(-5px);
+
+            }
+        button{
+            margin-top:15px;
+            padding:12px 28px;
+            width:160px;
+            height:50px;
+            background-color:#F75702;
+            color:white;
+            font-size:16px;
+            font-weight:bold;
+            border-radius:15px;
+            border:none;
+            cursor:pointer;
+        }
+        button:hover{
+            background-color:#fff;
+            color:#F75702;
+            box-shadow:0 5px 15px rgba(247,87,2,0.4);
+        }
+
+           
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <div class="logo">
+                <span>J.</span><b>D.</b><i>I.</i>
+            </div>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Service.html">Services</a></li>
+                <li><a href="Skills.html">Skills</a></li>
+                <li><a href="Education.html">Education</a></li>
+                <li><a href="Blogs.html">Blogs</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="Login.html">Login</a></li>
+                <li><a href="Sign up.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="Skills">
+        <h2>My  <span>Skills</span> </h2>
+        <div class="cards">
+            <h3>HTML</h3>
+            <div class="icons">
+            
+         <i class="fa-brands fa-html5"></i>
+  
+            </div>
+            <p>
+                Creating webpages,
+                forms,tables,links,
+                image,video,page 
+                structures,navigation
+                ,Iframe,social media icons
+            </p>
+            <button>Read More</button>
+        </div>
+
+
+        <div class="cards">
+            <h3>CSS</h3>
+            <div class="icons">
+         <i class="fa-brands fa-css3-alt"></i> 
+            </div>
+            <p>
+                Styling webpages,
+                layouts,selectors,
+                colors,fonts,flexbox,
+                grid,backgrounds,
+                responsive design,
+                animations,transitions
+            </p>
+            <button>Read More</button>
+        </div>
+
+
+        <div class="cards">
+            <h3>JavaScript</h3>
+             <div class="icons">
+            <i class="fa-brands fa-js"></i>
+             </div>
+            <p>
+                Adding interactivity,
+                DOM manipulation,
+                event handling,form
+                validation,API integration,
+                animations,asynchronous
+                programming,ES6 features
+            </p>
+            <button>Read More</button>
+        </div>
+
+
+        <div class="cards">
+            <h3>FIGMA</h3>
+            <div class="icons">
+            <i class="fa-brands fa-figma"></i>
+            </div>
+            <p>
+                Building user interfaces,
+                components,state management,
+                props,JSX,virtual DOM,
+                performance optimizationimple
+                modern & user-friendly designs.
+            </p>
+            <button>Read More</button>
+        </div>
+
+
+        <div class="cards">
+            <h3>Canvas</h3>
+            <div class="icons">
+            <img src="images/canva.png" alt="">
+            </div>
+            <p>
+               Designing professional and 
+               creative visual content using 
+               Canva, including social media 
+               posts, presentations, posters,
+               flyers,banners,logos,thumbnails,
+               invitations, business graphics,
+              
+            <button>Read More</button>
+        </div>
+
+        <div class="cards">
+            <h3>Git</h3>
+            <div class="icons">
+             </p><i class="fa-brands fa-github"></i>
+            </div>
+            <p>
+                Version control,
+                branching,merging,
+                commit history,collaboration,
+                remote repositories,
+                pull requests,conflict resolution,
+                code review,continuous integration
+            </p>
+            <button>Read More</button>
+        </div>
+
+    </main>
+  
+    
+</body>
+</html>

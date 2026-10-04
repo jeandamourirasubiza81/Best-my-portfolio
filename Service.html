@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Services - Jean d'Amour</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #071D2B;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+
+        .navigation {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: #F75702;
+            font-size: 32px;
+        }
+
+        .logo b {
+            color: white;
+            font-size: 32px;
+        }
+
+        .logo i {
+            color: #0EB4F7;
+            font-size: 32px;
+            font-style: normal;
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 7px 5px;
+            transition: 0.3s;
+        }
+
+        .menu li a:hover {
+            background-color: #F75702;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .hero {
+            padding: 30px 7% 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero > h2 {
+            margin:50px 0;
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 40px;
+            color: white;
+        }
+        .hero > h2::after {
+            content: "";
+        }
+
+        .Cards {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+        }
+
+        .service-card {
+            margin:100px 0;
+            width: 32%;
+            min-height: 350px;
+            background-color: #343B4E;
+            border-radius: 20px;
+            padding: 35px 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: 0.4s ease;
+        }
+        .service-card:hover {
+      border: 3px solid #ff5a00;
+      transform: translateY(-5px);
+      }
+        
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .service-card h3 {
+            color: #F75702;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+        .service-card p {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.4;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        .service-card button {
+            margin-top: auto;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: #F75702;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .service-card button:hover {
+             background: white;
+             color: #ff5a00;
+             box-shadow: 0 10px 25px rgba(255, 90, 0, 0.35);
+             transform: translateY(-3px);
+        }
+
+        @media (max-width: 900px) {
+            .navigation {
+                padding: 0 30px;
+            }
+            .menu {
+                gap: 12px;
+            }
+            .menu li a {
+                font-size: 14px;
+            }
+            .Cards {
+                flex-wrap: wrap;
+            }
+            .service-card {
+                width: 45%;
+            }
+        }
+        @media (max-width: 600px) {
+            .navigation {
+                height: auto;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+            .menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-left: 0;
+            }
+            .Cards {
+                flex-direction: column;
+            }
+            .service-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navigation">
+            <div class="logo">
+                <span>J</span>.<b>D</b>.<i>I</i>
+            </div>
+
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Service.html">Service</a></li>
+                <li><a href="Skills.html">Skills</a></li>
+                <li><a href="Education.html">Education</a></li>
+                <li><a href="Blogs.html">Blogs</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="Login.html">Login</a></li>
+                <li><a href="Sign up.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <h2>
+            Our <span style="color:#F75702;">Service</span></h2>
+
+        <div class="Cards">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-solid fa-pen-ruler"></i>
+                    
+                </div>
+                <h3>UX-UI Designer</h3>
+                <p>
+                    I design simple, modern, and
+                    user-friendly interfaces that
+                    provide a great user experience.
+                </p>
+                <button>Read More</button>
+
+            </div>
+
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <h3>Web Developer</h3>
+                <p>
+                    I build fast, responsive, and
+                    user-friendly websites that
+                    work well on all devices.
+                </p>
+                <button>Read More</button>
+
+            </div>
+
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    📱
+                </div>
+
+                <h3>Mobile App Developer</h3>
+                <p>
+                    I create mobile applications that
+                    are easy to use, visually appealing,
+                    and work well on all devices.
+                </p>
+
+                <button>Read More</button>
+            </div>
+
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                  <i class="fa-solid fa-bullhorn"></i>
+                </div>
+
+                <h3>Digital Marketing</h3>
+                <p>
+                    I help businesses reach more
+                    people, build their brand,
+                    and grow online.
+                </p>
+
+                <button>Read More</button>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

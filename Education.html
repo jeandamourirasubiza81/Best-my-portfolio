@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education-Jean d'Amour</title>
+    <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #071D2B;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+        .navigation {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 70px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logo span {
+            color: #F75702;
+        }
+
+        .logo b {
+            color: white;
+        }
+
+        .logo i {
+            color: #0EB4F7;
+            font-style: normal;
+        }
+        .logo:hover {
+            transform: scale(1.08);
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 7px 5px;
+            transition: 0.3s;
+        }
+
+        .menu li a:hover {
+            background-color: #F95703;
+            border-radius: 5px;
+        }
+        .menu li a:active {
+            color: #01EEFE;
+        }
+
+
+
+       .education {
+        padding: 80px 8%;
+       
+        text-align: center;
+         } 
+
+      .education h2 {
+  
+      font-size: 40px;
+      margin-bottom: 15px;
+      }
+
+    .education h2 span {
+    color: #F95703;
+      }
+
+     .education-intro {
+     max-width: 700px;
+     margin: 0 auto 45px;
+     color: #fff;
+     line-height: 1.7;
+     }
+
+    .education-container {
+    display: flex;
+    margin: 60px;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    }
+
+   .education-card {
+    width: 280px;
+    padding: 30px 25px;
+    background:#313848;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+   }
+
+   .education-card:hover {
+   border: 3px solid #ff5a00;
+   transform: translateY(-5px);
+    }
+
+    .education-card i {
+    font-size: 45px;
+    color: #F95703;
+    margin-bottom: 20px;
+    }
+
+   .education-card h3 {
+    font-size: 23px;
+    margin-bottom: 8px;
+    }
+
+    .education-card h4 {
+    color: #F95703;
+    margin-bottom: 15px;
+    }
+
+    .education-card p {
+    color: #fff;
+    line-height: 1.6;
+    margin-bottom: 20px;
+   }
+
+   .education-card span {
+    font-weight: bold;
+    color: #0EB4F7;
+   }  
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <div class="logo">
+                <span>J.</span><b>D.</b><i>I.</i>
+            </div>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Service.html">Services</a></li>
+                <li><a href="Skills.html">Skills</a></li>
+                <li><a href="Education.html">Education</a></li>
+                <li><a href="Blogs.html">Blogs</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="Login.html">Login</a></li>
+                <li><a href="Sign up.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+   <section class="education" id="education">
+    <h2>My <span>Education</span></h2>
+
+    <div class="education-container">
+
+        <div class="education-card">
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <h3>G.S Rugerero</h3>
+            <h4>Advanced Level - MEG</h4>
+
+            <p>
+                I completed my Advanced Level secondary education
+                in Mathematics, Economics and Geography (MEG).
+            </p>
+
+            <span>2022 - 2025</span>
+        </div>
+
+        <div class="education-card">
+            <i class="fa-solid fa-code"></i>
+
+            <h3>Web Development</h3>
+            <h4>Alight Coding</h4>
+
+            <p>
+                I am learning HTML, CSS, JavaScript, GitHub and
+                responsive web development.
+            </p>
+
+            <span>2026 - Present</span>
+        </div>
+
+        <div class="education-card">
+            <i class="fa-solid fa-pen-ruler"></i>
+
+            <h3>UI/UX Design</h3>
+            <h4>Design Training</h4>
+
+            <p>
+                I am learning Figma and UI/UX design to create
+                modern and user-friendly interfaces.
+            </p>
+
+            <span>2026 - Present</span>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

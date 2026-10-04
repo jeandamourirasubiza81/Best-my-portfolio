@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs-Jean d'Amour</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            background-color:#071D2B; 
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+        }
+        .navigation{
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 70px;
+        }
+        .logo{
+            font-size: 32px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+
+        }
+        .logo span{
+            color: #F75702;
+            font-size: 32px;
+        }
+        .logo b{
+            color:#fff;
+           
+        }
+        .logo i{
+            color: #0EB4F7;
+            font-style: normal;
+        }
+        .menu{
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 25px;
+        }
+        .menu li a{
+            text-decoration: none;
+            color: #fff;
+            padding: 5px 7px;
+            font-weight: 500;
+
+        }
+      .menu li a:hover{
+            background-color:  #F95703;
+            border-radius: 5px;
+        }
+        .mune a:active{
+            color: #0EB4F7;
+        }
+        .Blogs {
+    min-height: 100vh;
+    background-color: #071D2B;
+    padding: 40px 50px;
+}
+
+
+
+
+.Blogs h2 {
+    padding: 12px;
+    text-align: center;
+    color:#fff;
+    font-size: 25px;
+    margin-bottom: 35px;
+}
+.Blogs h2 span{
+    color:  #F95703;
+}
+
+h3{
+    color: #F95703;
+    font-size: 24px;
+    align-items: center;
+    font-weight: bolder;
+    margin: 15px 12px 8px;
+}
+p{
+    margin: 12px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    align-items: center;
+}
+ .Card img {
+    width: 100%;
+    height: 154px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+.Card{
+    margin-top: 50px;
+    background-color: #343B4E;
+    padding-bottom: 15px;
+    width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+   .Card:hover {
+   border: 3px solid #ff5a00;
+   transform: translateY(-5px);
+   
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <div class="logo">
+                <span>J</span>.<b>D</b>.<i>I</i>
+            </div>
+            <ul class="menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./About.html">Abouts</a></li>
+                <li><a href="./Service.html">Service</a></li>
+                <li><a href="./Skills.html">Skills</a></li>
+                <li><a href="./Education.html">Education</a></li>
+                <li><a href="./Blogs.html">Blogs</a></li>
+                <li><a href="./Project.html">Projects</a></li>
+                <li><a href="./Contacts.html">Contacts</a></li>
+                <li><a href="./Login.html">Login</a></li>
+                <li><a href="./Sign up.html">Sign Up</a></li>
+               
+            </ul>
+        </nav>
+    </header>
+    <Section class="Blogs">
+        <h2>My <span>Blogs</span></h2>
+        <div class="container">
+        <div class="Card">
+            <img src="./images/mystory.jpeg" alt="" srcset="">
+            <h3>My personal Story</h3>
+
+            <p> 
+            My journey, experiences, challenges, and passion
+            for web development. From where I started to
+            where I am going — this is my story.
+
+            </p>
+        </div>
+        <div class="Card">
+            <img src="./images/technology.jpeg" alt="">
+            <h3>Technology in Software</h3>
+
+            <p>
+               Discover how modern technologies like AI,
+               cloud computing, and automation are transforming
+               software development and creating new opportunities
+               for innovation.
+            </p>
+        </div>
+        <div class="Card">
+            <img src="./images/service.jpeg" alt="">
+            <h3>The Services you Provide</h3>
+            <p>  
+                Learn how my services help businesses build
+                a strong and professional online presence,
+                increase visibility, and achieve their goals.
+            </p>
+        </div>
+
+        </div>
+    </Section>
+</body>
+</html>

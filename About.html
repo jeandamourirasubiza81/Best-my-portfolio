@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - Jean d'Amour</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #071D2B;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+        .navigation {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 70px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logo span {
+            color: #F75702;
+        }
+
+        .logo b {
+            color: white;
+        }
+
+        .logo i {
+            color: #0EB4F7;
+            font-style: normal;
+        }
+        .logo:hover {
+            transform: scale(1.08);
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 7px 5px;
+            transition: 0.3s;
+        }
+
+        .menu li a:hover {
+            background-color: #F95703;
+            border-radius: 5px;
+        }
+        .menu li a:active {
+            color: #01EEFE;
+        }
+
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+            padding: 50px 8%;
+        }
+
+        .About {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .jean {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid #F75702;
+            box-shadow: 0 0 25px rgba(247, 87, 2, 0.5);
+            background-color: #F75702;
+        }
+
+        .Header {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .Header h2 {
+            font-size: 40px;
+        }
+        .Header h2 span {
+            color: #F75703;
+        }
+        .Header h3 {
+            color: #0EB4F7;
+            font-size: 22px;
+        }
+        .Header p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        .btn {
+            margin-top: 15px;
+            padding: 12px 28px;
+            width: 160px;
+            height: 50px;
+            background-color: #F75702;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: white;
+            color: #ff5a00;
+            box-shadow: 0 10px 25px rgba(255, 90, 0, 0.35);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 900px) {
+            .navigation {
+                padding: 0 30px;
+            }
+            .menu {
+                gap: 12px;
+            }
+            .hero {
+                gap: 40px;
+                padding: 40px;
+            }
+            .jean {
+                width: 250px;
+                height: 250px;
+            }
+        }
+        @media (max-width: 700px) {
+            .navigation {
+                height: auto;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+            .menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .About {
+                width: 100%;
+            }
+            .Header {
+                width: 100%;
+                align-items: center;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <nav class="navigation">
+            <div class="logo">
+                <span>J</span>.<b>D</b>.<i>I</i>
+            </div>
+
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Service.html">Service</a></li>
+                <li><a href="Skills.html">Skills</a></li>
+                <li><a href="Education.html">Education</a></li>
+                <li><a href="Blogs.html">Blogs</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="Login.html">Login</a></li>
+                <li><a href="Sign up.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+
+        <div class="About">
+            <img src="./images/Jean d'Amour.png"alt="Jean d'Amour"class="jean">
+        </div>
+
+           <div class="Header">
+
+            <h2>About <span>Me</span></h2>
+            <h3>Front-End Developer | Web Designer</h3>
+            <p>
+                I build modern, responsive, and user-friendly
+                websites that look great and work smoothly
+                on every device.
+                <br><br>
+                I focus on creating clean designs and
+                interactive experiences that help users
+                enjoy every moment on a website.
+            </p>
+
+            <button class="btn">
+                See More
+            </button>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Portfolio</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #071D2B;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .navigation {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 70px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+        .logo span {
+            color: #F75702;
+        }
+        .logo b {
+            color: white;
+        }
+        .logo i {
+            color: #0EB4F7;
+            font-style: normal;
+        }
+        .logo:hover {
+            transform: scale(1.08);
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+        }
+        .menu li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 7px 5px;
+            transition: 0.3s;
+        }
+        .menu li a:hover {
+            background-color: #F95703;
+            border-radius: 5px;
+        }
+        .menu li a:active {
+            color: #01EEFE;
+        }
+        .Home {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            gap: 50px;
+        }
+        .home-content {
+            max-width: 600px;
+        }
+        .home-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .home-content h1 span {
+            color: #F75702;
+        }
+        .home-content h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        .home-content h2 span {
+            color: #0EB4F7;
+        }
+        .home-content p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #F95703;
+            border-radius: 50%;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.3s;
+        }
+        .social-icons a:hover {
+            background-color: #F75702;
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(247, 87, 2, 0.4);
+        }
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+            padding: 50px 8%;
+        }
+        .Button {
+            width: 180px;
+            height: 50px;
+            background-color: #F75702;
+            color: white;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .Button:hover {
+            background: white;
+            color: #ff5a00;
+            box-shadow: 0 10px 25px rgba(255, 90, 0, 0.35);
+            transform: translateY(-3px);
+        }
+        .home-image {
+            width: 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .orange-circle {
+            width: 400px;
+            height: 400px;
+            background: #F75702;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(247, 87, 2, 0.5);
+            overflow: hidden;
+        }
+        .jean {
+            width: 330px;
+            max-height: 390px;
+            object-fit: contain;
+            position: absolute;
+            bottom: 0;
+            z-index: 2;
+        }
+        @media (max-width: 1000px) {
+            .navigation {
+                padding: 0 30px;
+            }
+            .menu {
+                gap: 12px;
+            }
+            .Home {
+                padding: 50px 5%;
+            }
+            .home-content h1 {
+                font-size: 40px;
+            }
+            .orange-circle {
+                width: 330px;
+                height: 330px;
+            }
+
+            .jean {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 750px) {
+
+            .navigation {
+                height: auto;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+
+            .Home {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 50px;
+            }
+            .home-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .home-image {
+                width: 100%;
+            }
+
+            .orange-circle {
+                width: 300px;
+                height: 300px;
+            }
+
+            .jean {
+                width: 250px;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navigation">
+            <div class="logo">
+                <span>J</span>.<b>D</b>.<i>I</i>
+            </div>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Service.html">Service</a></li>
+                <li><a href="Skills.html">Skills</a></li>
+                <li><a href="Education.html">Education</a></li>
+                <li><a href="Blogs.html">Blogs</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="Login.html">Login</a></li>
+                <li><a href="Sign up.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="Home">
+
+        <div class="home-content">
+            <h1>Hello, I'm<span>Jean d'Amour</span></h1>
+            <h2>I am a<span>Frontend Developer | Designer</span></h2>
+            <p>
+                I build modern, responsive, and user-friendly websites
+                that look great and work smoothly on every device.
+            </p>
+
+            <div class="social-icons">
+               <a href="https://www.facebook.com/jean.damour.irasubiza.2025" target="_blank">
+               <i class="fab fa-facebook-f"></i></a>
+
+                <a href="https://wa.me/message/UZ32KXFKU6LBK1" target="_blank">
+               <i class="fab fa-whatsapp"></i></a>
+
+                <a href="https://github.com/jeandamourirasubiza81" target="_blank">
+                <i class="fab fa-github"></i></a>
+
+                <a href="https://www.linkedin.com/in/irasubiza-jeandamour-5b3aa3405" target="_blank">
+                 <i class="fab fa-linkedin-in"></i></a>
+                
+            </div>
+
+          <button class="Button" onclick="downloadCV()">
+        Download CV
+     </button>
+
+        </div>
+
+        <div class="home-image">
+            <div class="orange-circle">
+                <img src="./images/Jean d'Amour.png"alt="Jean d'Amour"class="jean">
+            </div>
+        </div>
+    </section>
+    <script>
+
+  function downloadCV() {
+    window.open("Jean%20d'Amour%20Cv/My%20CV.pdf", "_blank");
+}
+
+
+    </script>
+</body>
+
+</html>
