@@ -60,6 +60,83 @@
         .menu li a:active{
             color: #0EB4F7;
         }
+        .sign-up{
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px 50px;
+            background-color: #071D2B;
+        }
+        .container.sign{
+            width: 100%;
+            max-width: 590px;
+            padding: 40px;
+            background-color: #0b2636;
+            border-radius: 20px;
+            border: 1px solid rgb(1,238,254,0.25);
+        }
+        .container.sign h2{
+            text-align: center;
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .container.sign >p{
+            text-align: center;
+            color: #b8c7cf;
+            font-size: 15px;
+            margin-bottom: 30px;
+
+        }
+        .container.sign a{
+            color: #F75702;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .input{
+            margin-bottom: 20px;
+        }
+        .input label{
+            display: block;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600px;
+            margin-bottom: 8px;
+        }
+        .input input{
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px #193d4e;
+            border-radius: 10px;
+            outline: none;
+            color: #ffffff;
+            background-color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        .input input:focus{
+            border-color: #01EEFE;
+        }
+        .container.sign button{
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            background-color: #F75705;
+            cursor: pointer;
+            font-size: 16px;
+        }
+       .logo em{
+        color: #F75702;
+        font-style: normal;
+        
+        font-weight: bold;
+        letter-spacing: 2px;
+       }
+
     </style>
 </head>
 <body>
@@ -78,9 +155,147 @@
                 <li><a href="./Project.html">Project</a></li>
                 <li><a href="./Contacts.html">Contacts</a></li>
                 <li><a href="./Login.html">Login</a></li>
-                <li><a href="./Sign up.html">Sign Up</a></li>
+                
             </ul>
         </nav>
     </header>
+    <section class="sign-up">
+
+    <div class="container sign">
+
+        <h2>Create Account</h2>
+
+        <p class=" logo">Sign up to get started with <em>J</em>.<b>D</b>.<i>I</i></p>
+
+        <form id="forms">
+
+            <div class="input">
+                <label for="name">Full Name:</label>
+                <input type="text" placeholder="Enter your full name" id="name">
+            </div>
+
+
+            <div class="input">
+                <label for="email">Email:</label>
+                <input type="email"  placeholder="Enter your email" id="email">
+            </div>
+
+            <div class="input">
+                <label for="password">Password:</label>
+                <input type="password" placeholder="Enter your password" minlength="8"id="password">
+            </div>
+
+            <div class="input">
+                <label for="confirm-password">Confirm Password:</label>
+               <input type="password" id="confirm-password" placeholder="Confirm your password">
+            </div>
+
+            <button type="submit">Sign Up</button>
+
+        </form>
+
+        <p class="login-text">
+            Already have an account?
+            <a href="Login.html">Login</a>
+        </p>
+
+    </div>
+</section>
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDkB9QoCnDaxQieInfaKVjPocJM4BTlt8k",
+    authDomain: "jeandamour-login.firebaseapp.com",
+    projectId: "jeandamour-login",
+    storageBucket: "jeandamour-login.firebasestorage.app",
+    messagingSenderId: "372516516628",
+    appId: "1:372516516628:web:e07d8de6aeadb7a6310801",
+    measurementId: "G-G9REMS5J0Q"
+};
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Authentication
+const auth = getAuth(app);
+
+
+// Get form
+const form = document.getElementById("forms");
+
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword =
+        document.getElementById("confirm-password").value;
+
+
+    // Check passwords
+    if (password !== confirmPassword) {
+
+        alert("Passwords do not match!");
+
+        return;
+    }
+
+
+    // Check password length
+    if (password.length < 8) {
+
+        alert("Password must be at least 8 characters!");
+
+        return;
+    }
+
+
+    try {
+
+        // Create Firebase account
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        console.log("User created:", userCredential.user);
+
+        alert("Account created successfully!");
+
+
+        // Go to Login page
+        window.location.href = "Login.html";
+
+
+    } catch (error) {
+
+        console.error("Firebase Error:", error);
+
+        alert(error.message);
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>

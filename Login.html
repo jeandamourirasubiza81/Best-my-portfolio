@@ -1,281 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login-Jean d'Amour</title>
     <style>
-        *{
+        * {
             margin: 0px;
             padding: 0px;
             box-sizing: border-box;
         }
-        body{
-            background-color:#071D2B; 
+
+        body {
+            background-color: #071D2B;
             font-family: Arial, Helvetica, sans-serif;
             color: white;
         }
-        .navigation{
+
+        .navigation {
             display: flex;
             height: 80px;
             align-items: center;
             justify-content: space-between;
             padding: 0px 70px;
         }
-        .logo{
-            display: flex; 
+
+        .logo {
+            display: flex;
             font-size: 32px;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             letter-spacing: 2px;
-          
-        }
-        .logo span{
-            color:  #F75702;
 
         }
-        .logo b{
+
+        .logo span {
+            color: #F75702;
+
+        }
+
+        .logo b {
             color: #fff;
         }
-        .logo i{
-            color:#0EB4F7;
+
+        .logo i {
+            color: #0EB4F7;
             font-style: normal;
         }
-        .menu{
+
+        .menu {
             display: flex;
             align-items: center;
             list-style: none;
             gap: 25px;
         }
-        .menu li a{
+
+        .menu li a {
             text-decoration: none;
             color: #fff;
             padding: 5px 7px;
             font-weight: 500;
-           
+
         }
 
-        .menu li a:hover{
+        .menu li a:hover {
             background-color: #F75702;
             border-radius: 5px;
         }
+
         .login {
-    width: 600px;
-    padding: 35px;
-    background: white;
-    border-radius: 15px;
-    text-align: center;
-    margin: 50px auto;
-}
+            width: 600px;
+            padding: 35px;
+            background-color: #0b2636;
+            border: 1px solid rgb(1, 238, 254, 0.25);
+            border-radius: 20px;
+            text-align: center;
+            margin: 50px auto;
+        }
 
-.login h2 {
-    color: #ff5a00;
-    font-size: 30px;
-    margin-bottom: 8px;
-}
+        .login h2 {
+            color: #ff5a00;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
 
-.welcom {
-    color: #777;
-    margin-bottom: 25px;
-}
-p.welcom span {
-    color: #ff5a00;
-    font-weight: bold;
-}
+        .welcom {
+            color: #ffffff;
+            margin-bottom: 25px;
+        }
 
-.input {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.input input {
-    width: 100%;
-    padding: 13px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    font-size: 14px;
-}
-
-.input input:focus {
-    border-color: #ff5a00;
-}
-
-.loginbtn {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    background: #ff5a00;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.loginbtn:hover {
-    background: #fff;
-    color: #ff5a00;
-    border: 3px solid #ff5a00;
-    transform: translateY(-2px);
-}
-.loginmessage {
-    margin-top: 10px;
-    font-size: 14px;
-}
+        p.welcom span {
+            color: #ff5a00;
+            font-weight: bold;
+        }
+        .welcom b {
+            color: #F75702;
+            font-weight: bold;
+            font-size: 25px;
+        }
+       .welcom i{
+        color: #fff;
+        font-size: 20px;
+        font-style: normal;
+       }
+       .welcom em{
+        color: #0EB4F7;
+        font-size: 25px;
+        font-style: normal;
+       }
 
 
-.divide {
-    display: flex;
-    align-items: center;
-    margin: 25px 0;
-}
+        .input {
+            width: 100%;
+            margin-bottom: 15px;
+        }
 
-.divide::before,
-.divide::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #ddd;
-}
+     
+    .login .label {
+     display: block;
+     text-align: left;
+     color: #f7f7f7;
+     font-size: 15px;
+     font-weight: 600;
+     margin-bottom: 8px;
+    }
 
-.divide span {
-    margin: 0 10px;
-    color: #777;
-    font-size: 14px;
-}
+        
+
+        .input input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input input:focus {
+            border-color: #ff5a00;
+        }
+
+        .loginbtn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #ff5a00;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .loginbtn:hover {
+            background: #fff;
+            color: #ff5a00;
+            border: 3px solid #ff5a00;
+        }
+
+        .loginmessage {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .divide {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .divide::before,
+        .divide::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #fff;
+        }
+
+        .divide span {
+            margin: 0 10px;
+            color: #fff;
+            font-size: 14px;
+        }
 
 
-.googlelogin,
-.facebooklogin,
-.applelogin {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: white;
-    cursor: pointer;
-    font-size: 14px;
-    display: block; 
-    text-decoration: none;
-     text-align: center;
-      box-sizing: border-box;
-}
+        .googlelogin {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            color: #ff5a00;
+            font-size: 14px;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            box-sizing: border-box;
+        }
 
-.googlelogin i,
-.facebooklogin i,
-.applelogin i {
-    margin-right: 10px;
-    font-size: 17px;
-   
-}
+        .googlelogin i {
+            margin-right: 10px;
+            font-size: 17px;
 
-.googlelogin:hover,
-.facebooklogin:hover,
-.applelogin:hover {
-    background: #f3f3f3;
-    border: 3px solid #ff5a00;
-    transform: translate(-10px);
-}
+        }
+
+        .googlelogin:hover {
+            background: #f3f3f3;
+            border: 3px solid #ff5a00;
+
+        }
 
 
-.signup {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #777;
-}
+        .signup {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ffffff;
+        }
 
-.signup a {
-    color: #ff5a00;
-    text-decoration: none;
-    font-weight: bold;
-}
-.signup a:hover {
-    text-decoration: underline;
-}
-.googlelogin i{
-   color: #4285f4;
-}
-.facebooklogin i{
-    color: #1877f2;
-}
-.applelogin i{
-    color: #000;
-}
+        .signup a {
+            color: #ff5a00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup a:hover {
+            text-decoration: underline;
+        }
+
+        .googlelogin i {
+            color: #4285f4;
+        }
     </style>
 </head>
-<body>
-   <header>
-    <nav class="navigation">
 
-        <div class="logo">
-            <span>J</span>.<b>D</b>.<i>I</i>
-        </div>
-        <ul class="menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="./About.html">About</a></li>
-            <li><a href="./Service.html">Service</a></li>
-            <li><a href="./Skills.html">Skills</a></li>
-            <li><a href="./Education.html">Education</a></li>
-            <li><a href="./Blogs.html">Blogs</a></li>
-            <li><a href="./Projects.html">Projects</a></li>
-            <li><a href="./Contacts.html">Contacts</a></li>
-            <li><a href="./Login.html">Login</a></li>
-            <li><a href="../Sign up.html">Sign Up</a></li>
-        </ul>
-    </nav>
-    
-   </header>
+<body>
+   
+    <header>
+        <nav class="navigation">
+
+            <div class="logo">
+                <span>J</span>.<b>D</b>.<i>I</i>
+            </div>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="./About.html">About</a></li>
+                <li><a href="./Service.html">Service</a></li>
+                <li><a href="./Skills.html">Skills</a></li>
+                <li><a href="./Education.html">Education</a></li>
+                <li><a href="./Blogs.html">Blogs</a></li>
+                <li><a href="./Projects.html">Projects</a></li>
+                <li><a href="./Contacts.html">Contacts</a></li>
+                <li><a href="./Login.html">Login</a></li>
+                
+            </ul>
+        </nav>
+
+    </header>
     <section class="login">
 
         <h2>Login</h2>
-        <p class="welcom">Welcome <span>back</span>!</p>
-       <form class="loginform">
-        <div class="input">
-            <input type="email" id="loginemail" placeholder="Email">
-        </div>
-        <div class="input">
-            <input type="password" id="loginpassword" placeholder="Password">
-        </div>
-       <button type="submit" class="loginbtn">Login</button>
-       <p class="loginmessage"></p>
+        <p class="welcom">Welcome <span>back</span>!  <b>J</b>.<i>D</i>.<em>I</em></p>
+        <form class="loginform">
+            <div class="input">
+                <label for="Email" class="label">Email:</label>
+                <input type="email" id="loginemail" placeholder="Email">
+            </div>
+            <div class="input">
+                <label for="password" class="label">PassWord:</label>
+                <input type="password" id="loginpassword" placeholder="Password">
+            </div>
+            <button type="submit" class="loginbtn">Login</button>
+            <p class="loginmessage"></p>
 
-       </form>
-       <div class="divide">
-        <span>or</span>
-       </div>
-    <a href="https://accounts.google.com/" class="googlelogin"> <i class="fa-brands fa-google"></i> Login with Google </a>
-     
-    <a href="https://www.facebook.com/login/" class="facebooklogin"> <i class="fa-brands fa-facebook"></i> Login with Facebook </a>
-    <a href="https://account.apple.com/" class="applelogin"> <i class="fa-brands fa-apple"></i> Continue with Apple </a>
-     <p class="signup">Don't have an account? <a href="./Sign up.html">Sign up</a></p>
+        </form>
+        <div class="divide">
+            <span>or</span>
+        </div>
+        <a href="https://accounts.google.com/" class="googlelogin"> <i class="fa-brands fa-google"></i> Login with
+            Google </a>
+
+
+        <p class="signup">Don't have an account? <a href="./Sign up.html">Sign up</a></p>
     </section>
-    <script>
+   <script type="module">
 
-   let loginform = document.querySelector(".loginform");
-let loginMessage = document.querySelector(".loginmessage");
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-loginform.addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const email = document.getElementById("loginemail").value.trim();
-    const password = document.getElementById("loginpassword").value.trim();
-
-    if (email === "" || password === "") {
-        loginMessage.textContent = "Please fill in all fields.";
-        loginMessage.style.color = "red";
-        return;
+    import {
+        getAuth,
+        signInWithEmailAndPassword
     }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-    loginMessage.textContent = "Login successful!";
-    loginMessage.style.color = "green";
 
-});
-    
-    </script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDkB9QoCnDaxQieInfaKVjPocJM4BTlt8k",
+        authDomain: "jeandamour-login.firebaseapp.com",
+        projectId: "jeandamour-login",
+        storageBucket: "jeandamour-login.firebasestorage.app",
+        messagingSenderId: "372516516628",
+        appId: "1:372516516628:web:e07d8de6aeadb7a6310801",
+        measurementId: "G-G9REMS5J0Q"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+
+    const form = document.querySelector(".loginform");
+
+    const emailInput = document.getElementById("loginemail");
+    const passwordInput = document.getElementById("loginpassword");
+    const message = document.querySelector(".loginmessage");
+
+
+    form.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+
+        if (!email || !password) {
+
+            message.textContent = "Please enter email and password.";
+            message.style.color = "red";
+
+            return;
+        }
+
+
+        try {
+
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            console.log("Logged in user:", userCredential.user);
+
+            message.textContent = "Login successful!";
+            message.style.color = "#01EEFE";
+
+
+            window.location.href = "dashboard.html";
+
+
+        } catch (error) {
+
+            console.error("Login Error:", error);
+
+            message.textContent = "Invalid email or password.";
+            message.style.color = "red";
+
+        }
+
+    });
+
+</script>
+
 </body>
+</html>
+
+</body>
+ 
 </html>
