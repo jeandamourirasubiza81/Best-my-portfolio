@@ -1,12 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login-Jean d'Amour</title>
+
     <style>
         * {
             margin: 0px;
@@ -17,7 +21,7 @@
         body {
             background-color: #071D2B;
             font-family: Arial, Helvetica, sans-serif;
-            color: white;
+            color: #ffffff;
         }
 
         .navigation {
@@ -34,12 +38,10 @@
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             letter-spacing: 2px;
-
         }
 
         .logo span {
-            color: #F75702;
-
+            color: #f65a06;
         }
 
         .logo b {
@@ -47,7 +49,7 @@
         }
 
         .logo i {
-            color: #0EB4F7;
+            color: #04b3f9;
             font-style: normal;
         }
 
@@ -63,26 +65,26 @@
             color: #fff;
             padding: 5px 7px;
             font-weight: 500;
-
         }
 
         .menu li a:hover {
-            background-color: #F75702;
+            background-color: #fe630f;
             border-radius: 5px;
         }
 
         .login {
             width: 600px;
+            max-width: 90%;
             padding: 35px;
-            background-color: #0b2636;
-            border: 1px solid rgb(1, 238, 254, 0.25);
+            background-color: #071D2B;
+            border: 5px solid rgba(15, 176, 187, 0.25);
             border-radius: 20px;
             text-align: center;
             margin: 50px auto;
         }
 
         .login h2 {
-            color: #ff5a00;
+            color: #f95e0a;
             font-size: 30px;
             margin-bottom: 8px;
         }
@@ -93,54 +95,74 @@
         }
 
         p.welcom span {
-            color: #ff5a00;
+            color: #fb600d;
             font-weight: bold;
         }
+
         .welcom b {
-            color: #F75702;
+            color: #f55f0d;
             font-weight: bold;
             font-size: 25px;
         }
-       .welcom i{
-        color: #fff;
-        font-size: 20px;
-        font-style: normal;
-       }
-       .welcom em{
-        color: #0EB4F7;
-        font-size: 25px;
-        font-style: normal;
-       }
 
+        .welcom i {
+            color: #ffffff;
+            font-size: 20px;
+            font-style: normal;
+        }
+
+        .welcom em {
+            color: #03b3f8;
+            font-size: 25px;
+            font-style: normal;
+        }
 
         .input {
             width: 100%;
             margin-bottom: 15px;
         }
 
-     
-    .login .label {
-     display: block;
-     text-align: left;
-     color: #f7f7f7;
-     font-size: 15px;
-     font-weight: 600;
-     margin-bottom: 8px;
-    }
-
-        
+        .login .label {
+            display: block;
+            text-align: left;
+            color: #fbf6f6;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
 
         .input input {
             width: 100%;
             padding: 13px 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #382d2d;
             border-radius: 8px;
             outline: none;
             font-size: 14px;
         }
 
         .input input:focus {
-            border-color: #ff5a00;
+            border-color: #f85f0d;
+        }
+
+        /* Password eye */
+
+        .password-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-box input {
+            padding-right: 45px;
+        }
+
+        .password-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f85f0c;
+            cursor: pointer;
+            font-size: 18px;
         }
 
         .loginbtn {
@@ -148,8 +170,8 @@
             padding: 13px;
             border: none;
             border-radius: 8px;
-            background: #ff5a00;
-            color: white;
+            background: #f85f0c;
+            color: #ffffff;
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
@@ -157,8 +179,8 @@
 
         .loginbtn:hover {
             background: #fff;
-            color: #ff5a00;
-            border: 3px solid #ff5a00;
+            color: #fb5902;
+            border: 3px solid  #f85f0c;
         }
 
         .loginmessage {
@@ -182,20 +204,19 @@
 
         .divide span {
             margin: 0 10px;
-            color: #fff;
+            color: #ffffff;
             font-size: 14px;
         }
-
 
         .googlelogin {
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             border-radius: 8px;
-            background: white;
+            background: #ffffff;
             cursor: pointer;
-            color: #ff5a00;
+            color: #ff5900;
             font-size: 14px;
             display: block;
             text-decoration: none;
@@ -206,15 +227,13 @@
         .googlelogin i {
             margin-right: 10px;
             font-size: 17px;
-
+            color: #0665fe;
         }
 
         .googlelogin:hover {
-            background: #f3f3f3;
-            border: 3px solid #ff5a00;
-
+            background: #fff;
+            border: 3px solid #ff5d05;
         }
-
 
         .signup {
             margin-top: 20px;
@@ -223,7 +242,7 @@
         }
 
         .signup a {
-            color: #ff5a00;
+            color: #f95903;
             text-decoration: none;
             font-weight: bold;
         }
@@ -232,20 +251,50 @@
             text-decoration: underline;
         }
 
-        .googlelogin i {
-            color: #4285f4;
+        @media (max-width: 1000px) {
+            .navigation {
+                padding: 0px 20px;
+                height: auto;
+                min-height: 80px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .menu {
+                flex-wrap: wrap;
+                gap: 12px;
+                padding-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navigation {
+                justify-content: center;
+            }
+
+            .menu {
+                justify-content: center;
+            }
+
+            .login {
+                padding: 25px 18px;
+                margin: 30px auto;
+            }
         }
     </style>
+
 </head>
 
 <body>
-   
+
     <header>
+
         <nav class="navigation">
 
             <div class="logo">
                 <span>J</span>.<b>D</b>.<i>I</i>
             </div>
+
             <ul class="menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="./About.html">About</a></li>
@@ -256,124 +305,246 @@
                 <li><a href="./Projects.html">Projects</a></li>
                 <li><a href="./Contacts.html">Contacts</a></li>
                 <li><a href="./Login.html">Login</a></li>
-                
             </ul>
+
         </nav>
 
     </header>
+
     <section class="login">
 
         <h2>Login</h2>
-        <p class="welcom">Welcome <span>back</span>!  <b>J</b>.<i>D</i>.<em>I</em></p>
+
+        <p class="welcom">
+            Welcome <span>back</span>!
+            <b>J</b>.<i>D</i>.<em>I</em>
+        </p>
+
         <form class="loginform">
+
             <div class="input">
-                <label for="Email" class="label">Email:</label>
-                <input type="email" id="loginemail" placeholder="Email">
+
+                <label for="loginemail" class="label">
+                    Email:
+                </label>
+
+                <input
+                    type="email"
+                    id="loginemail"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+
             </div>
+
             <div class="input">
-                <label for="password" class="label">PassWord:</label>
-                <input type="password" id="loginpassword" placeholder="Password">
+
+                <label for="loginpassword" class="label">
+                    Password:
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        id="loginpassword"
+                        placeholder="Password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <i
+                        class="fa-solid fa-eye"
+                        id="togglePassword"
+                        role="button"
+                        tabindex="0"
+                        aria-label="Show password"
+                        title="Show password"
+                    ></i>
+
+                </div>
+
             </div>
-            <button type="submit" class="loginbtn">Login</button>
-            <p class="loginmessage"></p>
+
+            <button type="submit" class="loginbtn">
+                Login
+            </button>
+
+            <p class="loginmessage" aria-live="polite"></p>
 
         </form>
+
         <div class="divide">
             <span>or</span>
         </div>
-        <a href="https://accounts.google.com/" class="googlelogin"> <i class="fa-brands fa-google"></i> Login with
-            Google </a>
 
+        <a href="https://accounts.google.com/" class="googlelogin">
+            <i class="fa-brands fa-google"></i>
+            Login with Google
+        </a>
 
-        <p class="signup">Don't have an account? <a href="./Sign up.html">Sign up</a></p>
+        <p class="signup">
+            Don't have an account?
+            <a href="./Sign up.html">Sign up</a>
+        </p>
+
     </section>
-   <script type="module">
 
-    import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    <script type="module">
 
-    import {
-        getAuth,
-        signInWithEmailAndPassword
-    }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+        import { initializeApp }
+            from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyDkB9QoCnDaxQieInfaKVjPocJM4BTlt8k",
-        authDomain: "jeandamour-login.firebaseapp.com",
-        projectId: "jeandamour-login",
-        storageBucket: "jeandamour-login.firebasestorage.app",
-        messagingSenderId: "372516516628",
-        appId: "1:372516516628:web:e07d8de6aeadb7a6310801",
-        measurementId: "G-G9REMS5J0Q"
-    };
+        import {
+            getAuth,
+            signInWithEmailAndPassword
+        }
+            from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-    const app = initializeApp(firebaseConfig);
+        // Firebase configuration
 
-    const auth = getAuth(app);
-
-
-    const form = document.querySelector(".loginform");
-
-    const emailInput = document.getElementById("loginemail");
-    const passwordInput = document.getElementById("loginpassword");
-    const message = document.querySelector(".loginmessage");
-
-
-    form.addEventListener("submit", async function(event) {
-
-        event.preventDefault();
-
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkB9QoCnDaxQieInfaKVjPocJM4BTlt8k",
+            authDomain: "jeandamour-login.firebaseapp.com",
+            projectId: "jeandamour-login",
+            storageBucket: "jeandamour-login.firebasestorage.app",
+            messagingSenderId: "372516516628",
+            appId: "1:372516516628:web:e07d8de6aeadb7a6310801",
+            measurementId: "G-G9REMS5J0Q"
+        };
 
 
-        if (!email || !password) {
+        // Initialize Firebase
 
-            message.textContent = "Please enter email and password.";
-            message.style.color = "red";
+        const app = initializeApp(firebaseConfig);
 
-            return;
+        const auth = getAuth(app);
+
+
+        // Get HTML elements
+
+        const form = document.querySelector(".loginform");
+
+        const emailInput = document.getElementById("loginemail");
+
+        const passwordInput = document.getElementById("loginpassword");
+
+        const message = document.querySelector(".loginmessage");
+
+        const togglePassword = document.getElementById("togglePassword");
+
+
+        // Show and hide password
+
+        function changePasswordVisibility() {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                togglePassword.classList.remove("fa-eye");
+                togglePassword.classList.add("fa-eye-slash");
+
+                togglePassword.setAttribute("aria-label", "Hide password");
+                togglePassword.setAttribute("title", "Hide password");
+
+            } else {
+
+                passwordInput.type = "password";
+
+                togglePassword.classList.remove("fa-eye-slash");
+                togglePassword.classList.add("fa-eye");
+
+                togglePassword.setAttribute("aria-label", "Show password");
+                togglePassword.setAttribute("title", "Show password");
+
+            }
+
         }
 
 
-        try {
+        togglePassword.addEventListener(
+            "click",
+            changePasswordVisibility
+        );
 
-            const userCredential =
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
+        togglePassword.addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter" || event.key === " ") {
+
+                event.preventDefault();
+
+                changePasswordVisibility();
+
+            }
+
+        });
 
 
-            console.log("Logged in user:", userCredential.user);
+        // Firebase Login
 
-            message.textContent = "Login successful!";
-            message.style.color = "#01EEFE";
+        form.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const email = emailInput.value.trim();
+
+            const password = passwordInput.value;
 
 
-            window.location.href = "dashboard.html";
+            if (!email || !password) {
+
+                message.textContent = "Please enter email and password.";
+
+                message.style.color = "red";
+
+                return;
+
+            }
 
 
-        } catch (error) {
+            try {
 
-            console.error("Login Error:", error);
+                message.textContent = "Logging in...";
 
-            message.textContent = "Invalid email or password.";
-            message.style.color = "red";
+                message.style.color = "#01EEFE";
 
-        }
 
-    });
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
 
-</script>
+
+                console.log("Logged in user:", userCredential.user);
+
+                message.textContent = "Login successful!";
+
+                message.style.color = "#01EEFE";
+
+
+                window.location.href = "dashboard.html";
+
+
+            } catch (error) {
+
+                console.error("Login Error:", error);
+
+                message.textContent = "Invalid email or password.";
+
+                message.style.color = "red";
+
+            }
+
+        });
+
+    </script>
 
 </body>
+
 </html>
 
-</body>
- 
-</html>

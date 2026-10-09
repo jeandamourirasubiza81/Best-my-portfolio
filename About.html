@@ -217,7 +217,7 @@
            <div class="Header">
 
             <h2>About <span>Me</span></h2>
-            <h3>Front-End Developer | Web Designer</h3>
+            <h3>I am  <span id="typing-text"></span></h3>
             <p>
                 I build modern, responsive, and user-friendly
                 websites that look great and work smoothly
@@ -236,7 +236,48 @@
 
     </section>
 
+<script>
+    const words = ["Front-End Developer", "Designer","Youtube"];
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
+const typingText = document.getElementById("typing-text");
+
+function typeEffect() {
+
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+        typingText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+            deleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+    } else {
+        typingText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            wordIndex++;
+
+            if (wordIndex === words.length) {
+                wordIndex = 0;
+            }
+        }
+    }
+
+    setTimeout(typeEffect, deleting ? 80 : 120);
+}
+
+typeEffect();
+
+
+</script>
 </body>
 
 </html>

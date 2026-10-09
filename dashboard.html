@@ -1,0 +1,1241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Jean d'Amour</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #071D2B;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+       
+
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            overflow-y: auto;
+            background: #071D2B;
+            border-right: 3px solid #0696e3;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 15px;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px 30px;
+            border-bottom: 3px solid #068dd6;
+        }
+
+        .logo span {
+            color: #d44e06;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+       
+
+        .menu {
+            list-style: none;
+            margin-top: 25px;
+            flex: 1;
+        }
+
+        .menu li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 13px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #d44e06;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .menu li:hover,
+        .menu li.active {
+            background: #d44e06;
+            color: #ffffff;
+        }
+
+        .menu li i:first-child {
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu .menu-title {
+            font-size: 11px;
+            color: #fff;
+            font-weight: bold;
+            cursor: default;
+            padding-top: 20px;
+        }
+
+        .menu .menu-title:hover {
+            background: transparent;
+        }
+
+        .submenu {
+            list-style: none;
+            display: none;
+            margin-left: 15px;
+        }
+
+        .submenu.show {
+            display: block;
+        }
+
+        .submenu li {
+            font-size: 14px;
+            padding: 10px 12px;
+        }
+
+        .arrow {
+            margin-left: auto;
+            font-size: 11px;
+        }
+
+        
+
+        .logout {
+            width: 100%;
+            padding: 13px;
+            border: 3px solid#d44e06;
+            border-radius: 8px;
+            background: transparent;
+            color: #fff;
+            font-size: 15px;
+        
+        }
+
+        .logout:hover {
+            background: #d44e06;
+            color: #048ed4;
+        }
+
+        
+
+        .main {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            min-height: 90px;
+            padding: 20px 35px;
+            background: #071D2B;
+            border-bottom: 1px solid #0591dc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+            margin-bottom: 5px;
+            
+        }
+
+        .topbar p {
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: #d44e06;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user strong {
+            display: block;
+            font-size: 14px;
+            color: #d44e06;
+        }
+
+        .user small {
+            color: #ffffff;
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: pageAppear 0.25s ease;
+        }
+
+        @keyframes pageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #071D2B;
+            border: 3px solid #0689cf;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #d44e06;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: #d44e06;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .card h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .welcome-box {
+            margin-top: 30px;
+            padding: 35px;
+            border: 1px solid #0592de;
+            border-radius: 12px;
+        }
+
+        .welcome-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .welcome-box p {
+            color: #d4dce0;
+            line-height: 1.6;
+        }
+
+
+        .blog-form-box,
+        .project-form-box,
+        .simple-box {
+            background: #071D2B;
+            border: 1px solid #058dd6;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 1100px;
+        }
+
+        .simple-box > h2,
+        .blog-form-box > h2,
+        .project-form-box > h2 {
+            margin-bottom: 8px;
+        }
+
+        .simple-box > p {
+            color: #dfedf4;
+            line-height: 1.7;#c62828;
+            margin-top: 10px;
+        }
+
+        .form-intro {
+            color: #e0eef5;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+       
+
+        .settings-box {
+            max-width: 750px;
+            width: 100%;
+            padding: 30px;
+        }
+
+        .settings-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #164257;
+        }
+
+        .settings-icon {
+            width: 55px;
+            height: 55px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #d44e06;;
+            color: #ffffff;
+            font-size: 23px;
+        }
+
+        .settings-header h2 {
+            margin-bottom: 7px;
+        }
+
+        .settings-header p {
+            color: #d44e06;
+            line-height: 1.5;
+        }
+
+        .settings-group {
+            margin-bottom: 25px;
+        }
+
+        .settings-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .settings-group label i {
+            margin-right: 8px;
+            color: #07a5fa;
+        }
+
+        .settings-group input,
+        .settings-group select {
+            width: 100%;
+            padding: 14px;
+            border: 3px solid #068bce;
+            border-radius: 8px;
+            background: #04131c;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .settings-group input:focus,
+        .settings-group select:focus {
+            border-color: #d44e06;
+        }
+
+        .settings-group select {
+            cursor: pointer;
+        }
+
+        .settings-group small {
+            display: block;
+            margin-top: 8px;
+            color: #d7eaf4;
+            line-height: 1.5;
+        }
+
+        .settings-save-btn {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #d44e06;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .settings-save-btn i {
+            margin-right: 8px;
+        }
+
+        .settings-save-btn:hover {
+            background: #d44e06;
+            transform: translateY(-2px);
+        }
+
+        #settingsMessage {
+            display: none;
+            margin-top: 18px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        
+
+        .blog-form-group,
+        .project-form-group {
+            margin-bottom: 20px;
+        }
+
+        .blog-form-group label,
+        .project-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .blog-form-group input,
+        .blog-form-group textarea,
+        .project-form-group input,
+        .project-form-group textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 2px solid #048ed4;
+            border-radius: 7px;
+            background: #071D2B;
+            color: #ffffff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .blog-form-group input:focus,
+        .blog-form-group textarea:focus,
+        .project-form-group input:focus,
+        .project-form-group textarea:focus {
+            border-color:#d44e06;
+        }
+
+        .blog-form-group textarea,
+        .project-form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            max-width: 100%;
+            color: #f1f5f9;
+        }
+
+        .blog-image-preview,
+        .project-image-preview {
+            width: 100%;
+            max-width: 560px;
+            height: 320px;
+            max-height: 45vh;
+            object-fit: contain;
+            background: #04131c;
+            border-radius: 10px;
+            border: 2px solid #069ae4;
+            margin-top: 12px;
+            padding: 5px;
+            display: none;
+        }
+
+        .add-blog-btn,
+        .project-action-btn {
+            background: #d44e06;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 5px 0 0;
+            transition: 0.2s;
+        }
+
+        .add-blog-btn:hover,
+        .project-action-btn:hover {
+            transform: translateY(-2px);
+            background: #d44e06;
+        }
+
+        .cancel-btn {
+            background: #126c98 !important;
+        }
+
+        .blog-message,
+        .project-message {
+            margin-top: 15px;
+            color: #04f719;
+            display: none;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+
+        .saved-blogs,
+        .saved-projects {
+            margin-top: 30px;
+        }
+
+        .saved-blogs h2,
+        .saved-projects h2 {
+            margin-bottom: 15px;
+        }
+
+        .saved-blog-card,
+        .saved-project-card {
+            background: #071D2B;
+            border: 2px solid #0693de;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .saved-blog-card h3,
+        .saved-project-card h3 {
+            margin-bottom: 8px;
+            font-size: 21px;
+        }
+
+        .saved-blog-card p,
+        .saved-project-card p {
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .saved-blog-card img,
+        .saved-project-card img {
+            width: 100%;
+            max-width: 560px;
+            height: 320px;
+            object-fit: contain;
+            background: #04131c;
+            border-radius: 10px;
+            border: 1px solid #069ae4;
+            padding: 5px;
+            margin: 12px 0;
+            display: block;
+        }
+
+        .item-date {
+            display: block;
+            margin-top: 8px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .empty-message {
+            color: #d44e06;
+            margin-top: 15px;
+        }
+
+        .item-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .edit-btn {
+            background: #0b5f88;
+        }
+
+        .delete-btn {
+            background: #d44e06;
+        }
+
+        .edit-btn:hover,
+        .delete-btn:hover {
+            opacity: 0.85;
+        }
+
+        
+
+        body.light-mode {
+            background: #f1f5f9;
+            color: #17212b;
+        }
+
+        body.light-mode .sidebar,
+        body.light-mode .topbar,
+        body.light-mode .card,
+        body.light-mode .welcome-box,
+        body.light-mode .blog-form-box,
+        body.light-mode .project-form-box,
+        body.light-mode .simple-box,
+        body.light-mode .saved-blog-card,
+        body.light-mode .saved-project-card {
+            background: #fff;
+            color: #17212b;
+        }
+
+        body.light-mode .logo h2,
+        body.light-mode .topbar h1,
+        body.light-mode .card h3,
+        body.light-mode .welcome-box h2,
+        body.light-mode .simple-box h2,
+        body.light-mode .settings-header h2,
+        body.light-mode .settings-group label,
+        body.light-mode .saved-blog-card h3,
+        body.light-mode .saved-project-card h3 {
+            color: #17212b;
+        }
+
+        body.light-mode .topbar p,
+        body.light-mode .welcome-box p,
+        body.light-mode .simple-box p,
+        body.light-mode .settings-header p,
+        body.light-mode .settings-group small,
+        body.light-mode .saved-blog-card p,
+        body.light-mode .saved-project-card p {
+            color: #475569;
+        }
+
+        body.light-mode .settings-group input,
+        body.light-mode .settings-group select,
+        body.light-mode .blog-form-group input,
+        body.light-mode .blog-form-group textarea,
+        body.light-mode .project-form-group input,
+        body.light-mode .project-form-group textarea {
+            background: #fff;
+            color: #17212b;
+        }
+
+      
+
+        @media (max-width: 1100px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+       
+
+        @media (max-width: 650px) {
+            .sidebar {
+                width: 70px;
+                padding: 20px 8px;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 0 0 20px;
+            }
+
+            .logo h2,
+            .menu li span,
+            .menu-title,
+            .arrow,
+            .logout {
+                display: none;
+            }
+
+            .menu li {
+                justify-content: center;
+                padding: 13px 5px;
+            }
+
+            .submenu {
+                margin-left: 0;
+            }
+
+            .submenu li {
+                justify-content: center;
+                font-size: 12px;
+            }
+
+            .main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+            }
+
+            .topbar {
+                padding: 18px 15px;
+                align-items: flex-start;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .user strong,
+            .user small {
+                display: none;
+            }
+
+            .content {
+                padding: 18px 12px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .blog-form-box,
+            .project-form-box,
+            .welcome-box,
+            .simple-box {
+                padding: 18px;
+            }
+
+            .settings-header {
+                align-items: flex-start;
+            }
+
+            .settings-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 19px;
+            }
+
+            .settings-save-btn {
+                width: 100%;
+            }
+
+            .blog-image-preview,
+            .project-image-preview,
+            .saved-blog-card img,
+            .saved-project-card img {
+                height: 220px;
+            }
+
+            .add-blog-btn,
+            .project-action-btn {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>JD</span>
+            <h2>Jean d'Amour</h2>
+        </div>
+
+        <ul class="menu">
+
+            <li class="active" data-page="dashboard">
+                <i class="fa-solid fa-gauge"></i>
+                <span>Dashboard</span>
+            </li>
+
+            <li data-page="profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </li>
+
+            <li class="menu-title">CONTENT</li>
+
+            <li class="has-submenu" id="blogMenu">
+                <i class="fa-solid fa-blog"></i>
+                <span>Blogs</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </li>
+
+            <ul class="submenu" id="blogSubmenu">
+
+                <li data-page="add-blog">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add Blog</span>
+                </li>
+
+                <li data-page="edit-blog">
+                    <i class="fa-solid fa-pen"></i>
+                    <span>Edit Blog</span>
+                </li>
+
+                <li data-page="delete-blog">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Delete Blog</span>
+                </li>
+
+            </ul>
+
+            <li class="has-submenu" id="projectMenu">
+                <i class="fa-solid fa-folder"></i>
+                <span>Projects</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </li>
+
+            <ul class="submenu" id="projectSubmenu">
+
+                <li data-page="add-project">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add Project</span>
+                </li>
+
+                <li data-page="edit-project">
+                    <i class="fa-solid fa-pen"></i>
+                    <span>Edit Project</span>
+                </li>
+
+                <li data-page="delete-project">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Delete Project</span>
+                </li>
+
+            </ul>
+
+            <li data-page="settings">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </li>
+
+        </ul>
+
+        <button class="logout" id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </button>
+
+    </aside>
+
+   
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Welcome back, Jean d'Amour 👋</p>
+            </div>
+
+            <div class="user">
+
+                <div class="user-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div>
+                    <strong>Jean d'Amour</strong>
+                    <small>Administrator</small>
+                </div>
+
+            </div>
+
+        </header>
+
+        <section class="content">
+
+            
+
+            <div class="page dashboard-page active" id="dashboardPage">
+
+                <div class="cards">
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-blog"></i>
+                        </div>
+
+                        <div>
+                            <h3>Blogs</h3>
+                            <p id="blogCount">0</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-folder"></i>
+                        </div>
+
+                        <div>
+                            <h3>Projects</h3>
+                            <p id="projectCount">0</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <div>
+                            <h3>Users</h3>
+                            <p>1</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+
+                        <div>
+                            <h3>Views</h3>
+                            <p>1,250</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="welcome-box">
+                    <h2>Welcome to your Dashboard</h2>
+
+                    <p>
+                        Manage your profile, blogs and projects
+                        from this dashboard.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="page simple-page" id="profilePage">
+
+                <div class="simple-box">
+
+                    <h2>Profile</h2>
+
+                    <p>
+                        <strong>Name:</strong>
+                        Jean d'Amour
+                    </p>
+
+                    <p>
+                        <strong>Role:</strong>
+                        Administrator
+                    </p>
+
+                    <p>
+                        Welcome to your portfolio dashboard.
+                    </p>
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="page simple-page" id="settingsPage">
+
+                <div class="simple-box settings-box">
+
+                    <div class="settings-header">
+
+                        <div class="settings-icon">
+                            <i class="fa-solid fa-gear"></i>
+                        </div>
+
+                        <div>
+                            <h2>Settings</h2>
+                            <p>Manage your dashboard preferences.</p>
+                        </div>
+
+                    </div>
+
+                    <form id="settingsForm" class="settings-form">
+
+                        <div class="settings-group">
+
+                            <label for="settingsName">
+                                <i class="fa-solid fa-user"></i>
+                                Admin Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="settingsName"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                            <small>
+                                This name will appear on your dashboard.
+                            </small>
+
+                        </div>
+
+                        <div class="settings-group">
+
+                            <label for="settingsTheme">
+                                <i class="fa-solid fa-palette"></i>
+                                Dashboard Theme
+                            </label>
+
+                            <select id="settingsTheme">
+                                <option value="dark">Dark Mode</option>
+                                <option value="light">Light Mode</option>
+                            </select>
+
+                            <small>
+                                Choose the appearance of your dashboard.
+                            </small>
+
+                        </div>
+
+                        <button type="submit" class="settings-save-btn">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Settings
+                        </button>
+
+                        <p id="settingsMessage" role="status"></p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <div class="page add-blog-page" id="addBlogPage">
+
+                <div class="blog-form-box">
+
+                    <h2 id="blogFormHeading">Add New Blog</h2>
+
+                    <p class="form-intro">
+                        Create and manage blog posts for your portfolio.
+                    </p>
+
+                    <form id="blogForm">
+
+                        <div class="blog-form-group">
+                            <label for="blogTitle">Blog Title</label>
+
+                            <input
+                                id="blogTitle"
+                                type="text"
+                                placeholder="Enter blog title"
+                                required
+                            >
+                        </div>
+
+                        <div class="blog-form-group">
+                            <label for="blogImage">Blog Image</label>
+
+                            <input
+                                id="blogImage"
+                                type="file"
+                                accept="image/*"
+                            >
+
+                            <img
+                                alt="Blog image preview"
+                                class="blog-image-preview"
+                                id="blogImagePreview"
+                            >
+                        </div>
+
+                        <div class="blog-form-group">
+                            <label for="blogContent">Blog Content</label>
+
+                            <textarea
+                                id="blogContent"
+                                placeholder="Write your blog here..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button
+                            class="add-blog-btn"
+                            id="blogSubmitBtn"
+                            type="submit"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                            Add Blog
+                        </button>
+
+                        <button
+                            class="add-blog-btn cancel-btn"
+                            id="cancelBlogEdit"
+                            style="display:none"
+                            type="button"
+                        >
+                            Cancel Edit
+                        </button>
+
+                        <p
+                            class="blog-message"
+                            id="blogMessage"
+                            role="status"
+                        ></p>
+
+                    </form>
+
+                    <div class="saved-blogs">
+                        <h2>My Blogs</h2>
+                        <div id="savedBlogs"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="page add-project-page" id="addProjectPage">
+
+                <div class="project-form-box">
+
+                    <h2 id="projectFormHeading">Add New Project</h2>
+
+                    <p class="form-intro">
+                        Add, edit, update or delete your projects.
+                    </p>
+
+                    <form id="projectForm">
+
+                        <div class="project-form-group">
+                            <label for="projectTitle">Project Title</label>
+
+                            <input
+                                id="projectTitle"
+                                type="text"
+                                placeholder="Enter project title"
+                                required
+                            >
+                        </div>
+
+                        <div class="project-form-group">
+                            <label for="projectImage">Project Image</label>
+
+                            <input
+                                id="projectImage"
+                                type="file"
+                                accept="image/*"
+                            >
+
+                            <img
+                                alt="Project image preview"
+                                class="project-image-preview"
+                                id="projectImagePreview"
+                            >
+                        </div>
+
+                        <div class="project-form-group">
+                            <label for="projectDescription">
+                                Project Description
+                            </label>
+
+                            <textarea
+                                id="projectDescription"
+                                placeholder="Describe your project..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button
+                            class="project-action-btn"
+                            id="projectSubmitBtn"
+                            type="submit"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                            Add Project
+                        </button>
+
+                        <button
+                            class="project-action-btn cancel-btn"
+                            id="cancelProjectEdit"
+                            style="display:none"
+                            type="button"
+                        >
+                            Cancel Edit
+                        </button>
+
+                        <p
+                            class="project-message"
+                            id="projectMessage"
+                            role="status"
+                        ></p>
+
+                    </form>
+
+                    <div class="saved-projects">
+                        <h2>My Projects</h2>
+                        <div id="savedProjects"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="./index.js"></script>
+
+</body>
+</html>

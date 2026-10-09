@@ -1,150 +1,264 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup-Jean d'Amour</title>
+
+    <title>Signup - Jean d'Amour</title>
+
     <style>
-       *{
-            margin: 0px;
-            padding: 0px;
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-        body{
-            background-color:#071D2B; 
+
+        body {
+            background-color: #071D2B;
             font-family: Arial, Helvetica, sans-serif;
-            color: white;
+            color: #fff;
         }
-        .navigation{
+
+        .navigation {
             display: flex;
-            height: 80px;
+            min-height: 80px;
             align-items: center;
             justify-content: space-between;
-            padding: 0px 70px
+            padding: 0 70px;
+            gap: 20px;
         }
-        .logo{
+
+        .logo {
             display: flex;
             font-size: 32px;
             font-family: Arial, Helvetica, sans-serif;
             letter-spacing: 2px;
             font-weight: bold;
         }
-        .logo span{
-            color:  #F75702;
-            
+
+        .logo span {
+            color: #ff5a02;
         }
-        .logo b{
+
+        .logo b {
             color: #fff;
         }
-        .logo i{
-            color: #0EB4F7;
+
+        .logo i {
+            color: #05b2f7;
             font-style: normal;
         }
-        .menu{
+
+        .menu {
             display: flex;
             list-style: none;
             gap: 25px;
             align-items: center;
-           
+            flex-wrap: wrap;
         }
-        .menu li a{
+
+        .menu li a {
             text-decoration: none;
-              padding: 5px 7px;
-              color: #fff;
-              font-weight: 500;
+            padding: 5px 7px;
+            color: #fff;
+            font-weight: 500;
         }
-        .menu li a:hover{
-            background-color: #F75703;
+
+        .menu li a:hover {
+            background-color: hsl(21, 98%, 49%);
             border-radius: 5px;
         }
-        .menu li a:active{
-            color: #0EB4F7;
+
+        .menu li a:active {
+            color: hsl(197, 94%, 51%);
         }
-        .sign-up{
-            min-height: 100vh;
+
+        .sign-up {
+            min-height: calc(100vh - 80px);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 100px 20px 50px;
-            background-color: #071D2B;
+            padding: 50px 20px;
+            background-color: hsl(203, 72%, 10%);
         }
-        .container.sign{
+
+        .container.sign {
             width: 100%;
             max-width: 590px;
             padding: 40px;
             background-color: #0b2636;
             border-radius: 20px;
-            border: 1px solid rgb(1,238,254,0.25);
+            border: 1px solid rgba(1, 238, 254, 0.25);
         }
-        .container.sign h2{
+
+        .container.sign h2 {
             text-align: center;
-            color: #ffffff;
+            color: hsl(0, 0%, 100%);
             font-size: 32px;
             margin-bottom: 10px;
         }
-        .container.sign >p{
-            text-align: center;
-            color: #b8c7cf;
-            font-size: 15px;
-            margin-bottom: 30px;
 
-        }
-        .container.sign a{
-            color: #F75702;
-            text-decoration: none;
+        .subtitle {
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3px;
+            color: hsl(201, 19%, 77%);
             font-size: 15px;
+            margin: 15px 0 30px;
         }
-        .input{
+
+        .subtitle em {
+            color: #fc5901;
+            font-style: normal;
+        }
+
+        .input {
             margin-bottom: 20px;
         }
-        .input label{
+
+        .input label {
             display: block;
-            color: #ffffff;
+            color: hsl(0, 0%, 100%);
             font-size: 15px;
-            font-weight: 600px;
+            font-weight: 600;
             margin-bottom: 8px;
         }
-        .input input{
+
+        .input input {
             width: 100%;
             padding: 14px 16px;
-            border: 2px #193d4e;
+            border: 2px solid #1a4254;
             border-radius: 10px;
             outline: none;
-            color: #ffffff;
+            color: #071D2B;
             background-color: #fff;
             font-size: 15px;
-            box-sizing: border-box;
         }
-        .input input:focus{
-            border-color: #01EEFE;
+
+        .input input:focus {
+            border-color: hsl(184, 99%, 50%);
         }
-        .container.sign button{
+
+        
+        .password-field {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-field input {
+            padding-right: 52px;
+        }
+
+        /* Eye button */
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #071D2B;
+            cursor: pointer;
+            font-size: 21px;
+        }
+
+        .toggle-password:hover {
+            background-color: hwb(195 87% 2%);
+        }
+
+        .submit-btn {
             width: 100%;
             padding: 14px;
             margin-top: 5px;
             border: none;
             border-radius: 10px;
             color: #ffffff;
-            background-color: #F75705;
+            background-color: #fd5400;
             cursor: pointer;
             font-size: 16px;
         }
-       .logo em{
-        color: #F75702;
-        font-style: normal;
-        
-        font-weight: bold;
-        letter-spacing: 2px;
-       }
 
+        .submit-btn:hover {
+            background-color: #e74f03;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .login-text {
+            margin-top: 25px;
+            text-align: center;
+            color: #b8c7cf;
+            font-size: 15px;
+        }
+
+        .container.sign a {
+            color: #fb5d08;
+            text-decoration: none;
+        }
+
+        .container.sign a:hover {
+            text-decoration: underline;
+        }
+
+        #signupMessage {
+            display: none;
+            margin-top: 18px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 900px) {
+            .navigation {
+                padding: 20px;
+                flex-direction: column;
+            }
+
+            .menu {
+                justify-content: center;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container.sign {
+                padding: 25px 20px;
+            }
+
+            .container.sign h2 {
+                font-size: 27px;
+            }
+
+            .menu {
+                gap: 12px;
+            }
+        }
     </style>
 </head>
+
 <body>
+
     <header>
         <nav class="navigation">
+
             <div class="logo">
                 <span>J</span>.<b>D</b>.<i>I</i>
             </div>
+
             <ul class="menu">
                 <li><a href="./index.html">Home</a></li>
                 <li><a href="./About.html">About</a></li>
@@ -155,147 +269,369 @@
                 <li><a href="./Project.html">Project</a></li>
                 <li><a href="./Contacts.html">Contacts</a></li>
                 <li><a href="./Login.html">Login</a></li>
-                
             </ul>
+
         </nav>
     </header>
+
     <section class="sign-up">
 
-    <div class="container sign">
+        <div class="container sign">
 
-        <h2>Create Account</h2>
+            <h2>Create Account</h2>
 
-        <p class=" logo">Sign up to get started with <em>J</em>.<b>D</b>.<i>I</i></p>
+            <p class="subtitle">
+                Sign up to get started with
+                <span class="logo">
+                    <em>J</em>.<b>D</b>.<i>I</i>
+                </span>
+            </p>
 
-        <form id="forms">
+            <form id="forms">
 
-            <div class="input">
-                <label for="name">Full Name:</label>
-                <input type="text" placeholder="Enter your full name" id="name">
-            </div>
+                <div class="input">
+                    <label for="name">Full Name:</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="input">
+                    <label for="email">Email:</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="input">
+                    <label for="password">Password:</label>
+
+                    <div class="password-field">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="password"
+                            aria-label="Show password"
+                            aria-pressed="false"
+                            title="Show or hide password"
+                        >👁</button>
+
+                    </div>
+                </div>
+
+                <div class="input">
+                    <label for="confirm-password">
+                        Confirm Password:
+                    </label>
+
+                    <div class="password-field">
+
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            placeholder="Confirm your password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="confirm-password"
+                            aria-label="Show confirm password"
+                            aria-pressed="false"
+                            title="Show or hide password"
+                        >👁</button>
+
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="signupBtn"
+                >
+                    Sign Up
+                </button>
+
+                <p id="signupMessage" role="status"></p>
+
+            </form>
+
+            <p class="login-text">
+                Already have an account?
+                <a href="./Login.html">Login</a>
+            </p>
+
+        </div>
+
+    </section>
+
+    <script type="module">
+
+        // =====================================
+        // FIREBASE IMPORTS
+        // =====================================
+
+        import {
+            initializeApp,
+            getApps,
+            getApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-            <div class="input">
-                <label for="email">Email:</label>
-                <input type="email"  placeholder="Enter your email" id="email">
-            </div>
+        // =====================================
+        // FIREBASE CONFIGURATION
+        // =====================================
 
-            <div class="input">
-                <label for="password">Password:</label>
-                <input type="password" placeholder="Enter your password" minlength="8"id="password">
-            </div>
-
-            <div class="input">
-                <label for="confirm-password">Confirm Password:</label>
-               <input type="password" id="confirm-password" placeholder="Confirm your password">
-            </div>
-
-            <button type="submit">Sign Up</button>
-
-        </form>
-
-        <p class="login-text">
-            Already have an account?
-            <a href="Login.html">Login</a>
-        </p>
-
-    </div>
-</section>
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-import {
-    getAuth,
-    createUserWithEmailAndPassword
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGQh-s8jq5hvbnkVk3GG7HP6KfvpTALns",
+            authDomain: "sign-up-jean-damour.firebaseapp.com",
+            projectId: "sign-up-jean-damour",
+            storageBucket: "sign-up-jean-damour.firebasestorage.app",
+            messagingSenderId: "556734162578",
+            appId: "1:556734162578:web:6f4d820ff5fd519733a84b",
+            measurementId: "G-WZC1WYCMW1"
+        };
 
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDkB9QoCnDaxQieInfaKVjPocJM4BTlt8k",
-    authDomain: "jeandamour-login.firebaseapp.com",
-    projectId: "jeandamour-login",
-    storageBucket: "jeandamour-login.firebasestorage.app",
-    messagingSenderId: "372516516628",
-    appId: "1:372516516628:web:e07d8de6aeadb7a6310801",
-    measurementId: "G-G9REMS5J0Q"
-};
+        // =====================================
+        // INITIALIZE FIREBASE
+        // =====================================
+
+        const app = getApps().length
+            ? getApp()
+            : initializeApp(firebaseConfig);
+
+        const auth = getAuth(app);
 
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+        // =====================================
+        // SHOW / HIDE PASSWORD
+        // =====================================
 
-// Initialize Authentication
-const auth = getAuth(app);
+        document.querySelectorAll(".toggle-password").forEach(button => {
 
+            button.addEventListener("click", function () {
 
-// Get form
-const form = document.getElementById("forms");
+                const targetId = this.dataset.target;
+                const passwordInput =
+                    document.getElementById(targetId);
 
+                const isHidden =
+                    passwordInput.type === "password";
 
-form.addEventListener("submit", async function(event) {
+                passwordInput.type = isHidden
+                    ? "text"
+                    : "password";
 
-    event.preventDefault();
+                this.textContent = isHidden ? "🙈" : "👁";
 
+                this.setAttribute(
+                    "aria-pressed",
+                    String(isHidden)
+                );
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword =
-        document.getElementById("confirm-password").value;
+                this.setAttribute(
+                    "aria-label",
+                    isHidden ? "Hide password" : "Show password"
+                );
 
+            });
 
-    // Check passwords
-    if (password !== confirmPassword) {
-
-        alert("Passwords do not match!");
-
-        return;
-    }
-
-
-    // Check password length
-    if (password.length < 8) {
-
-        alert("Password must be at least 8 characters!");
-
-        return;
-    }
+        });
 
 
-    try {
+        // =====================================
+        // SIGN UP FORM
+        // =====================================
 
-        // Create Firebase account
-        const userCredential =
-            await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+        const form = document.getElementById("forms");
+        const signupBtn = document.getElementById("signupBtn");
+        const signupMessage = document.getElementById("signupMessage");
+
+        function showMessage(message, success = false) {
+
+            signupMessage.textContent = message;
+            signupMessage.style.display = "block";
+
+            signupMessage.style.color = success
+                ? "#01EEFE"
+                : "#ff7777";
+
+        }
 
 
-        console.log("User created:", userCredential.user);
+        form.addEventListener("submit", async function (event) {
 
-        alert("Account created successfully!");
+            event.preventDefault();
+
+            const name =
+                document.getElementById("name").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirm-password").value;
 
 
-        // Go to Login page
-        window.location.href = "Login.html";
+            // Check full name
+            if (!name) {
+                showMessage("Please enter your full name.");
+                return;
+            }
 
 
-    } catch (error) {
+            // Check password length
+            if (password.length < 8) {
+                showMessage(
+                    "Password must be at least 8 characters."
+                );
+                return;
+            }
 
-        console.error("Firebase Error:", error);
 
-        alert(error.message);
+            // Check matching passwords
+            if (password !== confirmPassword) {
+                showMessage("Passwords do not match.");
+                return;
+            }
 
-    }
 
-});
+            signupBtn.disabled = true;
+            signupBtn.textContent = "Creating account...";
 
-</script>
+            showMessage("Connecting to Firebase...", true);
+
+
+            try {
+
+                // Create the Firebase Authentication account
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+                const user = userCredential.user;
+
+
+                // Save the user's display name in Firebase Auth
+                await updateProfile(user, {
+                    displayName: name
+                });
+
+
+                showMessage(
+                    "Account created successfully! Redirecting to Login...",
+                    true
+                );
+
+
+                
+                window.location.replace("./Login.html");
+
+
+            } catch (error) {
+
+                console.error(
+                    "Firebase Sign Up Error:",
+                    error.code,
+                    error.message
+                );
+
+                if (error.code === "auth/email-already-in-use") {
+
+                    showMessage(
+                        "This email is already registered. Please use another email or log in."
+                    );
+
+                } else if (error.code === "auth/invalid-email") {
+
+                    showMessage("Please enter a valid email address.");
+
+                } else if (error.code === "auth/weak-password") {
+
+                    showMessage(
+                        "Password is too weak. Use at least 8 characters."
+                    );
+
+                } else if (
+                    error.code === "auth/operation-not-allowed"
+                ) {
+
+                    showMessage(
+                        "Email/Password sign-up is not enabled in Firebase."
+                    );
+
+                } else if (
+                    error.code === "auth/network-request-failed"
+                ) {
+
+                    showMessage(
+                        "Network error. Check your internet connection."
+                    );
+
+                } else if (
+                    error.code === "auth/invalid-api-key"
+                ) {
+
+                    showMessage(
+                        "Firebase API key is invalid. Check your Firebase configuration."
+                    );
+
+                } else {
+
+                    showMessage(
+                        "Sign Up failed: " +
+                        error.code +
+                        ". Check the browser Console."
+                    );
+
+                }
+
+            } finally {
+
+                signupBtn.disabled = false;
+                signupBtn.textContent = "Sign Up";
+
+            }
+
+        });
+
+    </script>
 
 </body>
 </html>

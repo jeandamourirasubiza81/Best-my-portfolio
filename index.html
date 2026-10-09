@@ -274,7 +274,7 @@
 
         <div class="home-content">
             <h1>Hello, I'm<span>Jean d'Amour</span></h1>
-            <h2>I am a<span>Frontend Developer | Designer</span></h2>
+            <h2>I am a <span id="typing-text"></span></h2>
             <p>
                 I build modern, responsive, and user-friendly websites
                 that look great and work smoothly on every device.
@@ -312,6 +312,46 @@
   function downloadCV() {
     window.open("Jean%20d'Amour%20Cv/My%20CV.pdf", "_blank");
 }
+
+
+const words = ["Front-End Developer", "Designer","Youtube"];
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+const typingText = document.getElementById("typing-text");
+
+function typeEffect() {
+
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+        typingText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+            deleting = true;
+            setTimeout(typeEffect, 2500);
+            return;
+        }
+    } else {
+        typingText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            wordIndex++;
+
+            if (wordIndex === words.length) {
+                wordIndex = 0;
+            }
+        }
+    }
+
+    setTimeout(typeEffect, deleting ? 80 : 120);
+}
+
+typeEffect();
 
 
     </script>
