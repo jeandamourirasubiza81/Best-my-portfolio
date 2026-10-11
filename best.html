@@ -89,13 +89,17 @@
 
         .tag {
             display: inline-block;
-            color: var(--cyan);
-            border: 1px solid rgba(1, 238, 254, 0.35);
-            background: rgba(1, 238, 254, 0.07);
+            color: #FFFFFF;
+            background: #F75702;
             border-radius: 30px;
             padding: 7px 17px;
             font-size: 13px;
             margin-bottom: 22px;
+        }
+        .tag:hover{
+          border: 2px solid #01EEFE;
+          transform: translateY(-5px);
+
         }
 
         .hero h1 {
@@ -115,7 +119,8 @@
         }
 
         .hero p {
-            color: var(--muted);
+            color:#FFFFFF;
+            font-weight: bold;
             font-size: 15px;
             max-width: 650px;
             margin-bottom: 18px;
@@ -140,6 +145,13 @@
             font-weight: 600;
             transition: 0.3s;
         }
+        .home{
+            display: flex;
+            justify-content: right;
+            margin:35px 100px;
+       
+        }
+        
 
         .btn-primary {
             background: var(--cyan);
@@ -172,8 +184,8 @@
             aspect-ratio: 1;
             border-radius: 50%;
             padding: 9px;
-            background: linear-gradient(135deg, var(--cyan), var(--orange));
-            box-shadow: 0 0 35px rgba(1, 238, 254, 0.18);
+            background: #343B4E;
+            
             animation: float 4s ease-in-out infinite;
         }
 
@@ -181,14 +193,13 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background:#343B4E;
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 10px;
             overflow: hidden;
-            border: 5px solid var(--background);
             text-align: center;
         }
 
@@ -198,24 +209,25 @@
             border-radius: 50%;
             display: grid;
             place-items: center;
-            background: linear-gradient(135deg, #103D52, #071D2B);
+            
             color: var(--cyan);
             font-size: 58px;
-            border: 2px solid var(--cyan);
+         
         }
 
         .portrait .code-icon {
             font-size: 22px;
-            color: orange);
+            color:#ff5a00;
             letter-spacing: 4px;
         }
 
         .portrait strong {
             font-size: 22px;
+            color: #01EEFE;
         }
 
         .portrait small {
-            color: var(--muted);
+            color: #ff5a00;
             font-size: 12px;
         }
 
@@ -240,11 +252,11 @@
         }
 
         .section-title span {
-            color: var(--cyan);
+            color: #F75702;
         }
 
         .section-intro {
-            color: var(--muted);
+            color: #FFFFFF;
             text-align: center;
             max-width: 700px;
             margin: 0 auto 40px;
@@ -258,16 +270,15 @@
         }
 
         .info-card {
-            background: var(--card);
-            border: 1px solid rgba(1, 238, 254, 0.13);
+            background: #343B4E;
             border-radius: 15px;
             padding: 28px;
             transition: 0.3s;
         }
 
         .info-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--cyan);
+          border: 3px solid #ff5a00;
+          transform: translateY(-5px);
         }
 
         .info-card .icon {
@@ -277,13 +288,14 @@
         }
 
         .info-card h3 {
-            color: var(--cyan);
+            color: #F75702;
             font-size: 19px;
             margin-bottom: 12px;
         }
 
         .info-card p {
-            color: var(--muted);
+            color: white;
+            font-weight: bold;
             font-size: 14px;
         }
 
@@ -295,8 +307,8 @@
         }
 
         .skill {
-            border: 1px solid rgba(1, 238, 254, 0.3);
-            background: rgba(1, 238, 254, 0.06);
+
+            background:#071D2B;
             color: var(--white);
             border-radius: 8px;
             padding: 8px 13px;
@@ -304,14 +316,13 @@
         }
 
         .skill i {
-            color: var(--cyan);
+            color:#F75702;
             margin-right: 7px;
         }
 
         .goal {
             text-align: center;
-            background: linear-gradient(135deg, #0C293A, #103449);
-            border: 1px solid rgba(1, 238, 254, 0.2);
+            background: #343B4E;
             border-radius: 18px;
             padding: 40px 25px;
         }
@@ -323,21 +334,26 @@
         }
 
         .goal h3 {
+            color: #F75702;
             font-size: 24px;
             margin-bottom: 12px;
         }
 
         .goal p {
-            color: var(--muted);
+            color: white;
             max-width: 750px;
+            font-weight: bold;
             margin: auto;
             font-size: 14px;
+        }
+        .goal:hover{
+            border: 3px solid #ff5a00;
+             transform: translateY(-5px);
         }
 
         .footer {
             padding: 25px 8%;
             text-align: center;
-            border-top: 1px solid rgba(1, 238, 254, 0.15);
             background: #061824;
         }
 
@@ -453,11 +469,12 @@
 
    
     <header>
-          <div class="buttons">
+          <div class="home">
                     <a href="index.html" class="btn btn-primary">
                         <i class="fa-solid fa-house"></i>
                         Back to Home
                     </a>
+                </div>
     </header>
       
     <!-- About Hero -->
@@ -612,7 +629,6 @@
             </div>
         </section>
 
-        <!-- Future Goal -->
         <section id="goals">
             <div class="goal">
                 <i class="fa-solid fa-bullseye"></i>
@@ -629,12 +645,12 @@
                 </p>
 
                 <div class="buttons" style="justify-content: center;">
-                    <a href="Projects.html" class="btn btn-primary">
+                    <a href="./Project.html" class="btn btn-primary">
                         <i class="fa-solid fa-folder-open"></i>
                         Explore My Projects
                     </a>
 
-                    <a href="Contact.html" class="btn btn-secondary">
+                    <a href="./Contacts.html" class="btn btn-secondary">
                         <i class="fa-solid fa-envelope"></i>
                         Contact Me
                     </a>
