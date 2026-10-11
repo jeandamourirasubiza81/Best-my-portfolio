@@ -76,7 +76,7 @@
             width: 600px;
             max-width: 90%;
             padding: 35px;
-            background-color: #071D2B;
+            background-image: url(./images/backs.png);
             border: 5px solid rgba(15, 176, 187, 0.25);
             border-radius: 20px;
             text-align: center;
@@ -281,6 +281,46 @@
                 margin: 30px auto;
             }
         }
+        .footer {
+            padding: 25px 8%;
+            text-align: center;
+           
+            background: #061824;
+        }
+
+        .footer p {
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .footer span {
+            color:#F75702;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border: 1px solid #F95703;
+            border-radius: 50%;
+            color: var(--cyan);
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: #F75702;
+            color: white;
+            transform: translateY(-3px);
+        }  
     </style>
 
 </head>
@@ -390,8 +430,38 @@
         </p>
 
     </section>
+     <footer class="footer">
+        <div class="social-links">
+               <a href="https://www.facebook.com/jean.damour.irasubiza.2025" target="_blank">
+               <i class="fab fa-facebook-f"></i></a>
 
-    <script type="module">
+                <a href="https://wa.me/message/UZ32KXFKU6LBK1" target="_blank">
+               <i class="fab fa-whatsapp"></i></a>
+
+                <a href="https://github.com/jeandamourirasubiza81" target="_blank">
+                <i class="fab fa-github"></i></a>
+
+                <a href="https://www.linkedin.com/in/irasubiza-jeandamour-5b3aa3405" target="_blank">
+                 <i class="fab fa-linkedin-in"></i></a>
+                
+            </div>
+
+        <p>
+            Designed with <span>♥</span> by Jean d'Amour | J.D.I
+        </p>
+
+        <p>© <span id="year"></span> J.D.I Portfolio. All rights reserved.</p>
+    </footer>
+
+
+         <script type="module">
+        // Display the current year automatically
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+   
+
+
+   
 
         import { initializeApp }
             from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";

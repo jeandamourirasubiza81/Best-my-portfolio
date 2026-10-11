@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About More | J.D.I</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --background: #071D2B;
+            --card: #0C293A;
+            --cyan: #01EEFE;
+            --orange: #F75702;
+            --white: #FFFFFF;
+            --muted: #B8C9D4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #071D2B;
+            color: var(--white);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: #061824;
+            border-bottom: 1px solid rgba(1, 238, 254, 0.15);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .logo b {
+            color: var(--cyan);
+        }
+
+        .logo i {
+            color: var(--white);
+            font-style: normal;
+        }
+
+       
+
+        .hero {
+            min-height: 580px;
+            padding: 70px 8%;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .tag {
+            display: inline-block;
+            color: var(--cyan);
+            border: 1px solid rgba(1, 238, 254, 0.35);
+            background: rgba(1, 238, 254, 0.07);
+            border-radius: 30px;
+            padding: 7px 17px;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 55px);
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+        }
+
+        .hero h2 {
+            color: var(--cyan);
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 15px;
+            max-width: 650px;
+            margin-bottom: 18px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 12px 23px;
+            border-radius: 8px;
+            border: 2px solid var(--cyan);
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--background);
+        }
+
+        .btn-secondary {
+            color: var(--cyan);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(1, 238, 254, 0.22);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--white);
+        }
+
+        .portrait-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portrait-frame {
+            width: min(330px, 100%);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            padding: 9px;
+            background: linear-gradient(135deg, var(--cyan), var(--orange));
+            box-shadow: 0 0 35px rgba(1, 238, 254, 0.18);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .portrait {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background:#343B4E;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            border: 5px solid var(--background);
+            text-align: center;
+        }
+
+        .portrait .developer-icon {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #103D52, #071D2B);
+            color: var(--cyan);
+            font-size: 58px;
+            border: 2px solid var(--cyan);
+        }
+
+        .portrait .code-icon {
+            font-size: 22px;
+            color: orange);
+            letter-spacing: 4px;
+        }
+
+        .portrait strong {
+            font-size: 22px;
+        }
+
+        .portrait small {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        section {
+            padding: 65px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .section-title span {
+            color: var(--cyan);
+        }
+
+        .section-intro {
+            color: var(--muted);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 14px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .info-card {
+            background: var(--card);
+            border: 1px solid rgba(1, 238, 254, 0.13);
+            border-radius: 15px;
+            padding: 28px;
+            transition: 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--cyan);
+        }
+
+        .info-card .icon {
+            color: var(--orange);
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .info-card h3 {
+            color: var(--cyan);
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .skill {
+            border: 1px solid rgba(1, 238, 254, 0.3);
+            background: rgba(1, 238, 254, 0.06);
+            color: var(--white);
+            border-radius: 8px;
+            padding: 8px 13px;
+            font-size: 13px;
+        }
+
+        .skill i {
+            color: var(--cyan);
+            margin-right: 7px;
+        }
+
+        .goal {
+            text-align: center;
+            background: linear-gradient(135deg, #0C293A, #103449);
+            border: 1px solid rgba(1, 238, 254, 0.2);
+            border-radius: 18px;
+            padding: 40px 25px;
+        }
+
+        .goal > i {
+            font-size: 38px;
+            color: var(--orange);
+            margin-bottom: 15px;
+        }
+
+        .goal h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .goal p {
+            color: var(--muted);
+            max-width: 750px;
+            margin: auto;
+            font-size: 14px;
+        }
+
+        .footer {
+            padding: 25px 8%;
+            text-align: center;
+            border-top: 1px solid rgba(1, 238, 254, 0.15);
+            background: #061824;
+        }
+
+        .footer p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer span {
+            color: var(--orange);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--cyan);
+            border-radius: 50%;
+            color: var(--cyan);
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--cyan);
+            color: var(--background);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 1000px) {
+            .navbar {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero {
+                padding-top: 55px;
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .portrait-area {
+                grid-row: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 18px 5%;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero,
+            section {
+                padding: 45px 6%;
+            }
+
+            .hero h2 {
+                font-size: 19px;
+            }
+
+            .portrait-frame {
+                width: 245px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 27px;
+            }
+
+            .info-card {
+                padding: 22px;
+            }
+
+            .buttons .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+   
+    <header>
+          <div class="buttons">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fa-solid fa-house"></i>
+                        Back to Home
+                    </a>
+    </header>
+      
+    <!-- About Hero -->
+    <main>
+        <section class="hero" id="top">
+
+            <div class="hero-content">
+                <span class="tag">
+                    <i class="fa-solid fa-code"></i>
+                    GET TO KNOW ME
+                </span>
+
+                <h1>More About <span>Me</span></h1>
+
+                <h2>I'm Jean d'Amour — Web Developer in Training</h2>
+
+                <p>
+                    Hello! My name is Jean d'Amour. I am learning web development
+                    and building my skills step by step. I enjoy working with
+                    computers, creating website layouts, and discovering how
+                    technology can solve everyday problems.
+                </p>
+
+                <p>
+                    My goal is to create modern, responsive, and user-friendly
+                    websites that work smoothly on different devices. I believe
+                    that learning, practicing, and building projects are
+                    important parts of becoming a better developer.
+                </p>
+
+              
+
+                    <a href="About.html" class="btn btn-secondary">
+                        <i class="fa-solid fa-user"></i>
+                        About Me
+                    </a>
+                </div>
+            </div>
+
+            <!-- Temporary developer illustration -->
+            <div class="portrait-area">
+                <div class="portrait-frame">
+                    <div class="portrait">
+                        <div class="developer-icon">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+
+                        <div class="code-icon">
+                            &lt;/&gt; { }
+                        </div>
+
+                        <strong>J.D.I</strong>
+                        <small>WEB DEVELOPER</small>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Personal Information -->
+        <section id="information">
+            <h2 class="section-title">Who <span>I Am</span></h2>
+
+            <p class="section-intro">
+                A little more about my learning journey, my interests,
+                and the skills I am developing.
+            </p>
+
+            <div class="about-grid">
+
+                <article class="info-card">
+                    <div class="icon">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+
+                    <h3>My Background</h3>
+
+                    <p>
+                        I completed my secondary education in the MEG
+                        combination. I am continuing to learn and develop
+                        practical technology skills that can help me build
+                        a future in software development.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <div class="icon">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+
+                    <h3>My Learning Journey</h3>
+
+                    <p>
+                        Through Alright Coding training, I am learning
+                        the fundamentals of web development. I practice
+                        by creating pages, styling layouts, and adding
+                        JavaScript interactions to my projects.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <div class="icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+
+                    <h3>My Interests</h3>
+
+                    <p>
+                        I enjoy computers, website design, programming,
+                        learning new technologies, and music. I like
+                        exploring new ideas and turning them into
+                        practical projects.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <div class="icon">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+
+                    <h3>My Skills</h3>
+
+                    <p>
+                        I am developing my frontend skills and improving
+                        through practice. These are technologies and tools
+                        I am currently learning.
+                    </p>
+
+                    <div class="skill-list">
+                        <span class="skill">
+                            <i class="fa-brands fa-html5"></i> HTML
+                        </span>
+
+                        <span class="skill">
+                            <i class="fa-brands fa-css3-alt"></i> CSS
+                        </span>
+
+                        <span class="skill">
+                            <i class="fa-brands fa-js"></i> JavaScript
+                        </span>
+
+                        <span class="skill">
+                            <i class="fa-brands fa-figma"></i> Figma
+                        </span>
+
+                        <span class="skill">
+                            <i class="fa-brands fa-github"></i> GitHub
+                        </span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Future Goal -->
+        <section id="goals">
+            <div class="goal">
+                <i class="fa-solid fa-bullseye"></i>
+
+                <h3>My Future Goal</h3>
+
+                <p>
+                    My ambition is to become a skilled software developer
+                    who can design and build useful digital products.
+                    I want to strengthen my knowledge of frontend
+                    development, learn more about backend technologies,
+                    and create projects that solve real problems.
+                    Every project is an opportunity to learn something new.
+                </p>
+
+                <div class="buttons" style="justify-content: center;">
+                    <a href="Projects.html" class="btn btn-primary">
+                        <i class="fa-solid fa-folder-open"></i>
+                        Explore My Projects
+                    </a>
+
+                    <a href="Contact.html" class="btn btn-secondary">
+                        <i class="fa-solid fa-envelope"></i>
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/jeandamourirasubiza81"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+
+            <a href="https://facebook.com/jean.damour.irasubiza.2025"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+        </div>
+
+        <p>
+            Designed with <span>♥</span> by Jean d'Amour | J.D.I
+        </p>
+
+        <p>© <span id="year"></span> J.D.I Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Display the current year automatically
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
