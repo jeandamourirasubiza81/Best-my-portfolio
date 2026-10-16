@@ -181,6 +181,7 @@
             display: flex;
             justify-content: center;
             border: 3px solid #ff5a00;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             align-items: center;
         }
 
@@ -193,13 +194,13 @@
         .user small {
             color: #ffffff;
         }
-        img{
-            width: 110px;
-            height: 95px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
+      .profile-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+     }
         .content {
             padding: 35px;
         }
@@ -911,7 +912,7 @@
 
             <div class="user">
                 <div class="user-icon">
-                 <img src="./images/Jean d'Amour.png" alt="">
+                 <img src="./images/Jean d'Amour.png" alt="" class="profile-img">
                 </div>
 
                 <div>
