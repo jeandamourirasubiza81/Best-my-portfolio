@@ -297,6 +297,8 @@
 
 <body>
 
+<body>
+
     <!-- NAVIGATION -->
     <header class="navigation">
         <div class="logo">
@@ -321,6 +323,12 @@
 
         <h2>Contact <span>Me</span></h2>
 
+        <p class="intro">
+            Have a question or a project idea?
+            Send me a message. I would be happy to hear from you.
+        </p>
+
+        <!-- CONTACT INFORMATION -->
         <div class="container">
 
             <div class="contact-card">
@@ -349,7 +357,10 @@
                 </div>
                 <div>
                     <h3>Call Me</h3>
-                    <p>+250794444287<br>+250791918918</p>
+                    <p>
+                        +250794444287<br>
+                        +250791918918
+                    </p>
                 </div>
             </div>
 
@@ -364,7 +375,9 @@
                     <input
                         type="text"
                         id="name"
+                        name="name"
                         placeholder="Your name"
+                        maxlength="100"
                         required>
                 </div>
 
@@ -373,7 +386,9 @@
                     <input
                         type="tel"
                         id="phone"
+                        name="phone"
                         placeholder="Your phone number"
+                        maxlength="30"
                         required>
                 </div>
             </div>
@@ -382,13 +397,17 @@
             <input
                 type="email"
                 id="email"
+                name="email"
                 placeholder="your@email.com"
+                maxlength="254"
                 required>
 
             <label for="message">Message</label>
             <textarea
                 id="message"
+                name="message"
                 placeholder="Write your message..."
+                maxlength="5000"
                 required></textarea>
 
             <button type="submit" class="send" id="sendButton">
@@ -399,129 +418,170 @@
             <p id="formStatus" role="status" aria-live="polite"></p>
 
         </form>
+
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
 
         <div class="social-links">
+
             <a href="https://www.facebook.com/jean.damour.irasubiza.2025"
-               target="_blank" rel="noopener noreferrer"
+               target="_blank"
+               rel="noopener noreferrer"
                aria-label="Facebook">
                 <i class="fab fa-facebook-f"></i>
             </a>
 
             <a href="https://wa.me/message/UZ32KXFKU6LBK1"
-               target="_blank" rel="noopener noreferrer"
+               target="_blank"
+               rel="noopener noreferrer"
                aria-label="WhatsApp">
                 <i class="fab fa-whatsapp"></i>
             </a>
 
             <a href="https://github.com/jeandamourirasubiza81"
-               target="_blank" rel="noopener noreferrer"
+               target="_blank"
+               rel="noopener noreferrer"
                aria-label="GitHub">
                 <i class="fab fa-github"></i>
             </a>
 
             <a href="https://www.linkedin.com/in/irasubiza-jeandamour-5b3aa3405"
-               target="_blank" rel="noopener noreferrer"
+               target="_blank"
+               rel="noopener noreferrer"
                aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
+
         </div>
 
         <p>Designed with <span>♥</span> by Jean d'Amour | J.D.I</p>
 
-        <p>© <span id="year"></span> J.D.I Portfolio. All rights reserved.</p>
+        <p>
+            © <span id="year"></span>
+            J.D.I Portfolio. All rights reserved.
+        </p>
+
     </footer>
 
-    <!-- JAVASCRIPT -->
+    <!-- CONTACT FORM JAVASCRIPT -->
     <script>
         "use strict";
 
-        // Display current year
-        document.getElementById("year").textContent =
-            new Date().getFullYear();
+        const yearElement = document.getElementById("year");
 
-        // Contact form
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
         const form = document.getElementById("contactForm");
         const statusMessage = document.getElementById("formStatus");
         const sendButton = document.getElementById("sendButton");
 
-        // This key must match the Dashboard key
         const CONTACTS_KEY = "portfolioMessages";
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+        function showStatus(message, color = "#ff7777") {
+            statusMessage.textContent = message;
+            statusMessage.style.color = color;
+        }
 
-            const contact = {
-                id: Date.now().toString(),
-                name: document.getElementById("name").value.trim(),
-                phone: document.getElementById("phone").value.trim(),
-                email: document.getElementById("email").value.trim(),
-                message: document.getElementById("message").value.trim(),
-                status: "Unread",
-                createdAt: new Date().toISOString()
-            };
+        if (form && statusMessage && sendButton) {
 
-            if (
-                !contact.name ||
-                !contact.phone ||
-                !contact.email ||
-                !contact.message
-            ) {
-                statusMessage.textContent =
-                    "Please complete all fields.";
-                statusMessage.style.color = "#ff7777";
-                return;
-            }
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
 
-            try {
-                const existingMessages = JSON.parse(
-                    localStorage.getItem(CONTACTS_KEY) || "[]"
-                );
-
-                if (!Array.isArray(existingMessages)) {
-                    throw new Error("Saved contact data is invalid.");
+                if (sendButton.disabled || !form.reportValidity()) {
+                    return;
                 }
 
-                existingMessages.push(contact);
+                const contact = {
+                    id: Date.now().toString() + "-" +
+                        Math.random().toString(36).slice(2, 10),
+                    name: document.getElementById("name").value.trim(),
+                    phone: document.getElementById("phone").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    message: document.getElementById("message").value.trim(),
+                    status: "Unread",
+                    createdAt: new Date().toISOString()
+                };
 
-                localStorage.setItem(
-                    CONTACTS_KEY,
-                    JSON.stringify(existingMessages)
-                );
-
-                // Confirm the message was actually saved
-                const savedMessages = JSON.parse(
-                    localStorage.getItem(CONTACTS_KEY) || "[]"
-                );
-
-                const saved = savedMessages.some(
-                    item => item.id === contact.id
-                );
-
-                if (!saved) {
-                    throw new Error("Message could not be verified.");
+                if (
+                    !contact.name ||
+                    !contact.phone ||
+                    !contact.email ||
+                    !contact.message
+                ) {
+                    showStatus("Please complete all fields.");
+                    return;
                 }
 
-                statusMessage.textContent =
-                    "Your message has been saved successfully!";
-                statusMessage.style.color = "#45e08a";
+                if (
+                    contact.name.length > 100 ||
+                    contact.phone.length > 30 ||
+                    contact.email.length > 254 ||
+                    contact.message.length > 5000
+                ) {
+                    showStatus("Some fields are too long.");
+                    return;
+                }
 
-                form.reset();
+                sendButton.disabled = true;
+                showStatus("Saving your message...", "#0eb4f7");
 
-                console.log("Contact message saved:", contact);
+                try {
+                    const contacts = JSON.parse(
+                        localStorage.getItem(CONTACTS_KEY) || "[]"
+                    );
 
-            } catch (error) {
-                console.error("Contact form error:", error);
+                    if (!Array.isArray(contacts)) {
+                        throw new Error("Invalid contacts data.");
+                    }
 
-                statusMessage.textContent =
-                    "Could not save your message. Please try again.";
-                statusMessage.style.color = "#ff7777";
-            }
-        });
+                    contacts.push(contact);
+
+                    localStorage.setItem(
+                        CONTACTS_KEY,
+                        JSON.stringify(contacts)
+                    );
+
+                    const savedContacts = JSON.parse(
+                        localStorage.getItem(CONTACTS_KEY) || "[]"
+                    );
+
+                    if (!savedContacts.some(
+                        item => item.id === contact.id
+                    )) {
+                        throw new Error("Message was not saved.");
+                    }
+
+                    showStatus(
+                        "Your message has been saved successfully!",
+                        "#45e08a"
+                    );
+
+                    form.reset();
+
+                    console.log("Contact saved:", contact);
+
+                } catch (error) {
+                    console.error("Contact form error:", error);
+
+                    showStatus(
+                        "Could not save your message. Please try again."
+                    );
+
+                } finally {
+                    sendButton.disabled = false;
+                }
+            });
+
+        } else {
+            console.error("Contact form elements are missing.");
+        }
     </script>
+
 
 </body>
 </html>
+

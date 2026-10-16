@@ -1,7 +1,8 @@
-/* ==========================================
-   J.D.I DASHBOARD - MAIN JAVASCRIPT
-   LocalStorage + Firebase Authentication
-========================================== */
+
+// ==========================================
+// J.D.I DASHBOARD - MAIN JAVASCRIPT
+// LocalStorage + Firebase Authentication
+// ==========================================
 
 "use strict";
 
@@ -10,10 +11,7 @@
 // ==========================================
 
 const firebaseAuthReady = (async () => {
-    const {
-        initializeApp,
-        getApps
-    } = await import(
+    const { initializeApp, getApps } = await import(
         "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js"
     );
 
@@ -39,7 +37,7 @@ const firebaseAuthReady = (async () => {
     };
 
     const existingApp = getApps().find(
-        (item) => item.name === "[DEFAULT]"
+        app => app.name === "[DEFAULT]"
     );
 
     const app = existingApp || initializeApp(firebaseConfig);
@@ -49,7 +47,7 @@ const firebaseAuthReady = (async () => {
 
     let redirecting = false;
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, user => {
         if (!user && !redirecting) {
             redirecting = true;
             window.location.replace("Login.html");
@@ -69,7 +67,7 @@ const firebaseAuthReady = (async () => {
 // 2. HELPER FUNCTIONS
 // ==========================================
 
-const $ = (id) => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
 const BLOGS_KEY = "jeanBlogs";
 const PROJECTS_KEY = "jeanProjects";
@@ -79,7 +77,6 @@ const THEME_KEY = "dashboardTheme";
 
 let editingBlogId = null;
 let editingProjectId = null;
-
 let selectedBlogImage = "";
 let selectedProjectImage = "";
 
@@ -184,10 +181,8 @@ const pageTitles = {
 };
 
 function showPage(pageName) {
-    Object.values(pages).forEach((page) => {
-        if (page) {
-            page.classList.remove("active");
-        }
+    Object.values(pages).forEach(page => {
+        if (page) page.classList.remove("active");
     });
 
     const selectedPage = pages[pageName] || pages.dashboard;
@@ -197,7 +192,7 @@ function showPage(pageName) {
     }
 
     document.querySelectorAll(".menu li[data-page]")
-        .forEach((item) => {
+        .forEach(item => {
             item.classList.toggle(
                 "active",
                 item.dataset.page === pageName
@@ -209,26 +204,16 @@ function showPage(pageName) {
             pageTitles[pageName] || "Dashboard";
     }
 
-    if (pageName.includes("blog")) {
-        renderBlogs();
-    }
-
-    if (pageName.includes("project")) {
-        renderProjects();
-    }
-
-    if (pageName === "contacts") {
-        renderContacts();
-    }
+    if (pageName.includes("blog")) renderBlogs();
+    if (pageName.includes("project")) renderProjects();
+    if (pageName === "contacts") renderContacts();
 }
 
 document.querySelectorAll(".menu li[data-page]")
-    .forEach((item) => {
+    .forEach(item => {
         item.addEventListener("click", () => {
-            const pageName = item.dataset.page;
-
-            if (pageName) {
-                showPage(pageName);
+            if (item.dataset.page) {
+                showPage(item.dataset.page);
             }
         });
     });
@@ -259,9 +244,7 @@ function readImage(file, callback) {
 
     const reader = new FileReader();
 
-    reader.onload = () => {
-        callback(reader.result);
-    };
+    reader.onload = () => callback(reader.result);
 
     reader.onerror = () => {
         alert("Could not read image.");
@@ -275,7 +258,7 @@ const blogImageInput = $("blogImage");
 const blogImagePreview = $("blogImagePreview");
 
 blogImageInput?.addEventListener("change", function () {
-    readImage(this.files[0], (image) => {
+    readImage(this.files[0], image => {
         if (image === null) {
             this.value = "";
             return;
@@ -283,14 +266,14 @@ blogImageInput?.addEventListener("change", function () {
 
         selectedBlogImage = image || "";
 
-        if (blogImagePreview) {
-            if (image) {
-                blogImagePreview.src = image;
-                blogImagePreview.style.display = "block";
-            } else {
-                blogImagePreview.removeAttribute("src");
-                blogImagePreview.style.display = "none";
-            }
+        if (!blogImagePreview) return;
+
+        if (image) {
+            blogImagePreview.src = image;
+            blogImagePreview.style.display = "block";
+        } else {
+            blogImagePreview.removeAttribute("src");
+            blogImagePreview.style.display = "none";
         }
     });
 });
@@ -299,7 +282,7 @@ const projectImageInput = $("projectImage");
 const projectImagePreview = $("projectImagePreview");
 
 projectImageInput?.addEventListener("change", function () {
-    readImage(this.files[0], (image) => {
+    readImage(this.files[0], image => {
         if (image === null) {
             this.value = "";
             return;
@@ -307,14 +290,14 @@ projectImageInput?.addEventListener("change", function () {
 
         selectedProjectImage = image || "";
 
-        if (projectImagePreview) {
-            if (image) {
-                projectImagePreview.src = image;
-                projectImagePreview.style.display = "block";
-            } else {
-                projectImagePreview.removeAttribute("src");
-                projectImagePreview.style.display = "none";
-            }
+        if (!projectImagePreview) return;
+
+        if (image) {
+            projectImagePreview.src = image;
+            projectImagePreview.style.display = "block";
+        } else {
+            projectImagePreview.removeAttribute("src");
+            projectImagePreview.style.display = "none";
         }
     });
 });
@@ -324,9 +307,7 @@ projectImageInput?.addEventListener("change", function () {
 // ==========================================
 
 function getBlogs() {
-    const blogs = getItems(BLOGS_KEY);
-
-    return blogs.map((item, index) => ({
+    return getItems(BLOGS_KEY).map((item, index) => ({
         ...item,
         id: item.id ?? `blog-${index}-${item.title || ""}`,
         title: item.title || "",
@@ -341,27 +322,20 @@ function renderBlogs() {
     const count = $("blogCount");
     const blogs = getBlogs();
 
-    if (count) {
-        count.textContent = blogs.length;
-    }
-
+    if (count) count.textContent = blogs.length;
     if (!container) return;
 
     container.replaceChildren();
 
     if (blogs.length === 0) {
         const empty = document.createElement("p");
-
-        empty.textContent =
-            "No blogs yet. Add your first blog!";
-
+        empty.textContent = "No blogs yet. Add your first blog!";
         empty.className = "empty-message";
         container.appendChild(empty);
-
         return;
     }
 
-    [...blogs].reverse().forEach((blog) => {
+    [...blogs].reverse().forEach(blog => {
         const card = document.createElement("article");
         card.className = "saved-blog-card";
 
@@ -371,11 +345,9 @@ function renderBlogs() {
 
         if (blog.image) {
             const image = document.createElement("img");
-
             image.src = blog.image;
             image.alt = blog.title;
             image.className = "saved-item-image";
-
             card.appendChild(image);
         }
 
@@ -388,24 +360,16 @@ function renderBlogs() {
         card.appendChild(date);
 
         const edit = document.createElement("button");
-
         edit.type = "button";
         edit.textContent = "Edit";
         edit.className = "edit-btn";
-
-        edit.addEventListener("click", () => {
-            editBlog(blog.id);
-        });
+        edit.addEventListener("click", () => editBlog(blog.id));
 
         const remove = document.createElement("button");
-
         remove.type = "button";
         remove.textContent = "Delete";
         remove.className = "delete-btn";
-
-        remove.addEventListener("click", () => {
-            deleteBlog(blog.id);
-        });
+        remove.addEventListener("click", () => deleteBlog(blog.id));
 
         const actions = document.createElement("div");
         actions.className = "item-actions";
@@ -443,7 +407,7 @@ function resetBlogForm() {
     hideMessage($("blogMessage"));
 }
 
-$("blogForm")?.addEventListener("submit", (event) => {
+$("blogForm")?.addEventListener("submit", event => {
     event.preventDefault();
 
     const title = $("blogTitle")?.value.trim() || "";
@@ -455,15 +419,11 @@ $("blogForm")?.addEventListener("submit", (event) => {
             "Enter the blog title and content.",
             true
         );
-
         return;
     }
 
     const blogs = getBlogs();
-
-    const oldBlog = blogs.find(
-        (item) => item.id === editingBlogId
-    );
+    const oldBlog = blogs.find(item => item.id === editingBlogId);
 
     const blog = {
         id: oldBlog ? oldBlog.id : makeId(),
@@ -474,9 +434,7 @@ $("blogForm")?.addEventListener("submit", (event) => {
     };
 
     const updated = editingBlogId
-        ? blogs.map((item) =>
-            item.id === editingBlogId ? blog : item
-        )
+        ? blogs.map(item => item.id === editingBlogId ? blog : item)
         : [...blogs, blog];
 
     if (!saveItems(BLOGS_KEY, updated)) return;
@@ -486,16 +444,12 @@ $("blogForm")?.addEventListener("submit", (event) => {
 
     showMessage(
         $("blogMessage"),
-        oldBlog
-            ? "Blog updated successfully!"
-            : "Blog added successfully!"
+        oldBlog ? "Blog updated successfully!" : "Blog added successfully!"
     );
 });
 
 function editBlog(id) {
-    const blog = getBlogs().find(
-        (item) => item.id === id
-    );
+    const blog = getBlogs().find(item => item.id === id);
 
     if (!blog) {
         alert("Blog not found.");
@@ -503,10 +457,8 @@ function editBlog(id) {
     }
 
     editingBlogId = blog.id;
-
     $("blogTitle").value = blog.title;
     $("blogContent").value = blog.content;
-
     selectedBlogImage = blog.image || "";
 
     if (blogImagePreview) {
@@ -537,26 +489,15 @@ function editBlog(id) {
 
 function deleteBlog(id) {
     const blogs = getBlogs();
+    const blog = blogs.find(item => item.id === id);
 
-    const blog = blogs.find(
-        (item) => item.id === id
-    );
+    if (!blog || !confirm(`Delete "${blog.title}"?`)) return;
 
-    if (!blog || !confirm(`Delete "${blog.title}"?`)) {
-        return;
-    }
-
-    const updated = blogs.filter(
-        (item) => item.id !== id
-    );
+    const updated = blogs.filter(item => item.id !== id);
 
     if (saveItems(BLOGS_KEY, updated)) {
         renderBlogs();
-
-        showMessage(
-            $("blogMessage"),
-            "Blog deleted successfully!"
-        );
+        showMessage($("blogMessage"), "Blog deleted successfully!");
     }
 }
 
@@ -567,9 +508,7 @@ $("cancelBlogEdit")?.addEventListener("click", resetBlogForm);
 // ==========================================
 
 function getProjects() {
-    const projects = getItems(PROJECTS_KEY);
-
-    return projects.map((item, index) => ({
+    return getItems(PROJECTS_KEY).map((item, index) => ({
         ...item,
         id: item.id ?? `project-${index}-${item.title || ""}`,
         title: item.title || "",
@@ -584,27 +523,20 @@ function renderProjects() {
     const count = $("projectCount");
     const projects = getProjects();
 
-    if (count) {
-        count.textContent = projects.length;
-    }
-
+    if (count) count.textContent = projects.length;
     if (!container) return;
 
     container.replaceChildren();
 
     if (projects.length === 0) {
         const empty = document.createElement("p");
-
-        empty.textContent =
-            "No projects yet. Add your first project!";
-
+        empty.textContent = "No projects yet. Add your first project!";
         empty.className = "empty-message";
         container.appendChild(empty);
-
         return;
     }
 
-    [...projects].reverse().forEach((project) => {
+    [...projects].reverse().forEach(project => {
         const card = document.createElement("article");
         card.className = "saved-project-card";
 
@@ -614,11 +546,9 @@ function renderProjects() {
 
         if (project.image) {
             const image = document.createElement("img");
-
             image.src = project.image;
             image.alt = project.title;
             image.className = "saved-item-image";
-
             card.appendChild(image);
         }
 
@@ -631,24 +561,16 @@ function renderProjects() {
         card.appendChild(date);
 
         const edit = document.createElement("button");
-
         edit.type = "button";
         edit.textContent = "Edit";
         edit.className = "edit-btn";
-
-        edit.addEventListener("click", () => {
-            editProject(project.id);
-        });
+        edit.addEventListener("click", () => editProject(project.id));
 
         const remove = document.createElement("button");
-
         remove.type = "button";
         remove.textContent = "Delete";
         remove.className = "delete-btn";
-
-        remove.addEventListener("click", () => {
-            deleteProject(project.id);
-        });
+        remove.addEventListener("click", () => deleteProject(project.id));
 
         const actions = document.createElement("div");
         actions.className = "item-actions";
@@ -686,12 +608,11 @@ function resetProjectForm() {
     hideMessage($("projectMessage"));
 }
 
-$("projectForm")?.addEventListener("submit", (event) => {
+$("projectForm")?.addEventListener("submit", event => {
     event.preventDefault();
 
     const title = $("projectTitle")?.value.trim() || "";
-    const description =
-        $("projectDescription")?.value.trim() || "";
+    const description = $("projectDescription")?.value.trim() || "";
 
     if (!title || !description) {
         showMessage(
@@ -699,14 +620,12 @@ $("projectForm")?.addEventListener("submit", (event) => {
             "Enter the project title and description.",
             true
         );
-
         return;
     }
 
     const projects = getProjects();
-
     const oldProject = projects.find(
-        (item) => item.id === editingProjectId
+        item => item.id === editingProjectId
     );
 
     const project = {
@@ -718,7 +637,7 @@ $("projectForm")?.addEventListener("submit", (event) => {
     };
 
     const updated = editingProjectId
-        ? projects.map((item) =>
+        ? projects.map(item =>
             item.id === editingProjectId ? project : item
         )
         : [...projects, project];
@@ -737,9 +656,7 @@ $("projectForm")?.addEventListener("submit", (event) => {
 });
 
 function editProject(id) {
-    const project = getProjects().find(
-        (item) => item.id === id
-    );
+    const project = getProjects().find(item => item.id === id);
 
     if (!project) {
         alert("Project not found.");
@@ -747,10 +664,8 @@ function editProject(id) {
     }
 
     editingProjectId = project.id;
-
     $("projectTitle").value = project.title;
     $("projectDescription").value = project.description;
-
     selectedProjectImage = project.image || "";
 
     if (projectImagePreview) {
@@ -781,22 +696,14 @@ function editProject(id) {
 
 function deleteProject(id) {
     const projects = getProjects();
+    const project = projects.find(item => item.id === id);
 
-    const project = projects.find(
-        (item) => item.id === id
-    );
+    if (!project || !confirm(`Delete "${project.title}"?`)) return;
 
-    if (!project || !confirm(`Delete "${project.title}"?`)) {
-        return;
-    }
-
-    const updated = projects.filter(
-        (item) => item.id !== id
-    );
+    const updated = projects.filter(item => item.id !== id);
 
     if (saveItems(PROJECTS_KEY, updated)) {
         renderProjects();
-
         showMessage(
             $("projectMessage"),
             "Project deleted successfully!"
@@ -821,13 +728,14 @@ function renderContacts() {
     const tableBody = $("contactsTableBody");
     const count = $("contactCount");
 
-    if (!tableBody) return;
+    if (!tableBody) {
+        console.error("contactsTableBody was not found in the HTML.");
+        return;
+    }
 
     const messages = getContactMessages();
 
-    if (count) {
-        count.textContent = messages.length;
-    }
+    if (count) count.textContent = messages.length;
 
     tableBody.replaceChildren();
 
@@ -837,111 +745,118 @@ function renderContacts() {
 
         cell.colSpan = 6;
         cell.textContent = "No contact messages yet.";
+        cell.style.textAlign = "center";
+        cell.style.padding = "20px";
 
         row.appendChild(cell);
         tableBody.appendChild(row);
-
         return;
     }
 
-    messages.forEach((message, index) => {
-        message._dashboardIndex = index;
-    });
+    // Keep the original index so messages without IDs
+    // can still be marked as read or deleted correctly.
+    messages
+        .map((message, originalIndex) => ({
+            message,
+            originalIndex
+        }))
+        .reverse()
+        .forEach(({ message, originalIndex }) => {
+            const row = document.createElement("tr");
 
-    [...messages].reverse().forEach((message) => {
-        const row = document.createElement("tr");
+            const values = [
+                message.name || "Unknown",
+                message.email || "—",
+                message.phone || "—",
+                message.message || message.content || "—"
+            ];
 
-        const values = [
-            message.name || "Unknown",
-            message.email || "—",
-            message.phone || "—",
-            message.message || message.content || ""
-        ];
+            values.forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = String(value);
+                row.appendChild(cell);
+            });
 
-        values.forEach((value) => {
-            const cell = document.createElement("td");
-            cell.textContent = value;
-            row.appendChild(cell);
+            // Message status
+            const statusCell = document.createElement("td");
+
+            const isRead =
+                String(message.status || "Unread").toLowerCase() === "read";
+
+            const status = document.createElement("span");
+            status.textContent = isRead ? "Read" : "Unread";
+            status.className = isRead
+                ? "contact-status read"
+                : "contact-status unread";
+
+            statusCell.appendChild(status);
+            row.appendChild(statusCell);
+
+            // Action cell
+            const actionCell = document.createElement("td");
+            const actions = document.createElement("div");
+            actions.className = "contact-actions";
+
+            // Mark Read button
+            const markRead = document.createElement("button");
+            markRead.type = "button";
+            markRead.className = "btn-read";
+            markRead.innerHTML =
+                '<i class="fa-solid fa-check"></i> Mark Read';
+            markRead.disabled = isRead;
+            markRead.title = isRead
+                ? "This message has been read"
+                : "Mark this message as read";
+
+            markRead.addEventListener("click", () => {
+                const all = getContactMessages();
+
+                const index = message.id != null
+                    ? all.findIndex(item => item.id === message.id)
+                    : originalIndex;
+
+                if (index < 0 || !all[index]) return;
+
+                all[index] = {
+                    ...all[index],
+                    status: "Read"
+                };
+
+                if (saveItems(CONTACTS_KEY, all)) {
+                    renderContacts();
+                }
+            });
+
+            // Delete button
+            const remove = document.createElement("button");
+            remove.type = "button";
+            remove.className = "btn-delete";
+            remove.innerHTML =
+                '<i class="fa-solid fa-trash"></i> Delete';
+            remove.title = "Delete this message";
+
+            remove.addEventListener("click", () => {
+                if (!confirm("Are you sure you want to delete this message?")) {
+                    return;
+                }
+
+                const all = getContactMessages();
+
+                const updated = message.id != null
+                    ? all.filter(item => item.id !== message.id)
+                    : all.filter((_, index) => index !== originalIndex);
+
+                if (saveItems(CONTACTS_KEY, updated)) {
+                    renderContacts();
+                }
+            });
+
+            actions.append(markRead, remove);
+            actionCell.appendChild(actions);
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
         });
-
-        const statusCell = document.createElement("td");
-
-        const isRead =
-            String(message.status || "Unread").toLowerCase() === "read";
-
-        const status = document.createElement("span");
-
-        status.textContent = isRead ? "Read" : "Unread";
-
-        status.className = isRead
-            ? "contact-status read"
-            : "contact-status unread";
-
-        statusCell.appendChild(status);
-        row.appendChild(statusCell);
-
-        const actionCell = document.createElement("td");
-
-        const markRead = document.createElement("button");
-
-        markRead.type = "button";
-        markRead.textContent = isRead ? "Read" : "Mark Read";
-        markRead.disabled = isRead;
-
-        markRead.addEventListener("click", () => {
-            const all = getContactMessages();
-            const index = all.findIndex((item) =>
-                message.id != null
-                    ? item.id === message.id
-                    : item === all[message._dashboardIndex]
-            );
-
-            if (index < 0) return;
-
-            all[index] = {
-                ...all[index],
-                status: "Read"
-            };
-
-            if (saveItems(CONTACTS_KEY, all)) {
-                renderContacts();
-            }
-        });
-
-        const remove = document.createElement("button");
-
-        remove.type = "button";
-        remove.textContent = "Delete";
-
-        remove.addEventListener("click", () => {
-            if (!confirm("Delete this contact message?")) {
-                return;
-            }
-
-            const all = getContactMessages();
-
-            let updated;
-
-            if (message.id != null) {
-                updated = all.filter(
-                    (item) => item.id !== message.id
-                );
-            } else {
-                updated = all.filter(
-                    (_, index) => index !== message._dashboardIndex
-                );
-            }
-
-            if (saveItems(CONTACTS_KEY, updated)) {
-                renderContacts();
-            }
-        });
-
-        actionCell.append(markRead, remove);
-        row.appendChild(actionCell);
-
-        tableBody.appendChild(row);
-    });
 }
 
 // ==========================================
@@ -958,40 +873,32 @@ function applyDashboardTheme(theme) {
 function updateAdminName(name) {
     const savedName = name.trim() || "Jean d'Amour";
 
-    // Update name in the topbar
     const userName = document.querySelector(".user strong");
 
-    if (userName) {
-        userName.textContent = savedName;
-    }
+    if (userName) userName.textContent = savedName;
 
-    // Update welcome message
     const description = document.querySelector(
         ".topbar > div:first-child p"
     );
 
     if (description) {
-        description.textContent =
-            `Welcome back, ${savedName} 👋`;
+        description.textContent = `Welcome back, ${savedName} 👋`;
     }
 
-    // Update name inside the Profile page
     const profileAdminName = $("profileAdminName");
 
     if (profileAdminName) {
         profileAdminName.textContent = savedName;
     }
 
-    // Update an optional profile input if one exists
     const profileNameInput = $("profileName");
 
     if (profileNameInput) {
         profileNameInput.value = savedName;
     }
 
-    // Update any elements using this attribute
     document.querySelectorAll("[data-admin-name]")
-        .forEach((element) => {
+        .forEach(element => {
             element.textContent = savedName;
         });
 }
@@ -1000,12 +907,7 @@ function saveAdminName(name, messageElement) {
     const cleanName = name.trim();
 
     if (!cleanName) {
-        showMessage(
-            messageElement,
-            "Please enter your name.",
-            true
-        );
-
+        showMessage(messageElement, "Please enter your name.", true);
         return false;
     }
 
@@ -1013,22 +915,12 @@ function saveAdminName(name, messageElement) {
         localStorage.setItem(ADMIN_NAME_KEY, cleanName);
     } catch (error) {
         console.error("Name save error:", error);
-
-        showMessage(
-            messageElement,
-            "Could not save your name.",
-            true
-        );
-
+        showMessage(messageElement, "Could not save your name.", true);
         return false;
     }
 
     updateAdminName(cleanName);
-
-    showMessage(
-        messageElement,
-        "Name saved successfully!"
-    );
+    showMessage(messageElement, "Name saved successfully!");
 
     return true;
 }
@@ -1040,31 +932,21 @@ function loadSettings() {
     const theme =
         localStorage.getItem(THEME_KEY) || "dark";
 
-    if ($("settingsName")) {
-        $("settingsName").value = name;
-    }
-
-    if ($("settingsTheme")) {
-        $("settingsTheme").value = theme;
-    }
+    if ($("settingsName")) $("settingsName").value = name;
+    if ($("settingsTheme")) $("settingsTheme").value = theme;
 
     updateAdminName(name);
     applyDashboardTheme(theme);
 }
 
-$("settingsForm")?.addEventListener("submit", (event) => {
+$("settingsForm")?.addEventListener("submit", event => {
     event.preventDefault();
 
     const name = $("settingsName")?.value.trim() || "";
     const theme = $("settingsTheme")?.value || "dark";
 
     if (!name) {
-        showMessage(
-            $("settingsMessage"),
-            "Enter your name.",
-            true
-        );
-
+        showMessage($("settingsMessage"), "Enter your name.", true);
         return;
     }
 
@@ -1073,13 +955,11 @@ $("settingsForm")?.addEventListener("submit", (event) => {
         localStorage.setItem(THEME_KEY, theme);
     } catch (error) {
         console.error("Settings save error:", error);
-
         showMessage(
             $("settingsMessage"),
             "Could not save settings.",
             true
         );
-
         return;
     }
 
@@ -1100,14 +980,10 @@ $("settingsTheme")?.addEventListener("change", function () {
 // 9. PROFILE PAGE NAME
 // ==========================================
 
-// This works if your HTML includes:
-// <span id="profileAdminName">Jean d'Amour</span>
-
-$("profileForm")?.addEventListener("submit", (event) => {
+$("profileForm")?.addEventListener("submit", event => {
     event.preventDefault();
 
     const name = $("profileName")?.value || "";
-
     saveAdminName(name, $("profileMessage"));
 });
 
@@ -1116,19 +992,15 @@ $("profileForm")?.addEventListener("submit", (event) => {
 // ==========================================
 
 $("logoutBtn")?.addEventListener("click", async () => {
-    if (!confirm("Are you sure you want to log out?")) {
-        return;
-    }
+    if (!confirm("Are you sure you want to log out?")) return;
 
     try {
         const { auth, signOut } = await firebaseAuthReady;
 
         await signOut(auth);
-
         window.location.replace("Login.html");
     } catch (error) {
         console.error("Logout error:", error);
-
         alert("Could not log out. Please try again.");
     }
 });
@@ -1139,28 +1011,18 @@ $("logoutBtn")?.addEventListener("click", async () => {
 
 $("changePasswordForm")?.addEventListener(
     "submit",
-    async (event) => {
+    async event => {
         event.preventDefault();
 
-        const currentPassword =
-            $("currentPassword")?.value || "";
-
-        const newPassword =
-            $("newPassword")?.value || "";
-
-        const confirmPassword =
-            $("confirmPassword")?.value || "";
+        const currentPassword = $("currentPassword")?.value || "";
+        const newPassword = $("newPassword")?.value || "";
+        const confirmPassword = $("confirmPassword")?.value || "";
 
         const message = $("passwordMessage");
         const button = $("changePasswordBtn");
 
         if (!currentPassword) {
-            showMessage(
-                message,
-                "Enter your current password.",
-                true
-            );
-
+            showMessage(message, "Enter your current password.", true);
             return;
         }
 
@@ -1170,17 +1032,11 @@ $("changePasswordForm")?.addEventListener(
                 "Password must contain at least 6 characters.",
                 true
             );
-
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            showMessage(
-                message,
-                "New passwords do not match.",
-                true
-            );
-
+            showMessage(message, "New passwords do not match.", true);
             return;
         }
 
@@ -1190,7 +1046,6 @@ $("changePasswordForm")?.addEventListener(
                 "Choose a different new password.",
                 true
             );
-
             return;
         }
 
@@ -1215,7 +1070,6 @@ $("changePasswordForm")?.addEventListener(
                     "Please sign in again before changing your password.",
                     true
                 );
-
                 return;
             }
 
@@ -1224,20 +1078,12 @@ $("changePasswordForm")?.addEventListener(
                 currentPassword
             );
 
-            await reauthenticateWithCredential(
-                user,
-                credential
-            );
-
+            await reauthenticateWithCredential(user, credential);
             await updatePassword(user, newPassword);
 
             $("changePasswordForm").reset();
 
-            showMessage(
-                message,
-                "Password changed successfully!"
-            );
-
+            showMessage(message, "Password changed successfully!");
         } catch (error) {
             console.error("Change password error:", error);
 
@@ -1270,11 +1116,9 @@ $("changePasswordForm")?.addEventListener(
                     "Could not change password. Please try again.",
                 true
             );
-
         } finally {
             if (button) {
                 button.disabled = false;
-
                 button.innerHTML =
                     '<i class="fa-solid fa-shield-halved"></i> Change Password';
             }
