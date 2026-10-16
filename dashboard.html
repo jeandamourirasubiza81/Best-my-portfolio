@@ -173,13 +173,14 @@
         }
 
         .user-icon {
-            width: 40px;
-            height: 40px;
+            width: 100px;
+            height: 100px;
             flex-shrink: 0;
             border-radius: 50%;
-            background: #d44e06;
+            background-color: #0b2635;
             display: flex;
             justify-content: center;
+            border: 3px solid #ff5a00;
             align-items: center;
         }
 
@@ -191,6 +192,12 @@
 
         .user small {
             color: #ffffff;
+        }
+        img{
+            width: 110px;
+            height: 95px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .content {
@@ -642,6 +649,7 @@
         .contact-delete-btn {
             background: #c62828;
         }
+        
 
         /* LIGHT MODE */
         body.light-mode {
@@ -898,12 +906,12 @@
         <header class="topbar">
             <div>
                 <h1 id="pageTitle">Dashboard</h1>
-                <p>Welcome back, Jean d'Amour 👋</p>
+                <p>Welcome back, Jean d'Amour </p>
             </div>
 
             <div class="user">
                 <div class="user-icon">
-                    <i class="fa-solid fa-user"></i>
+                 <img src="./images/Jean d'Amour.png" alt="">
                 </div>
 
                 <div>
@@ -994,7 +1002,7 @@
          </div>
             </div>
 
-            
+
             <!-- CONTACTS PAGE -->
             <div class="page simple-page" id="contactsPage">
 
