@@ -1126,6 +1126,53 @@ $("changePasswordForm")?.addEventListener(
     }
 );
 
+const profileImageInput = document.getElementById("profileImageInput");
+const profileImage = document.getElementById("profileImage");
+
+const savedPhoto = localStorage.getItem("dashboardProfilePhoto");
+
+if (savedPhoto && profileImage) {
+    profileImage.src = savedPhoto;
+}
+
+if (profileImageInput && profileImage) {
+    profileImageInput.addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Please select a valid image.");
+            this.value = "";
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert("Image must be smaller than 2 MB.");
+            this.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            try {
+                localStorage.setItem(
+                    "dashboardProfilePhoto",
+                    event.target.result
+                );
+
+                profileImage.src = event.target.result;
+            } catch (error) {
+                alert("Unable to save the image. Please choose a smaller image.");
+            }
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+
 // ==========================================
 // 12. INITIALIZE DASHBOARD
 // ==========================================

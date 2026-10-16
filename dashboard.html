@@ -169,20 +169,7 @@
         .user {
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .user-icon {
-            width: 100px;
-            height: 100px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background-color: #0b2635;
-            display: flex;
-            justify-content: center;
-            border: 3px solid #ff5a00;
-           box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            align-items: center;
+            gap: 20px;
         }
 
         .user strong {
@@ -194,13 +181,14 @@
         .user small {
             color: #ffffff;
         }
+
       .profile-img {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-     }
+       width: 120%;
+       height: 120%;
+       border-radius: 50%;
+       object-fit: cover;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+       }
         .content {
             padding: 35px;
         }
@@ -866,6 +854,46 @@
     transform: translateY(-2px);
 }
 
+   
+
+
+
+
+/* Ifoto */
+.profile-upload {
+    position: relative;
+    display: block;
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+}
+
+.profile-imag {
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff5a00;
+    box-sizing: border-box;
+     z-index: 100;
+}
+
+/* Camera icon */
+.camera-icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 23px;
+    height: 23px;
+    background: #ff5a00;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
         
     </style>
 </head>
@@ -959,23 +987,42 @@
     <main class="main">
 
         <!-- TOPBAR -->
-        <header class="topbar">
-            <div>
-                <h1 id="pageTitle">Dashboard</h1>
-                <p>Welcome back, Jean d'Amour </p>
-            </div>
+     
+<header class="topbar">
+    <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Welcome back, Jean d'Amour 👋</p>
+    </div>
 
-            <div class="user">
-                <div class="user-icon">
-                 <img src="./images/Jean d'Amour.png" alt="" class="profile-img">
-                </div>
+    <div class="user">
+        <div class="user-icon">
+            <label for="profileImageInput" class="profile-upload">
+                <img
+                    src="./images/Jean d'Amour.png"
+                    alt="Profile Photo"
+                    class="profile-img"
+                    id="profileImage"
+                >
+                <span class="camera-icon">
+                    <i class="fas fa-camera"></i>
+                </span>
+            </label>
 
-                <div>
-                    <strong>Jean d'Amour</strong>
-                    <small>Administrator</small>
-                </div>
-            </div>
-        </header>
+            <input
+                type="file"
+                id="profileImageInput"
+                accept="image/*"
+                hidden
+            >
+        </div>
+
+        <div>
+            <strong>Jean d'Amour</strong>
+            <small>Administrator</small>
+        </div>
+    </div>
+</header>
+
 
         <section class="content">
 
