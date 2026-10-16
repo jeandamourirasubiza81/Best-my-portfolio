@@ -1,144 +1,196 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs-Jean d'Amour</title>
+
+    <title>Blogs - Jean d'Amour | J.D.I</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
     <style>
-        *{
-            margin: 0px;
-            padding: 0px;
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-        body{
-            background-color:#071D2B; 
+
+        body {
+            background-color: #071D2B;
             font-family: Arial, Helvetica, sans-serif;
-            color: #fff;
+            color: #ffffff;
         }
-        .navigation{
-            height: 80px;
+
+        /* Navigation */
+        .navigation {
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 70px;
+            padding: 15px 5%;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-        .logo{
-            font-size: 32px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 2px;
 
-        }
-        .logo span{
-            color: #F75702;
+        .logo {
             font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
         }
-        .logo b{
-            color:#fff;
-           
+
+        .logo span {
+            color: #F75702;
         }
-        .logo i{
+
+        .logo b {
+            color: #ffffff;
+        }
+
+        .logo i {
             color: #0EB4F7;
             font-style: normal;
         }
-        .menu{
+
+        .menu {
             display: flex;
             align-items: center;
             list-style: none;
-            gap: 25px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .menu li a{
+
+        .menu li a {
             text-decoration: none;
             color: #fff;
-            padding: 5px 7px;
+            padding: 7px 9px;
             font-weight: 500;
-
+            display: inline-block;
+            transition: 0.3s;
         }
-      .menu li a:hover{
-            background-color:  #F95703;
+
+        .menu li a:hover,
+        .menu li a.active {
+            background-color: #F75702;
             border-radius: 5px;
         }
-        .mune a:active{
-            color: #0EB4F7;
-        }
+
+        /* Blogs section */
         .Blogs {
-    min-height: 100vh;
-    background-color: #071D2B;
-    padding: 40px 50px;
-}
+            min-height: 75vh;
+            background-color: #071D2B;
+            padding: 40px 5% 70px;
+        }
 
+        .Blogs h2 {
+            padding: 12px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
 
+        .Blogs h2 span {
+            color: #F75702;
+        }
 
+        .intro {
+            text-align: center;
+            font-size: 16px;
+            font-weight: normal;
+            margin: 0 auto 35px;
+            color: #ffffff;
+        }
 
-.Blogs h2 {
-    padding: 12px;
-    text-align: center;
-    color:#fff;
-    font-size: 25px;
-    margin-bottom: 35px;
-}
-.Blogs h2 span{
-    color:  #F95703;
-}
+        .container {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(min(100%, 270px), 1fr)
+            );
+            gap: 25px;
+            align-items: stretch;
+        }
 
-h3{
-    color: #F95703;
-    font-size: 24px;
-    align-items: center;
-    font-weight: bolder;
-    margin: 15px 12px 8px;
-}
-p{
-    margin: 12px;
-    font-size: 18px;
+        .Card {
+            width: 95%;
+            height: 110%;
+            background-color: #343B4E;
+            border-radius: 10px;
+            overflow: hidden;
+            padding-bottom: 18px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        
+            .Card:hover {
+            border: 5px solid #ff5a00;
+             transform: translateY(-5px);
+        }
+
+    
+
+        .Card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .Card h3 {
+            color: #F75702;
+            font-size: 21px;
+            line-height: 1.4;
+            margin: 16px 14px 8px;
+            overflow-wrap: anywhere;
+        }
+
+        
+       .Card p {
+    margin: 12px 15px 18px;
+    font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    align-items: center;
-}
- .Card img {
-    width: 100%;
-    height: 154px;
+    font-weight: normal;
+    line-height: 1.8;
+    color: #ffffff;
+    text-align: left;
+    overflow-wrap: break-word;
+    white-space: normal;
+      }
 
-    object-fit: cover;
+        .blog-date {
+            color: #ffffff !important;
+            font-size: 12px !important;
+        }
 
-    display: block;
-}
+        .empty-message {
+            text-align: center;
+            color: #ffffff;
+            padding: 25px;
+            font-size: 16px;
+            font-weight: normal;
+        }
 
-.container{
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-}
-.Card{
-    margin-top: 50px;
-    background-color: #343B4E;
-    padding-bottom: 15px;
-    width: 300px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-   .Card:hover {
-   border: 3px solid #ff5a00;
-   transform: translateY(-5px);
-   
-}
-.footer {
+        /* Footer */
+        .footer {
             padding: 25px 8%;
             text-align: center;
             background: #061824;
         }
 
         .footer p {
-            color: #fff;
+            color: #ffffff;
             font-size: 13px;
+            line-height: 1.8;
+            margin: 8px 0;
+            font-weight: normal;
         }
 
         .footer span {
-            color:#F75702;
+            color: #F75702;
         }
 
         .social-links {
@@ -155,7 +207,7 @@ p{
             place-items: center;
             border: 1px solid #F95703;
             border-radius: 50%;
-            color: var(--cyan);
+            color: #ffffff;
             transition: 0.3s;
             text-decoration: none;
         }
@@ -166,95 +218,230 @@ p{
             transform: translateY(-3px);
         }
 
+        /* Small screens */
+        @media (max-width: 600px) {
+            .navigation {
+                justify-content: center;
+                padding: 20px 4%;
+            }
 
+            .menu {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .menu li a {
+                font-size: 13px;
+                padding: 6px;
+            }
+
+            .Blogs {
+                padding: 30px 5%;
+            }
+
+            .Blogs h2 {
+                font-size: 27px;
+            }
+        }
     </style>
 </head>
+
 <body>
+
+    
     <header>
         <nav class="navigation">
             <div class="logo">
                 <span>J</span>.<b>D</b>.<i>I</i>
             </div>
+
             <ul class="menu">
                 <li><a href="./index.html">Home</a></li>
-                <li><a href="./About.html">Abouts</a></li>
+                <li><a href="./About.html">About</a></li>
                 <li><a href="./Service.html">Service</a></li>
                 <li><a href="./Skills.html">Skills</a></li>
                 <li><a href="./Education.html">Education</a></li>
-                <li><a href="./Blogs.html">Blogs</a></li>
+                <li><a href="./Blogs.html" class="active">Blogs</a></li>
                 <li><a href="./Project.html">Projects</a></li>
                 <li><a href="./Contacts.html">Contacts</a></li>
                 <li><a href="./Login.html">Login</a></li>
-                
-               
             </ul>
         </nav>
     </header>
-    <Section class="Blogs">
+
+    <!-- Blogs -->
+    <section class="Blogs">
         <h2>My <span>Blogs</span></h2>
-        <div class="container">
-        <div class="Card">
-            <img src="./images/mystory.jpeg" alt="" srcset="">
-            <h3>My personal Story</h3>
 
-            <p> 
-            My journey, experiences, challenges, and passion
-            for web development. From where I started to
-            where I am going — this is my story.
+        <p class="intro">
+            Discover my stories, technology insights, and web development journey.
+        </p>
 
-            </p>
-        </div>
-        <div class="Card">
-            <img src="./images/technology.jpeg" alt="">
-            <h3>Technology in Software</h3>
+        <div class="container" id="blogsContainer">
 
-            <p>
-               Discover how modern technologies like AI,
-               cloud computing, and automation are transforming
-               software development and creating new opportunities
-               for innovation.
-            </p>
-        </div>
-        <div class="Card">
-            <img src="./images/service.jpeg" alt="">
-            <h3>The Services you Provide</h3>
-            <p>  
+            <!-- Existing blogs -->
+            <article class="Card">
+                <img src="./images/mystory.jpeg" alt="My personal story">
+
+                <h3>My Personal Story</h3>
+
+                <p>
+                    My journey, experiences, challenges, and passion
+                    for web development. From where I started to
+                    where I am going — this is my story.
+                </p>
+            </article>
+
+            <article class="Card">
+                <img src="./images/technology.jpeg" alt="Technology in software">
+
+                <h3>Technology in Software</h3>
+
+                <p>
+                    Discover how modern technologies like AI,
+                    cloud computing, and automation are transforming
+                    software development and creating new opportunities
+                    for innovation.
+                </p>
+            </article>
+
+            <article class="Card">
+                <img src="./images/service.jpeg" alt="Services provided">
+
+                <h3>The Services You Provide</h3>
+
+                <p>
                 Learn how my services help businesses build
                 a strong and professional online presence,
                 increase visibility, and achieve their goals.
-            </p>
-        </div>
+                </p>
+            </article>
 
         </div>
-    </Section>
-    
-     <footer class="footer">
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="social-links">
-               <a href="https://www.facebook.com/jean.damour.irasubiza.2025" target="_blank">
-               <i class="fab fa-facebook-f"></i></a>
+            <a
+                href="https://www.facebook.com/jean.damour.irasubiza.2025"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+            >
+                <i class="fab fa-facebook-f"></i>
+            </a>
 
-                <a href="https://wa.me/message/UZ32KXFKU6LBK1" target="_blank">
-               <i class="fab fa-whatsapp"></i></a>
+            <a
+                href="https://wa.me/message/UZ32KXFKU6LBK1"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+            >
+                <i class="fab fa-whatsapp"></i>
+            </a>
 
-                <a href="https://github.com/jeandamourirasubiza81" target="_blank">
-                <i class="fab fa-github"></i></a>
+            <a
+                href="https://github.com/jeandamourirasubiza81"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+            >
+                <i class="fab fa-github"></i>
+            </a>
 
-                <a href="https://www.linkedin.com/in/irasubiza-jeandamour-5b3aa3405" target="_blank">
-                 <i class="fab fa-linkedin-in"></i></a>
-                
-            </div>
+            <a
+                href="https://www.linkedin.com/in/irasubiza-jeandamour-5b3aa3405"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+            >
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
 
         <p>
             Designed with <span>♥</span> by Jean d'Amour | J.D.I
         </p>
 
-        <p>© <span id="year"></span> J.D.I Portfolio. All rights reserved.</p>
+        <p>
+            © <span id="year"></span> J.D.I Portfolio. All rights reserved.
+        </p>
     </footer>
 
     <script>
-        // Display the current year automatically
+        // Display the current year
         document.getElementById("year").textContent =
             new Date().getFullYear();
+
+        // Safely display text inside HTML
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        // Load blogs saved from the Dashboard
+        function displayDashboardBlogs() {
+            const container =
+                document.getElementById("blogsContainer");
+
+            let blogs = [];
+
+            try {
+                blogs = JSON.parse(
+                    localStorage.getItem("jeanBlogs") || "[]"
+                );
+
+                if (!Array.isArray(blogs)) {
+                    blogs = [];
+                }
+            } catch (error) {
+                console.error("Could not load blogs:", error);
+                return;
+            }
+
+            // Keep the three original cards above.
+            // Add cards saved through the Dashboard.
+            if (blogs.length === 0) {
+                return;
+            }
+
+            const dashboardCards = blogs.map(blog => {
+                const title = escapeHTML(blog.title || "Untitled Blog");
+
+                const content = escapeHTML(
+                    blog.content ?? blog.description ?? ""
+                );
+
+                const image = blog.image
+                    ? `<img src="${escapeHTML(blog.image)}"
+                            alt="${title}"
+                            loading="lazy">`
+                    : "";
+
+                const date = blog.date
+                    ? `<p class="blog-date">${escapeHTML(blog.date)}</p>`
+                    : "";
+
+                return `
+                    <article class="Card">
+                        ${image}
+                        <h3>${title}</h3>
+                        <p>${content}</p>
+                        ${date}
+                    </article>
+                `;
+            }).join("");
+
+            container.insertAdjacentHTML("beforeend", dashboardCards);
+        }
+
+        displayDashboardBlogs();
     </script>
 
 </body>

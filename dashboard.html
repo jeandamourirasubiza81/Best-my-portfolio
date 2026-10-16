@@ -1,20 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Dashboard - Jean d'Amour</title>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        
         * {
             margin: 0;
             padding: 0;
@@ -23,16 +17,12 @@
 
         body {
             min-height: 100vh;
-            background:#071D2B;
+            background: #071D2B;
             color: #ffffff;
             font-family: Arial, sans-serif;
-            transition: background 0.3s, color 0.3s;
         }
 
-        button,
-        input,
-        textarea,
-        select {
+        button, input, textarea, select {
             font-family: inherit;
         }
 
@@ -40,14 +30,13 @@
             cursor: pointer;
         }
 
-       
-
+        /* SIDEBAR */
         .sidebar {
             width: 260px;
             height: 100vh;
             overflow-y: auto;
-            background: #071D2B;
-            border-right: 3px solid #0696e3;
+            background:  #071D2B;
+            border-right: 3px solid #05a5fc;
             position: fixed;
             left: 0;
             top: 0;
@@ -55,7 +44,6 @@
             flex-direction: column;
             padding: 25px 15px;
             z-index: 10;
-            transition: background 0.3s;
         }
 
         .logo {
@@ -63,7 +51,7 @@
             align-items: center;
             gap: 10px;
             padding: 0 10px 30px;
-            border-bottom: 3px solid #068dd6;
+            border-bottom: 3px solid #05a5fc;
         }
 
         .logo span {
@@ -74,10 +62,7 @@
 
         .logo h2 {
             font-size: 18px;
-            color: #ffffff;
         }
-
-       
 
         .menu {
             list-style: none;
@@ -94,7 +79,7 @@
             border-radius: 8px;
             cursor: pointer;
             color: #d44e06;
-            transition: background 0.2s, color 0.2s;
+            transition: .2s;
         }
 
         .menu li:hover,
@@ -110,7 +95,7 @@
 
         .menu .menu-title {
             font-size: 11px;
-            color: #fff;
+            color: #ffffff;
             font-weight: bold;
             cursor: default;
             padding-top: 20px;
@@ -140,26 +125,21 @@
             font-size: 11px;
         }
 
-        
-
         .logout {
             width: 100%;
             padding: 13px;
-            border: 3px solid#d44e06;
+            border: 3px solid #d44e06;
             border-radius: 8px;
             background: transparent;
-            color: #fff;
+            color: #ffffff;
             font-size: 15px;
-        
         }
 
         .logout:hover {
             background: #d44e06;
-            color: #048ed4;
         }
 
-        
-
+        /* MAIN AREA */
         .main {
             margin-left: 260px;
             width: calc(100% - 260px);
@@ -170,7 +150,7 @@
             min-height: 90px;
             padding: 20px 35px;
             background: #071D2B;
-            border-bottom: 1px solid #0591dc;
+            border-bottom: 1px solid #05a5fc;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -180,11 +160,9 @@
         .topbar h1 {
             font-size: 25px;
             margin-bottom: 5px;
-            
         }
 
         .topbar p {
-            color: #ffffff;
             font-size: 13px;
         }
 
@@ -219,15 +197,13 @@
             padding: 35px;
         }
 
-        
-
         .page {
             display: none;
         }
 
         .page.active {
             display: block;
-            animation: pageAppear 0.25s ease;
+            animation: pageAppear .25s ease;
         }
 
         @keyframes pageAppear {
@@ -235,14 +211,13 @@
                 opacity: 0;
                 transform: translateY(5px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-
+        /* DASHBOARD CARDS */
         .cards {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -251,14 +226,14 @@
 
         .card {
             background: #071D2B;
-            border: 3px solid #0689cf;
+            border: 3px solid #05a5fc;
             border-radius: 12px;
             padding: 20px;
             display: flex;
             align-items: center;
             gap: 15px;
             min-width: 0;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         .card:hover {
@@ -291,7 +266,7 @@
         .welcome-box {
             margin-top: 30px;
             padding: 35px;
-            border: 1px solid #0592de;
+            border: 1px solid #05a5fc;
             border-radius: 12px;
         }
 
@@ -300,16 +275,16 @@
         }
 
         .welcome-box p {
-            color: #d4dce0;
+            color: #ffffff;
             line-height: 1.6;
         }
 
-
+        /* GENERAL BOXES */
         .blog-form-box,
         .project-form-box,
         .simple-box {
             background: #071D2B;
-            border: 1px solid #058dd6;
+            border: 1px solid #05a5fc;
             border-radius: 12px;
             padding: 30px;
             max-width: 1100px;
@@ -322,19 +297,18 @@
         }
 
         .simple-box > p {
-            color: #dfedf4;
-            line-height: 1.7;#c62828;
+            color: #ffffff;
+            line-height: 1.7;
             margin-top: 10px;
         }
 
         .form-intro {
-            color: #e0eef5;
+            color: #ffffff;
             margin-bottom: 25px;
             line-height: 1.6;
         }
 
-       
-
+        /* SETTINGS */
         .settings-box {
             max-width: 750px;
             width: 100%;
@@ -358,7 +332,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 12px;
-            background: #d44e06;;
+            background: #d44e06;
             color: #ffffff;
             font-size: 23px;
         }
@@ -385,20 +359,19 @@
 
         .settings-group label i {
             margin-right: 8px;
-            color: #07a5fa;
+            color: #05a5fc;
         }
 
         .settings-group input,
         .settings-group select {
             width: 100%;
             padding: 14px;
-            border: 3px solid #068bce;
+            border: 3px solid #05a5fc;
             border-radius: 8px;
             background: #04131c;
             color: #ffffff;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.3s;
         }
 
         .settings-group input:focus,
@@ -406,14 +379,10 @@
             border-color: #d44e06;
         }
 
-        .settings-group select {
-            cursor: pointer;
-        }
-
         .settings-group small {
             display: block;
             margin-top: 8px;
-            color: #d7eaf4;
+            color: #ffffff;
             line-height: 1.5;
         }
 
@@ -425,7 +394,7 @@
             color: #ffffff;
             font-size: 15px;
             font-weight: bold;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         .settings-save-btn i {
@@ -433,19 +402,20 @@
         }
 
         .settings-save-btn:hover {
-            background: #d44e06;
+            background: #f06418;
             transform: translateY(-2px);
         }
 
-        #settingsMessage {
+        #settingsMessage,
+        #passwordMessage,
+        #contactsMessage {
             display: none;
             margin-top: 18px;
             line-height: 1.5;
             overflow-wrap: anywhere;
         }
 
-        
-
+        /* BLOG AND PROJECT FORMS */
         .blog-form-group,
         .project-form-group {
             margin-bottom: 20px;
@@ -464,19 +434,12 @@
         .project-form-group textarea {
             width: 100%;
             padding: 13px 15px;
-            border: 2px solid #048ed4;
+            border: 2px solid #05a5fc;
             border-radius: 7px;
             background: #071D2B;
             color: #ffffff;
             outline: none;
             font-size: 14px;
-        }
-
-        .blog-form-group input:focus,
-        .blog-form-group textarea:focus,
-        .project-form-group input:focus,
-        .project-form-group textarea:focus {
-            border-color:#d44e06;
         }
 
         .blog-form-group textarea,
@@ -485,9 +448,16 @@
             resize: vertical;
         }
 
+        .blog-form-group input:focus,
+        .blog-form-group textarea:focus,
+        .project-form-group input:focus,
+        .project-form-group textarea:focus {
+            border-color: #d44e06;
+        }
+
         input[type="file"] {
             max-width: 100%;
-            color: #f1f5f9;
+            color: #ffffff;
         }
 
         .blog-image-preview,
@@ -499,7 +469,7 @@
             object-fit: contain;
             background: #04131c;
             border-radius: 10px;
-            border: 2px solid #069ae4;
+            border: 2px solid #05a5fc;
             margin-top: 12px;
             padding: 5px;
             display: none;
@@ -508,24 +478,17 @@
         .add-blog-btn,
         .project-action-btn {
             background: #d44e06;
-            color: white;
+            color: #fff;
             border: none;
             border-radius: 8px;
             padding: 12px 18px;
             font-size: 14px;
             font-weight: bold;
             margin: 5px 5px 0 0;
-            transition: 0.2s;
-        }
-
-        .add-blog-btn:hover,
-        .project-action-btn:hover {
-            transform: translateY(-2px);
-            background: #d44e06;
         }
 
         .cancel-btn {
-            background: #126c98 !important;
+            background: #05a5fc !important;
         }
 
         .blog-message,
@@ -536,7 +499,6 @@
             line-height: 1.5;
             overflow-wrap: anywhere;
         }
-
 
         .saved-blogs,
         .saved-projects {
@@ -551,7 +513,7 @@
         .saved-blog-card,
         .saved-project-card {
             background: #071D2B;
-            border: 2px solid #0693de;
+            border: 2px solid #05a5fc;
             border-radius: 12px;
             padding: 20px;
             margin-top: 15px;
@@ -578,7 +540,7 @@
             object-fit: contain;
             background: #04131c;
             border-radius: 10px;
-            border: 1px solid #069ae4;
+            border: 1px solid #05a5fc;
             padding: 5px;
             margin: 12px 0;
             display: block;
@@ -587,7 +549,7 @@
         .item-date {
             display: block;
             margin-top: 8px;
-            color: #fff;
+            color: #ffffff;
             font-size: 12px;
         }
 
@@ -608,7 +570,7 @@
             padding: 10px 14px;
             border: none;
             border-radius: 7px;
-            color: white;
+            color: #ffffff;
             font-size: 13px;
         }
 
@@ -620,13 +582,68 @@
             background: #d44e06;
         }
 
-        .edit-btn:hover,
-        .delete-btn:hover {
-            opacity: 0.85;
+        /* CONTACTS TABLE */
+        .contacts-table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 25px;
         }
 
-        
+        .contacts-table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+            color: #fff;
+        }
 
+        .contacts-table th,
+        .contacts-table td {
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 1px solid #25404e;
+            overflow-wrap: anywhere;
+        }
+
+        .contacts-table th {
+            color: #ff5a00;
+            background: #0b2635;
+        }
+
+        .contacts-table td {
+            font-size: 14px;
+        }
+
+        .contact-status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .contact-status.unread {
+            background: #50380c;
+            color: #ffc857;
+        }
+
+        .contact-status.read {
+            background: #123e31;
+            color: #63e6be;
+        }
+
+        .contact-action-btn {
+            border: none;
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin: 3px;
+            color: #fff;
+            background: #ff5a00;
+        }
+
+        .contact-delete-btn {
+            background: #c62828;
+        }
+
+        /* LIGHT MODE */
         body.light-mode {
             background: #f1f5f9;
             color: #17212b;
@@ -641,7 +658,7 @@
         body.light-mode .simple-box,
         body.light-mode .saved-blog-card,
         body.light-mode .saved-project-card {
-            background: #fff;
+            background: #ffffff;
             color: #17212b;
         }
 
@@ -677,15 +694,20 @@
             color: #17212b;
         }
 
-      
+        body.light-mode .contacts-table {
+            color: #17212b;
+        }
 
+        body.light-mode .contacts-table th {
+            background: #e2e8f0;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 1100px) {
             .cards {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
-
-       
 
         @media (max-width: 650px) {
             .sidebar {
@@ -786,15 +808,14 @@
 
 <body>
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
-
         <div class="logo">
             <span>JD</span>
             <h2>Jean d'Amour</h2>
         </div>
 
         <ul class="menu">
-
             <li class="active" data-page="dashboard">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
@@ -814,22 +835,18 @@
             </li>
 
             <ul class="submenu" id="blogSubmenu">
-
                 <li data-page="add-blog">
                     <i class="fa-solid fa-plus"></i>
                     <span>Add Blog</span>
                 </li>
-
                 <li data-page="edit-blog">
                     <i class="fa-solid fa-pen"></i>
                     <span>Edit Blog</span>
                 </li>
-
                 <li data-page="delete-blog">
                     <i class="fa-solid fa-trash"></i>
                     <span>Delete Blog</span>
                 </li>
-
             </ul>
 
             <li class="has-submenu" id="projectMenu">
@@ -839,403 +856,327 @@
             </li>
 
             <ul class="submenu" id="projectSubmenu">
-
                 <li data-page="add-project">
                     <i class="fa-solid fa-plus"></i>
                     <span>Add Project</span>
                 </li>
-
                 <li data-page="edit-project">
                     <i class="fa-solid fa-pen"></i>
                     <span>Edit Project</span>
                 </li>
-
                 <li data-page="delete-project">
                     <i class="fa-solid fa-trash"></i>
                     <span>Delete Project</span>
                 </li>
-
             </ul>
+
+            <li data-page="contacts">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Contacts</span>
+            </li>
 
             <li data-page="settings">
                 <i class="fa-solid fa-gear"></i>
                 <span>Settings</span>
             </li>
-
         </ul>
 
         <button class="logout" id="logoutBtn">
             <i class="fa-solid fa-right-from-bracket"></i>
             Logout
         </button>
-
     </aside>
 
-   
-
+    <!-- MAIN -->
     <main class="main">
 
         <header class="topbar">
-
             <div>
                 <h1 id="pageTitle">Dashboard</h1>
                 <p>Welcome back, Jean d'Amour 👋</p>
             </div>
 
             <div class="user">
-
                 <div class="user-icon">
                     <i class="fa-solid fa-user"></i>
                 </div>
-
                 <div>
                     <strong>Jean d'Amour</strong>
                     <small>Administrator</small>
                 </div>
-
             </div>
-
         </header>
 
         <section class="content">
 
-            
-
+            <!-- DASHBOARD PAGE -->
             <div class="page dashboard-page active" id="dashboardPage">
-
                 <div class="cards">
-
                     <div class="card">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-blog"></i>
-                        </div>
-
-                        <div>
-                            <h3>Blogs</h3>
-                            <p id="blogCount">0</p>
-                        </div>
+                        <div class="card-icon"><i class="fa-solid fa-blog"></i></div>
+                        <div><h3>Blogs</h3><p id="blogCount">0</p></div>
                     </div>
 
                     <div class="card">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-folder"></i>
-                        </div>
-
-                        <div>
-                            <h3>Projects</h3>
-                            <p id="projectCount">0</p>
-                        </div>
+                        <div class="card-icon"><i class="fa-solid fa-folder"></i></div>
+                        <div><h3>Projects</h3><p id="projectCount">0</p></div>
                     </div>
 
                     <div class="card">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-
-                        <div>
-                            <h3>Users</h3>
-                            <p>1</p>
-                        </div>
+                        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                        <div><h3>Users</h3><p>1</p></div>
                     </div>
 
                     <div class="card">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-eye"></i>
-                        </div>
-
-                        <div>
-                            <h3>Views</h3>
-                            <p>1,250</p>
-                        </div>
+                        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+                        <div><h3>Views</h3><p>1,250</p></div>
                     </div>
-
                 </div>
 
                 <div class="welcome-box">
                     <h2>Welcome to your Dashboard</h2>
-
-                    <p>
-                        Manage your profile, blogs and projects
-                        from this dashboard.
-                    </p>
+                    <p>Manage your profile, blogs and projects from this dashboard.</p>
                 </div>
-
             </div>
 
-
+            <!-- PROFILE PAGE -->
             <div class="page simple-page" id="profilePage">
-
                 <div class="simple-box">
-
                     <h2>Profile</h2>
-
-                    <p>
-                        <strong>Name:</strong>
-                        Jean d'Amour
-                    </p>
-
-                    <p>
-                        <strong>Role:</strong>
-                        Administrator
-                    </p>
-
-                    <p>
-                        Welcome to your portfolio dashboard.
-                    </p>
-
+                    <p><strong>Name:</strong> Jean d'Amour</p>
+                    <p><strong>Role:</strong> Administrator</p>
+                    <p>Welcome to your portfolio dashboard.</p>
                 </div>
-
             </div>
 
-            
+            <!-- CONTACTS PAGE -->
+            <div class="page simple-page" id="contactsPage">
+                <div class="simple-box">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h2>Contacts</h2>
+                            <p>Manage messages sent from your portfolio.</p>
+                        </div>
+                    </div>
 
+                    <div class="contacts-table-container">
+                        <table class="contacts-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="contactsTableBody">
+                                <tr>
+                                    <td colspan="6">
+                                        Contacts will appear here when connected to Firebase.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p id="contactsMessage" role="status"></p>
+                </div>
+            </div>
+
+            <!-- SETTINGS PAGE -->
             <div class="page simple-page" id="settingsPage">
-
                 <div class="simple-box settings-box">
 
                     <div class="settings-header">
-
                         <div class="settings-icon">
                             <i class="fa-solid fa-gear"></i>
                         </div>
-
                         <div>
                             <h2>Settings</h2>
                             <p>Manage your dashboard preferences.</p>
                         </div>
-
                     </div>
 
                     <form id="settingsForm" class="settings-form">
-
                         <div class="settings-group">
-
                             <label for="settingsName">
-                                <i class="fa-solid fa-user"></i>
-                                Admin Name
+                                <i class="fa-solid fa-user"></i> Admin Name
                             </label>
-
-                            <input
-                                type="text"
-                                id="settingsName"
-                                placeholder="Enter your name"
-                                required
-                            >
-
-                            <small>
-                                This name will appear on your dashboard.
-                            </small>
-
+                            <input type="text" id="settingsName"
+                                placeholder="Enter your name" required>
+                            <small>This name will appear on your dashboard.</small>
                         </div>
 
                         <div class="settings-group">
-
                             <label for="settingsTheme">
-                                <i class="fa-solid fa-palette"></i>
-                                Dashboard Theme
+                                <i class="fa-solid fa-palette"></i> Dashboard Theme
                             </label>
-
                             <select id="settingsTheme">
                                 <option value="dark">Dark Mode</option>
                                 <option value="light">Light Mode</option>
                             </select>
-
-                            <small>
-                                Choose the appearance of your dashboard.
-                            </small>
-
+                            <small>Choose the appearance of your dashboard.</small>
                         </div>
 
                         <button type="submit" class="settings-save-btn">
-                            <i class="fa-solid fa-floppy-disk"></i>
-                            Save Settings
+                            <i class="fa-solid fa-floppy-disk"></i> Save Settings
                         </button>
 
                         <p id="settingsMessage" role="status"></p>
+                    </form>
 
+                    <!-- CHANGE PASSWORD -->
+                    <div class="settings-header" style="margin-top:40px">
+                        <div class="settings-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h2>Security</h2>
+                            <p>Change your account password securely.</p>
+                        </div>
+                    </div>
+
+                    <form id="changePasswordForm" class="settings-form">
+                        <div class="settings-group">
+                            <label for="currentPassword">
+                                <i class="fa-solid fa-lock"></i> Current Password
+                            </label>
+                            <input type="password" id="currentPassword"
+                                placeholder="Enter current password"
+                                autocomplete="current-password" required>
+                        </div>
+
+                        <div class="settings-group">
+                            <label for="newPassword">
+                                <i class="fa-solid fa-key"></i> New Password
+                            </label>
+                            <input type="password" id="newPassword"
+                                placeholder="Enter new password" minlength="6"
+                                autocomplete="new-password" required>
+                            <small>Password must contain at least 6 characters.</small>
+                        </div>
+
+                        <div class="settings-group">
+                            <label for="confirmPassword">
+                                <i class="fa-solid fa-check-circle"></i>
+                                Confirm New Password
+                            </label>
+                            <input type="password" id="confirmPassword"
+                                placeholder="Confirm your new password"
+                                minlength="6" autocomplete="new-password" required>
+                        </div>
+
+                        <button type="submit" class="settings-save-btn"
+                            id="changePasswordBtn">
+                            <i class="fa-solid fa-shield-halved"></i> Change Password
+                        </button>
+
+                        <p id="passwordMessage" role="status"></p>
                     </form>
 
                 </div>
-
             </div>
 
-
+            <!-- BLOGS PAGE -->
             <div class="page add-blog-page" id="addBlogPage">
-
                 <div class="blog-form-box">
-
                     <h2 id="blogFormHeading">Add New Blog</h2>
-
-                    <p class="form-intro">
-                        Create and manage blog posts for your portfolio.
-                    </p>
+                    <p class="form-intro">Create and manage blog posts for your portfolio.</p>
 
                     <form id="blogForm">
-
                         <div class="blog-form-group">
                             <label for="blogTitle">Blog Title</label>
-
-                            <input
-                                id="blogTitle"
-                                type="text"
-                                placeholder="Enter blog title"
-                                required
-                            >
+                            <input id="blogTitle" type="text"
+                                placeholder="Enter blog title" required>
                         </div>
 
                         <div class="blog-form-group">
                             <label for="blogImage">Blog Image</label>
-
-                            <input
-                                id="blogImage"
-                                type="file"
-                                accept="image/*"
-                            >
-
-                            <img
-                                alt="Blog image preview"
-                                class="blog-image-preview"
-                                id="blogImagePreview"
-                            >
+                            <input id="blogImage" type="file" accept="image/*">
+                            <img alt="Blog image preview"
+                                class="blog-image-preview" id="blogImagePreview">
                         </div>
 
                         <div class="blog-form-group">
                             <label for="blogContent">Blog Content</label>
-
-                            <textarea
-                                id="blogContent"
-                                placeholder="Write your blog here..."
-                                required
-                            ></textarea>
+                            <textarea id="blogContent"
+                                placeholder="Write your blog here..." required></textarea>
                         </div>
 
-                        <button
-                            class="add-blog-btn"
-                            id="blogSubmitBtn"
-                            type="submit"
-                        >
-                            <i class="fa-solid fa-plus"></i>
-                            Add Blog
+                        <button class="add-blog-btn" id="blogSubmitBtn" type="submit">
+                            <i class="fa-solid fa-plus"></i> Add Blog
                         </button>
 
-                        <button
-                            class="add-blog-btn cancel-btn"
-                            id="cancelBlogEdit"
-                            style="display:none"
-                            type="button"
-                        >
+                        <button class="add-blog-btn cancel-btn"
+                            id="cancelBlogEdit" style="display:none" type="button">
                             Cancel Edit
                         </button>
 
-                        <p
-                            class="blog-message"
-                            id="blogMessage"
-                            role="status"
-                        ></p>
-
+                        <p class="blog-message" id="blogMessage" role="status"></p>
                     </form>
 
                     <div class="saved-blogs">
                         <h2>My Blogs</h2>
                         <div id="savedBlogs"></div>
                     </div>
-
                 </div>
-
             </div>
 
-
+            <!-- PROJECTS PAGE -->
             <div class="page add-project-page" id="addProjectPage">
-
                 <div class="project-form-box">
-
                     <h2 id="projectFormHeading">Add New Project</h2>
-
-                    <p class="form-intro">
-                        Add, edit, update or delete your projects.
-                    </p>
+                    <p class="form-intro">Add, edit, update or delete your projects.</p>
 
                     <form id="projectForm">
-
                         <div class="project-form-group">
                             <label for="projectTitle">Project Title</label>
-
-                            <input
-                                id="projectTitle"
-                                type="text"
-                                placeholder="Enter project title"
-                                required
-                            >
+                            <input id="projectTitle" type="text"
+                                placeholder="Enter project title" required>
                         </div>
 
                         <div class="project-form-group">
                             <label for="projectImage">Project Image</label>
-
-                            <input
-                                id="projectImage"
-                                type="file"
-                                accept="image/*"
-                            >
-
-                            <img
-                                alt="Project image preview"
-                                class="project-image-preview"
-                                id="projectImagePreview"
-                            >
+                            <input id="projectImage" type="file" accept="image/*">
+                            <img alt="Project image preview"
+                                class="project-image-preview" id="projectImagePreview">
                         </div>
 
                         <div class="project-form-group">
-                            <label for="projectDescription">
-                                Project Description
-                            </label>
-
-                            <textarea
-                                id="projectDescription"
-                                placeholder="Describe your project..."
-                                required
-                            ></textarea>
+                            <label for="projectDescription">Project Description</label>
+                            <textarea id="projectDescription"
+                                placeholder="Describe your project..." required></textarea>
                         </div>
 
-                        <button
-                            class="project-action-btn"
-                            id="projectSubmitBtn"
-                            type="submit"
-                        >
-                            <i class="fa-solid fa-plus"></i>
-                            Add Project
+                        <button class="project-action-btn"
+                            id="projectSubmitBtn" type="submit">
+                            <i class="fa-solid fa-plus"></i> Add Project
                         </button>
 
-                        <button
-                            class="project-action-btn cancel-btn"
-                            id="cancelProjectEdit"
-                            style="display:none"
-                            type="button"
-                        >
+                        <button class="project-action-btn cancel-btn"
+                            id="cancelProjectEdit" style="display:none" type="button">
                             Cancel Edit
                         </button>
 
-                        <p
-                            class="project-message"
-                            id="projectMessage"
-                            role="status"
-                        ></p>
-
+                        <p class="project-message" id="projectMessage" role="status"></p>
                     </form>
 
                     <div class="saved-projects">
                         <h2>My Projects</h2>
                         <div id="savedProjects"></div>
                     </div>
-
                 </div>
-
             </div>
 
         </section>
-
     </main>
 
     <script src="./index.js"></script>
-
 </body>
 </html>
