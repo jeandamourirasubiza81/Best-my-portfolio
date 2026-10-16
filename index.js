@@ -1,13 +1,72 @@
-
 /* ==========================================
    J.D.I DASHBOARD - MAIN JAVASCRIPT
-   HTML, CSS, JavaScript + LocalStorage
+   LocalStorage + Firebase Authentication
 ========================================== */
 
 "use strict";
 
 // ==========================================
-// HELPER FUNCTIONS
+// 1. FIREBASE AUTHENTICATION
+// ==========================================
+
+const firebaseAuthReady = (async () => {
+    const {
+        initializeApp,
+        getApps
+    } = await import(
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js"
+    );
+
+    const {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+        EmailAuthProvider,
+        reauthenticateWithCredential,
+        updatePassword
+    } = await import(
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js"
+    );
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDkB9QoCnDaxQieInfaKVjPocJM4BTlt8k",
+        authDomain: "jeandamour-login.firebaseapp.com",
+        projectId: "jeandamour-login",
+        storageBucket: "jeandamour-login.firebasestorage.app",
+        messagingSenderId: "372516516628",
+        appId: "1:372516516628:web:e07d8de6aeadb7a6310801",
+        measurementId: "G-G9REMS5J0Q"
+    };
+
+    const existingApp = getApps().find(
+        (item) => item.name === "[DEFAULT]"
+    );
+
+    const app = existingApp || initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.firebaseAuth = auth;
+
+    let redirecting = false;
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user && !redirecting) {
+            redirecting = true;
+            window.location.replace("Login.html");
+        }
+    });
+
+    return {
+        auth,
+        signOut,
+        EmailAuthProvider,
+        reauthenticateWithCredential,
+        updatePassword
+    };
+})();
+
+// ==========================================
+// 2. HELPER FUNCTIONS
 // ==========================================
 
 const $ = (id) => document.getElementById(id);
@@ -24,10 +83,6 @@ let editingProjectId = null;
 let selectedBlogImage = "";
 let selectedProjectImage = "";
 
-// ==========================================
-// UNIQUE ID
-// ==========================================
-
 function makeId() {
     if (window.crypto?.randomUUID) {
         return window.crypto.randomUUID();
@@ -37,10 +92,6 @@ function makeId() {
         Math.random().toString(36).slice(2);
 }
 
-// ==========================================
-// LOCAL STORAGE
-// ==========================================
-
 function getItems(key) {
     try {
         const value = JSON.parse(
@@ -49,7 +100,7 @@ function getItems(key) {
 
         return Array.isArray(value) ? value : [];
     } catch (error) {
-        console.error("Could not read storage:", error);
+        console.error("Storage read error:", error);
         return [];
     }
 }
@@ -59,7 +110,7 @@ function saveItems(key, items) {
         localStorage.setItem(key, JSON.stringify(items));
         return true;
     } catch (error) {
-        console.error("Could not save storage:", error);
+        console.error("Storage save error:", error);
 
         alert(
             "Could not save data. Browser storage may be full."
@@ -69,30 +120,19 @@ function saveItems(key, items) {
     }
 }
 
-// ==========================================
-// BLOGS AND PROJECTS
-// ==========================================
+function showMessage(element, message, isError = false) {
+    if (!element) return;
 
-function getBlogs() {
-    return getItems(BLOGS_KEY).map((item, index) => ({
-        ...item,
-        id: item.id ?? `blog-${index}-${item.title || ""}`,
-        title: item.title || "",
-        content: item.content ?? item.description ?? "",
-        image: item.image || "",
-        date: item.date || new Date().toISOString()
-    }));
+    element.textContent = message;
+    element.style.display = "block";
+    element.style.color = isError ? "#ff4d4d" : "#22c55e";
 }
 
-function getProjects() {
-    return getItems(PROJECTS_KEY).map((item, index) => ({
-        ...item,
-        id: item.id ?? `project-${index}-${item.title || ""}`,
-        title: item.title || "",
-        description: item.description ?? item.content ?? "",
-        image: item.image || "",
-        date: item.date || new Date().toISOString()
-    }));
+function hideMessage(element) {
+    if (!element) return;
+
+    element.textContent = "";
+    element.style.display = "none";
 }
 
 function formatDate(value) {
@@ -110,26 +150,7 @@ function formatDate(value) {
 }
 
 // ==========================================
-// STATUS MESSAGES
-// ==========================================
-
-function showMessage(element, message, isError = false) {
-    if (!element) return;
-
-    element.textContent = message;
-    element.style.display = "block";
-    element.style.color = isError ? "#ff4d4d" : "#22c55e";
-}
-
-function hideMessage(element) {
-    if (!element) return;
-
-    element.textContent = "";
-    element.style.display = "none";
-}
-
-// ==========================================
-// PAGE NAVIGATION
+// 3. PAGE NAVIGATION
 // ==========================================
 
 const pages = {
@@ -137,17 +158,36 @@ const pages = {
     profile: $("profilePage"),
     settings: $("settingsPage"),
     contacts: $("contactsPage"),
+
     "add-blog": $("addBlogPage"),
     "edit-blog": $("addBlogPage"),
     "delete-blog": $("addBlogPage"),
+
     "add-project": $("addProjectPage"),
     "edit-project": $("addProjectPage"),
     "delete-project": $("addProjectPage")
 };
 
+const pageTitles = {
+    dashboard: "Dashboard",
+    profile: "Profile",
+    settings: "Settings",
+    contacts: "Contacts",
+
+    "add-blog": "Add Blog",
+    "edit-blog": "Edit Blog",
+    "delete-blog": "Manage Blogs",
+
+    "add-project": "Add Project",
+    "edit-project": "Edit Project",
+    "delete-project": "Manage Projects"
+};
+
 function showPage(pageName) {
     Object.values(pages).forEach((page) => {
-        if (page) page.classList.remove("active");
+        if (page) {
+            page.classList.remove("active");
+        }
     });
 
     const selectedPage = pages[pageName] || pages.dashboard;
@@ -164,23 +204,9 @@ function showPage(pageName) {
             );
         });
 
-    const titles = {
-        dashboard: "Dashboard",
-        profile: "Profile",
-        settings: "Settings",
-        contacts: "Contacts",
-        "add-blog": "Add Blog",
-        "edit-blog": "Edit Blog",
-        "delete-blog": "Manage Blogs",
-        "add-project": "Add Project",
-        "edit-project": "Edit Project",
-        "delete-project": "Manage Projects"
-    };
-
-    const pageTitle = $("pageTitle");
-
-    if (pageTitle) {
-        pageTitle.textContent = titles[pageName] || "Dashboard";
+    if ($("pageTitle")) {
+        $("pageTitle").textContent =
+            pageTitles[pageName] || "Dashboard";
     }
 
     if (pageName.includes("blog")) {
@@ -196,37 +222,27 @@ function showPage(pageName) {
     }
 }
 
-// Sidebar menu
 document.querySelectorAll(".menu li[data-page]")
     .forEach((item) => {
         item.addEventListener("click", () => {
-            if (item.dataset.page) {
-                showPage(item.dataset.page);
+            const pageName = item.dataset.page;
+
+            if (pageName) {
+                showPage(pageName);
             }
         });
     });
 
-// Submenus
-const blogMenu = $("blogMenu");
-const blogSubmenu = $("blogSubmenu");
+$("blogMenu")?.addEventListener("click", () => {
+    $("blogSubmenu")?.classList.toggle("show");
+});
 
-if (blogMenu && blogSubmenu) {
-    blogMenu.addEventListener("click", () => {
-        blogSubmenu.classList.toggle("show");
-    });
-}
-
-const projectMenu = $("projectMenu");
-const projectSubmenu = $("projectSubmenu");
-
-if (projectMenu && projectSubmenu) {
-    projectMenu.addEventListener("click", () => {
-        projectSubmenu.classList.toggle("show");
-    });
-}
+$("projectMenu")?.addEventListener("click", () => {
+    $("projectSubmenu")?.classList.toggle("show");
+});
 
 // ==========================================
-// IMAGE FILE READER
+// 4. IMAGE READER AND PREVIEW
 // ==========================================
 
 function readImage(file, callback) {
@@ -243,7 +259,9 @@ function readImage(file, callback) {
 
     const reader = new FileReader();
 
-    reader.onload = () => callback(reader.result);
+    reader.onload = () => {
+        callback(reader.result);
+    };
 
     reader.onerror = () => {
         alert("Could not read image.");
@@ -253,55 +271,150 @@ function readImage(file, callback) {
     reader.readAsDataURL(file);
 }
 
-// Blog image preview
 const blogImageInput = $("blogImage");
 const blogImagePreview = $("blogImagePreview");
 
-if (blogImageInput) {
-    blogImageInput.addEventListener("change", function () {
-        readImage(this.files[0], (image) => {
-            if (image === null) {
-                blogImageInput.value = "";
-                return;
-            }
+blogImageInput?.addEventListener("change", function () {
+    readImage(this.files[0], (image) => {
+        if (image === null) {
+            this.value = "";
+            return;
+        }
 
-            selectedBlogImage = image || "";
+        selectedBlogImage = image || "";
 
-            if (blogImagePreview) {
-                blogImagePreview.src = image || "";
-                blogImagePreview.style.display =
-                    image ? "block" : "none";
+        if (blogImagePreview) {
+            if (image) {
+                blogImagePreview.src = image;
+                blogImagePreview.style.display = "block";
+            } else {
+                blogImagePreview.removeAttribute("src");
+                blogImagePreview.style.display = "none";
             }
-        });
+        }
     });
-}
+});
 
-// Project image preview
 const projectImageInput = $("projectImage");
 const projectImagePreview = $("projectImagePreview");
 
-if (projectImageInput) {
-    projectImageInput.addEventListener("change", function () {
-        readImage(this.files[0], (image) => {
-            if (image === null) {
-                projectImageInput.value = "";
-                return;
-            }
+projectImageInput?.addEventListener("change", function () {
+    readImage(this.files[0], (image) => {
+        if (image === null) {
+            this.value = "";
+            return;
+        }
 
-            selectedProjectImage = image || "";
+        selectedProjectImage = image || "";
 
-            if (projectImagePreview) {
-                projectImagePreview.src = image || "";
-                projectImagePreview.style.display =
-                    image ? "block" : "none";
+        if (projectImagePreview) {
+            if (image) {
+                projectImagePreview.src = image;
+                projectImagePreview.style.display = "block";
+            } else {
+                projectImagePreview.removeAttribute("src");
+                projectImagePreview.style.display = "none";
             }
-        });
+        }
     });
+});
+
+// ==========================================
+// 5. BLOGS
+// ==========================================
+
+function getBlogs() {
+    const blogs = getItems(BLOGS_KEY);
+
+    return blogs.map((item, index) => ({
+        ...item,
+        id: item.id ?? `blog-${index}-${item.title || ""}`,
+        title: item.title || "",
+        content: item.content ?? item.description ?? "",
+        image: item.image || "",
+        date: item.date || new Date().toISOString()
+    }));
 }
 
-// ==========================================
-// RESET BLOG FORM
-// ==========================================
+function renderBlogs() {
+    const container = $("savedBlogs");
+    const count = $("blogCount");
+    const blogs = getBlogs();
+
+    if (count) {
+        count.textContent = blogs.length;
+    }
+
+    if (!container) return;
+
+    container.replaceChildren();
+
+    if (blogs.length === 0) {
+        const empty = document.createElement("p");
+
+        empty.textContent =
+            "No blogs yet. Add your first blog!";
+
+        empty.className = "empty-message";
+        container.appendChild(empty);
+
+        return;
+    }
+
+    [...blogs].reverse().forEach((blog) => {
+        const card = document.createElement("article");
+        card.className = "saved-blog-card";
+
+        const title = document.createElement("h3");
+        title.textContent = blog.title;
+        card.appendChild(title);
+
+        if (blog.image) {
+            const image = document.createElement("img");
+
+            image.src = blog.image;
+            image.alt = blog.title;
+            image.className = "saved-item-image";
+
+            card.appendChild(image);
+        }
+
+        const content = document.createElement("p");
+        content.textContent = blog.content;
+        card.appendChild(content);
+
+        const date = document.createElement("small");
+        date.textContent = formatDate(blog.date);
+        card.appendChild(date);
+
+        const edit = document.createElement("button");
+
+        edit.type = "button";
+        edit.textContent = "Edit";
+        edit.className = "edit-btn";
+
+        edit.addEventListener("click", () => {
+            editBlog(blog.id);
+        });
+
+        const remove = document.createElement("button");
+
+        remove.type = "button";
+        remove.textContent = "Delete";
+        remove.className = "delete-btn";
+
+        remove.addEventListener("click", () => {
+            deleteBlog(blog.id);
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "item-actions";
+        actions.append(edit, remove);
+
+        card.appendChild(actions);
+        container.appendChild(card);
+    });
+}
 
 function resetBlogForm() {
     $("blogForm")?.reset();
@@ -315,7 +428,8 @@ function resetBlogForm() {
     }
 
     if ($("blogSubmitBtn")) {
-        $("blogSubmitBtn").textContent = "Add Blog";
+        $("blogSubmitBtn").innerHTML =
+            '<i class="fa-solid fa-plus"></i> Add Blog';
     }
 
     if ($("cancelBlogEdit")) {
@@ -329,9 +443,221 @@ function resetBlogForm() {
     hideMessage($("blogMessage"));
 }
 
+$("blogForm")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const title = $("blogTitle")?.value.trim() || "";
+    const content = $("blogContent")?.value.trim() || "";
+
+    if (!title || !content) {
+        showMessage(
+            $("blogMessage"),
+            "Enter the blog title and content.",
+            true
+        );
+
+        return;
+    }
+
+    const blogs = getBlogs();
+
+    const oldBlog = blogs.find(
+        (item) => item.id === editingBlogId
+    );
+
+    const blog = {
+        id: oldBlog ? oldBlog.id : makeId(),
+        title,
+        content,
+        image: selectedBlogImage || oldBlog?.image || "",
+        date: oldBlog?.date || new Date().toISOString()
+    };
+
+    const updated = editingBlogId
+        ? blogs.map((item) =>
+            item.id === editingBlogId ? blog : item
+        )
+        : [...blogs, blog];
+
+    if (!saveItems(BLOGS_KEY, updated)) return;
+
+    resetBlogForm();
+    renderBlogs();
+
+    showMessage(
+        $("blogMessage"),
+        oldBlog
+            ? "Blog updated successfully!"
+            : "Blog added successfully!"
+    );
+});
+
+function editBlog(id) {
+    const blog = getBlogs().find(
+        (item) => item.id === id
+    );
+
+    if (!blog) {
+        alert("Blog not found.");
+        return;
+    }
+
+    editingBlogId = blog.id;
+
+    $("blogTitle").value = blog.title;
+    $("blogContent").value = blog.content;
+
+    selectedBlogImage = blog.image || "";
+
+    if (blogImagePreview) {
+        if (blog.image) {
+            blogImagePreview.src = blog.image;
+            blogImagePreview.style.display = "block";
+        } else {
+            blogImagePreview.removeAttribute("src");
+            blogImagePreview.style.display = "none";
+        }
+    }
+
+    if ($("blogSubmitBtn")) {
+        $("blogSubmitBtn").innerHTML =
+            '<i class="fa-solid fa-floppy-disk"></i> Update Blog';
+    }
+
+    if ($("cancelBlogEdit")) {
+        $("cancelBlogEdit").style.display = "inline-block";
+    }
+
+    if ($("blogFormHeading")) {
+        $("blogFormHeading").textContent = "Edit Blog";
+    }
+
+    showPage("edit-blog");
+}
+
+function deleteBlog(id) {
+    const blogs = getBlogs();
+
+    const blog = blogs.find(
+        (item) => item.id === id
+    );
+
+    if (!blog || !confirm(`Delete "${blog.title}"?`)) {
+        return;
+    }
+
+    const updated = blogs.filter(
+        (item) => item.id !== id
+    );
+
+    if (saveItems(BLOGS_KEY, updated)) {
+        renderBlogs();
+
+        showMessage(
+            $("blogMessage"),
+            "Blog deleted successfully!"
+        );
+    }
+}
+
+$("cancelBlogEdit")?.addEventListener("click", resetBlogForm);
+
 // ==========================================
-// RESET PROJECT FORM
+// 6. PROJECTS
 // ==========================================
+
+function getProjects() {
+    const projects = getItems(PROJECTS_KEY);
+
+    return projects.map((item, index) => ({
+        ...item,
+        id: item.id ?? `project-${index}-${item.title || ""}`,
+        title: item.title || "",
+        description: item.description ?? item.content ?? "",
+        image: item.image || "",
+        date: item.date || new Date().toISOString()
+    }));
+}
+
+function renderProjects() {
+    const container = $("savedProjects");
+    const count = $("projectCount");
+    const projects = getProjects();
+
+    if (count) {
+        count.textContent = projects.length;
+    }
+
+    if (!container) return;
+
+    container.replaceChildren();
+
+    if (projects.length === 0) {
+        const empty = document.createElement("p");
+
+        empty.textContent =
+            "No projects yet. Add your first project!";
+
+        empty.className = "empty-message";
+        container.appendChild(empty);
+
+        return;
+    }
+
+    [...projects].reverse().forEach((project) => {
+        const card = document.createElement("article");
+        card.className = "saved-project-card";
+
+        const title = document.createElement("h3");
+        title.textContent = project.title;
+        card.appendChild(title);
+
+        if (project.image) {
+            const image = document.createElement("img");
+
+            image.src = project.image;
+            image.alt = project.title;
+            image.className = "saved-item-image";
+
+            card.appendChild(image);
+        }
+
+        const description = document.createElement("p");
+        description.textContent = project.description;
+        card.appendChild(description);
+
+        const date = document.createElement("small");
+        date.textContent = formatDate(project.date);
+        card.appendChild(date);
+
+        const edit = document.createElement("button");
+
+        edit.type = "button";
+        edit.textContent = "Edit";
+        edit.className = "edit-btn";
+
+        edit.addEventListener("click", () => {
+            editProject(project.id);
+        });
+
+        const remove = document.createElement("button");
+
+        remove.type = "button";
+        remove.textContent = "Delete";
+        remove.className = "delete-btn";
+
+        remove.addEventListener("click", () => {
+            deleteProject(project.id);
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "item-actions";
+        actions.append(edit, remove);
+
+        card.appendChild(actions);
+        container.appendChild(card);
+    });
+}
 
 function resetProjectForm() {
     $("projectForm")?.reset();
@@ -345,7 +671,8 @@ function resetProjectForm() {
     }
 
     if ($("projectSubmitBtn")) {
-        $("projectSubmitBtn").textContent = "Add Project";
+        $("projectSubmitBtn").innerHTML =
+            '<i class="fa-solid fa-plus"></i> Add Project';
     }
 
     if ($("cancelProjectEdit")) {
@@ -359,313 +686,60 @@ function resetProjectForm() {
     hideMessage($("projectMessage"));
 }
 
-// ==========================================
-// BLOGS - DISPLAY
-// ==========================================
+$("projectForm")?.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-function createBlogCard(blog) {
-    const card = document.createElement("article");
-    card.className = "saved-blog-card";
+    const title = $("projectTitle")?.value.trim() || "";
+    const description =
+        $("projectDescription")?.value.trim() || "";
 
-    const title = document.createElement("h3");
-    title.textContent = blog.title;
-    card.appendChild(title);
-
-    if (blog.image) {
-        const image = document.createElement("img");
-        image.src = blog.image;
-        image.alt = blog.title || "Blog image";
-        image.className = "saved-item-image";
-        image.loading = "lazy";
-        card.appendChild(image);
-    }
-
-    const content = document.createElement("p");
-    content.textContent = blog.content;
-    card.appendChild(content);
-
-    const date = document.createElement("small");
-    date.textContent = formatDate(blog.date);
-    card.appendChild(date);
-
-    const actions = document.createElement("div");
-    actions.className = "item-actions";
-
-    const edit = document.createElement("button");
-    edit.type = "button";
-    edit.className = "edit-btn";
-    edit.textContent = "Edit";
-    edit.addEventListener("click", () => editBlog(blog.id));
-
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "delete-btn";
-    remove.textContent = "Delete";
-    remove.addEventListener("click", () => deleteBlog(blog.id));
-
-    actions.append(edit, remove);
-    card.appendChild(actions);
-
-    return card;
-}
-
-function renderBlogs() {
-    const container = $("savedBlogs");
-    const count = $("blogCount");
-    const blogs = getBlogs();
-
-    if (count) count.textContent = blogs.length;
-    if (!container) return;
-
-    container.replaceChildren();
-
-    if (!blogs.length) {
-        const empty = document.createElement("p");
-        empty.className = "empty-message";
-        empty.textContent = "No blogs yet. Add your first blog!";
-        container.appendChild(empty);
-        return;
-    }
-
-    [...blogs].reverse().forEach((blog) => {
-        container.appendChild(createBlogCard(blog));
-    });
-}
-
-// Add or update blog
-const blogForm = $("blogForm");
-
-if (blogForm) {
-    blogForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const title = $("blogTitle")?.value.trim() || "";
-        const content = $("blogContent")?.value.trim() || "";
-
-        if (!title || !content) {
-            showMessage(
-                $("blogMessage"),
-                "Enter the blog title and content.",
-                true
-            );
-            return;
-        }
-
-        const blogs = getBlogs();
-        const oldBlog = blogs.find((item) =>
-            item.id === editingBlogId
-        );
-
-        const blog = {
-            id: oldBlog ? oldBlog.id : makeId(),
-            title,
-            content,
-            image: selectedBlogImage || oldBlog?.image || "",
-            date: oldBlog?.date || new Date().toISOString()
-        };
-
-        const updated = editingBlogId
-            ? blogs.map((item) =>
-                item.id === editingBlogId ? blog : item
-            )
-            : [...blogs, blog];
-
-        if (!saveItems(BLOGS_KEY, updated)) return;
-
-        resetBlogForm();
-        renderBlogs();
-
-        showMessage(
-            $("blogMessage"),
-            oldBlog ? "Blog updated successfully!" :
-                "Blog added successfully!"
-        );
-    });
-}
-
-function editBlog(id) {
-    const blog = getBlogs().find((item) => item.id === id);
-
-    if (!blog) {
-        alert("Blog not found.");
-        return;
-    }
-
-    editingBlogId = blog.id;
-    $("blogTitle").value = blog.title;
-    $("blogContent").value = blog.content;
-    selectedBlogImage = blog.image || "";
-
-    if (blogImagePreview) {
-        blogImagePreview.src = blog.image || "";
-        blogImagePreview.style.display =
-            blog.image ? "block" : "none";
-    }
-
-    if ($("blogSubmitBtn")) {
-        $("blogSubmitBtn").textContent = "Update Blog";
-    }
-
-    if ($("cancelBlogEdit")) {
-        $("cancelBlogEdit").style.display = "inline-block";
-    }
-
-    if ($("blogFormHeading")) {
-        $("blogFormHeading").textContent = "Edit Blog";
-    }
-
-    showPage("edit-blog");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function deleteBlog(id) {
-    const blogs = getBlogs();
-    const blog = blogs.find((item) => item.id === id);
-
-    if (!blog) {
-        alert("Blog not found.");
-        return;
-    }
-
-    if (!confirm(`Delete "${blog.title}"?`)) return;
-
-    const updated = blogs.filter((item) => item.id !== id);
-
-    if (!saveItems(BLOGS_KEY, updated)) return;
-
-    renderBlogs();
-    showMessage($("blogMessage"), "Blog deleted successfully!");
-}
-
-$("cancelBlogEdit")?.addEventListener("click", resetBlogForm);
-
-// ==========================================
-// PROJECTS - DISPLAY
-// ==========================================
-
-function createProjectCard(project) {
-    const card = document.createElement("article");
-    card.className = "saved-project-card";
-
-    const title = document.createElement("h3");
-    title.textContent = project.title;
-    card.appendChild(title);
-
-    if (project.image) {
-        const image = document.createElement("img");
-        image.src = project.image;
-        image.alt = project.title || "Project image";
-        image.className = "saved-item-image";
-        image.loading = "lazy";
-        card.appendChild(image);
-    }
-
-    const description = document.createElement("p");
-    description.textContent = project.description;
-    card.appendChild(description);
-
-    const date = document.createElement("small");
-    date.textContent = formatDate(project.date);
-    card.appendChild(date);
-
-    const actions = document.createElement("div");
-    actions.className = "item-actions";
-
-    const edit = document.createElement("button");
-    edit.type = "button";
-    edit.className = "edit-btn";
-    edit.textContent = "Edit";
-    edit.addEventListener("click", () => editProject(project.id));
-
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "delete-btn";
-    remove.textContent = "Delete";
-    remove.addEventListener("click", () => deleteProject(project.id));
-
-    actions.append(edit, remove);
-    card.appendChild(actions);
-
-    return card;
-}
-
-function renderProjects() {
-    const container = $("savedProjects");
-    const count = $("projectCount");
-    const projects = getProjects();
-
-    if (count) count.textContent = projects.length;
-    if (!container) return;
-
-    container.replaceChildren();
-
-    if (!projects.length) {
-        const empty = document.createElement("p");
-        empty.className = "empty-message";
-        empty.textContent = "No projects yet. Add your first project!";
-        container.appendChild(empty);
-        return;
-    }
-
-    [...projects].reverse().forEach((project) => {
-        container.appendChild(createProjectCard(project));
-    });
-}
-
-// Add or update project
-const projectForm = $("projectForm");
-
-if (projectForm) {
-    projectForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const title = $("projectTitle")?.value.trim() || "";
-        const description =
-            $("projectDescription")?.value.trim() || "";
-
-        if (!title || !description) {
-            showMessage(
-                $("projectMessage"),
-                "Enter the project title and description.",
-                true
-            );
-            return;
-        }
-
-        const projects = getProjects();
-        const oldProject = projects.find((item) =>
-            item.id === editingProjectId
-        );
-
-        const project = {
-            id: oldProject ? oldProject.id : makeId(),
-            title,
-            description,
-            image: selectedProjectImage || oldProject?.image || "",
-            date: oldProject?.date || new Date().toISOString()
-        };
-
-        const updated = editingProjectId
-            ? projects.map((item) =>
-                item.id === editingProjectId ? project : item
-            )
-            : [...projects, project];
-
-        if (!saveItems(PROJECTS_KEY, updated)) return;
-
-        resetProjectForm();
-        renderProjects();
-
+    if (!title || !description) {
         showMessage(
             $("projectMessage"),
-            oldProject ? "Project updated successfully!" :
-                "Project added successfully!"
+            "Enter the project title and description.",
+            true
         );
-    });
-}
+
+        return;
+    }
+
+    const projects = getProjects();
+
+    const oldProject = projects.find(
+        (item) => item.id === editingProjectId
+    );
+
+    const project = {
+        id: oldProject ? oldProject.id : makeId(),
+        title,
+        description,
+        image: selectedProjectImage || oldProject?.image || "",
+        date: oldProject?.date || new Date().toISOString()
+    };
+
+    const updated = editingProjectId
+        ? projects.map((item) =>
+            item.id === editingProjectId ? project : item
+        )
+        : [...projects, project];
+
+    if (!saveItems(PROJECTS_KEY, updated)) return;
+
+    resetProjectForm();
+    renderProjects();
+
+    showMessage(
+        $("projectMessage"),
+        oldProject
+            ? "Project updated successfully!"
+            : "Project added successfully!"
+    );
+});
 
 function editProject(id) {
-    const project = getProjects().find((item) => item.id === id);
+    const project = getProjects().find(
+        (item) => item.id === id
+    );
 
     if (!project) {
         alert("Project not found.");
@@ -673,18 +747,25 @@ function editProject(id) {
     }
 
     editingProjectId = project.id;
+
     $("projectTitle").value = project.title;
     $("projectDescription").value = project.description;
+
     selectedProjectImage = project.image || "";
 
     if (projectImagePreview) {
-        projectImagePreview.src = project.image || "";
-        projectImagePreview.style.display =
-            project.image ? "block" : "none";
+        if (project.image) {
+            projectImagePreview.src = project.image;
+            projectImagePreview.style.display = "block";
+        } else {
+            projectImagePreview.removeAttribute("src");
+            projectImagePreview.style.display = "none";
+        }
     }
 
     if ($("projectSubmitBtn")) {
-        $("projectSubmitBtn").textContent = "Update Project";
+        $("projectSubmitBtn").innerHTML =
+            '<i class="fa-solid fa-floppy-disk"></i> Update Project';
     }
 
     if ($("cancelProjectEdit")) {
@@ -696,35 +777,40 @@ function editProject(id) {
     }
 
     showPage("edit-project");
-    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function deleteProject(id) {
     const projects = getProjects();
-    const project = projects.find((item) => item.id === id);
 
-    if (!project) {
-        alert("Project not found.");
+    const project = projects.find(
+        (item) => item.id === id
+    );
+
+    if (!project || !confirm(`Delete "${project.title}"?`)) {
         return;
     }
 
-    if (!confirm(`Delete "${project.title}"?`)) return;
-
-    const updated = projects.filter((item) => item.id !== id);
-
-    if (!saveItems(PROJECTS_KEY, updated)) return;
-
-    renderProjects();
-    showMessage(
-        $("projectMessage"),
-        "Project deleted successfully!"
+    const updated = projects.filter(
+        (item) => item.id !== id
     );
+
+    if (saveItems(PROJECTS_KEY, updated)) {
+        renderProjects();
+
+        showMessage(
+            $("projectMessage"),
+            "Project deleted successfully!"
+        );
+    }
 }
 
-$("cancelProjectEdit")?.addEventListener("click", resetProjectForm);
+$("cancelProjectEdit")?.addEventListener(
+    "click",
+    resetProjectForm
+);
 
 // ==========================================
-// CONTACTS - LOCAL STORAGE
+// 7. CONTACT MESSAGES - LOCAL STORAGE
 // ==========================================
 
 function getContactMessages() {
@@ -734,22 +820,16 @@ function getContactMessages() {
 function renderContacts() {
     const tableBody = $("contactsTableBody");
     const count = $("contactCount");
-    const statusMessage = $("contactsMessage");
 
-    if (!tableBody) {
-        console.warn(
-            'Missing HTML element with id="contactsTableBody".'
-        );
-        return;
-    }
+    if (!tableBody) return;
 
     const messages = getContactMessages();
 
-    if (count) count.textContent = messages.length;
+    if (count) {
+        count.textContent = messages.length;
+    }
 
     tableBody.replaceChildren();
-
-    if (statusMessage) statusMessage.textContent = "";
 
     if (messages.length === 0) {
         const row = document.createElement("tr");
@@ -760,35 +840,39 @@ function renderContacts() {
 
         row.appendChild(cell);
         tableBody.appendChild(row);
+
         return;
     }
+
+    messages.forEach((message, index) => {
+        message._dashboardIndex = index;
+    });
 
     [...messages].reverse().forEach((message) => {
         const row = document.createElement("tr");
 
-        const nameCell = document.createElement("td");
-        nameCell.textContent = message.name || "Unknown";
-        row.appendChild(nameCell);
+        const values = [
+            message.name || "Unknown",
+            message.email || "—",
+            message.phone || "—",
+            message.message || message.content || ""
+        ];
 
-        const emailCell = document.createElement("td");
-        emailCell.textContent = message.email || "—";
-        row.appendChild(emailCell);
-
-        const phoneCell = document.createElement("td");
-        phoneCell.textContent = message.phone || "—";
-        row.appendChild(phoneCell);
-
-        const textCell = document.createElement("td");
-        textCell.textContent = message.message || message.content || "";
-        row.appendChild(textCell);
+        values.forEach((value) => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
 
         const statusCell = document.createElement("td");
-        const status = document.createElement("span");
 
         const isRead =
             String(message.status || "Unread").toLowerCase() === "read";
 
+        const status = document.createElement("span");
+
         status.textContent = isRead ? "Read" : "Unread";
+
         status.className = isRead
             ? "contact-status read"
             : "contact-status unread";
@@ -797,30 +881,27 @@ function renderContacts() {
         row.appendChild(statusCell);
 
         const actionCell = document.createElement("td");
-        const actions = document.createElement("div");
-
-        actions.style.display = "flex";
-        actions.style.gap = "6px";
-        actions.style.flexWrap = "wrap";
 
         const markRead = document.createElement("button");
+
         markRead.type = "button";
-        markRead.className = "contact-action-btn";
         markRead.textContent = isRead ? "Read" : "Mark Read";
         markRead.disabled = isRead;
 
         markRead.addEventListener("click", () => {
             const all = getContactMessages();
             const index = all.findIndex((item) =>
-                message.id ? item.id === message.id : item === message
+                message.id != null
+                    ? item.id === message.id
+                    : item === all[message._dashboardIndex]
             );
 
-            if (index < 0) {
-                renderContacts();
-                return;
-            }
+            if (index < 0) return;
 
-            all[index].status = "Read";
+            all[index] = {
+                ...all[index],
+                status: "Read"
+            };
 
             if (saveItems(CONTACTS_KEY, all)) {
                 renderContacts();
@@ -828,32 +909,35 @@ function renderContacts() {
         });
 
         const remove = document.createElement("button");
+
         remove.type = "button";
-        remove.className = "contact-delete-btn";
         remove.textContent = "Delete";
 
         remove.addEventListener("click", () => {
-            if (!confirm("Delete this contact message?")) return;
-
-            const all = getContactMessages();
-            const index = all.findIndex((item) =>
-                message.id ? item.id === message.id : item === message
-            );
-
-            if (index < 0) {
-                renderContacts();
+            if (!confirm("Delete this contact message?")) {
                 return;
             }
 
-            all.splice(index, 1);
+            const all = getContactMessages();
 
-            if (saveItems(CONTACTS_KEY, all)) {
+            let updated;
+
+            if (message.id != null) {
+                updated = all.filter(
+                    (item) => item.id !== message.id
+                );
+            } else {
+                updated = all.filter(
+                    (_, index) => index !== message._dashboardIndex
+                );
+            }
+
+            if (saveItems(CONTACTS_KEY, updated)) {
                 renderContacts();
             }
         });
 
-        actions.append(markRead, remove);
-        actionCell.appendChild(actions);
+        actionCell.append(markRead, remove);
         row.appendChild(actionCell);
 
         tableBody.appendChild(row);
@@ -861,114 +945,222 @@ function renderContacts() {
 }
 
 // ==========================================
-// SETTINGS AND THEME
+// 8. ADMIN NAME AND SETTINGS
 // ==========================================
 
 function applyDashboardTheme(theme) {
-    document.body.classList.toggle("light-mode", theme === "light");
+    document.body.classList.toggle(
+        "light-mode",
+        theme === "light"
+    );
 }
 
 function updateAdminName(name) {
+    const savedName = name.trim() || "Jean d'Amour";
+
+    // Update name in the topbar
     const userName = document.querySelector(".user strong");
 
-    if (userName) userName.textContent = name;
+    if (userName) {
+        userName.textContent = savedName;
+    }
 
+    // Update welcome message
     const description = document.querySelector(
         ".topbar > div:first-child p"
     );
 
     if (description) {
-        description.textContent = `Welcome back, ${name}!`;
+        description.textContent =
+            `Welcome back, ${savedName} 👋`;
     }
+
+    // Update name inside the Profile page
+    const profileAdminName = $("profileAdminName");
+
+    if (profileAdminName) {
+        profileAdminName.textContent = savedName;
+    }
+
+    // Update an optional profile input if one exists
+    const profileNameInput = $("profileName");
+
+    if (profileNameInput) {
+        profileNameInput.value = savedName;
+    }
+
+    // Update any elements using this attribute
+    document.querySelectorAll("[data-admin-name]")
+        .forEach((element) => {
+            element.textContent = savedName;
+        });
+}
+
+function saveAdminName(name, messageElement) {
+    const cleanName = name.trim();
+
+    if (!cleanName) {
+        showMessage(
+            messageElement,
+            "Please enter your name.",
+            true
+        );
+
+        return false;
+    }
+
+    try {
+        localStorage.setItem(ADMIN_NAME_KEY, cleanName);
+    } catch (error) {
+        console.error("Name save error:", error);
+
+        showMessage(
+            messageElement,
+            "Could not save your name.",
+            true
+        );
+
+        return false;
+    }
+
+    updateAdminName(cleanName);
+
+    showMessage(
+        messageElement,
+        "Name saved successfully!"
+    );
+
+    return true;
 }
 
 function loadSettings() {
-    const name = localStorage.getItem(ADMIN_NAME_KEY) || "Jean d'Amour";
-    const theme = localStorage.getItem(THEME_KEY) || "dark";
+    const name =
+        localStorage.getItem(ADMIN_NAME_KEY) || "Jean d'Amour";
 
-    if ($("settingsName")) $("settingsName").value = name;
-    if ($("settingsTheme")) $("settingsTheme").value = theme;
+    const theme =
+        localStorage.getItem(THEME_KEY) || "dark";
 
-    applyDashboardTheme(theme);
+    if ($("settingsName")) {
+        $("settingsName").value = name;
+    }
+
+    if ($("settingsTheme")) {
+        $("settingsTheme").value = theme;
+    }
+
     updateAdminName(name);
+    applyDashboardTheme(theme);
 }
 
-const settingsForm = $("settingsForm");
+$("settingsForm")?.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-if (settingsForm) {
-    settingsForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+    const name = $("settingsName")?.value.trim() || "";
+    const theme = $("settingsTheme")?.value || "dark";
 
-        const name = $("settingsName")?.value.trim() || "";
-        const theme = $("settingsTheme")?.value || "dark";
-
-        if (!name) {
-            showMessage($("settingsMessage"), "Enter your name.", true);
-            return;
-        }
-
-        try {
-            localStorage.setItem(ADMIN_NAME_KEY, name);
-            localStorage.setItem(THEME_KEY, theme);
-        } catch (error) {
-            console.error(error);
-            showMessage(
-                $("settingsMessage"),
-                "Could not save settings.",
-                true
-            );
-            return;
-        }
-
-        updateAdminName(name);
-        applyDashboardTheme(theme);
+    if (!name) {
         showMessage(
             $("settingsMessage"),
-            "Settings saved successfully!"
+            "Enter your name.",
+            true
         );
-    });
-}
 
-if ($("settingsTheme")) {
-    $("settingsTheme").addEventListener("change", function () {
-        applyDashboardTheme(this.value);
-    });
-}
+        return;
+    }
+
+    try {
+        localStorage.setItem(ADMIN_NAME_KEY, name);
+        localStorage.setItem(THEME_KEY, theme);
+    } catch (error) {
+        console.error("Settings save error:", error);
+
+        showMessage(
+            $("settingsMessage"),
+            "Could not save settings.",
+            true
+        );
+
+        return;
+    }
+
+    updateAdminName(name);
+    applyDashboardTheme(theme);
+
+    showMessage(
+        $("settingsMessage"),
+        "Settings saved successfully!"
+    );
+});
+
+$("settingsTheme")?.addEventListener("change", function () {
+    applyDashboardTheme(this.value);
+});
 
 // ==========================================
-// LOGOUT
+// 9. PROFILE PAGE NAME
 // ==========================================
 
-const logoutBtn = $("logoutBtn");
+// This works if your HTML includes:
+// <span id="profileAdminName">Jean d'Amour</span>
 
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        if (confirm("Are you sure you want to log out?")) {
-            window.location.href = "Login.html";
-        }
-    });
-}
+$("profileForm")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = $("profileName")?.value || "";
+
+    saveAdminName(name, $("profileMessage"));
+});
 
 // ==========================================
-// CHANGE PASSWORD - FIREBASE AUTH
+// 10. LOGOUT - FIREBASE AUTHENTICATION
 // ==========================================
 
-const changePasswordForm = $("changePasswordForm");
+$("logoutBtn")?.addEventListener("click", async () => {
+    if (!confirm("Are you sure you want to log out?")) {
+        return;
+    }
 
-if (changePasswordForm) {
-    changePasswordForm.addEventListener("submit", async (event) => {
+    try {
+        const { auth, signOut } = await firebaseAuthReady;
+
+        await signOut(auth);
+
+        window.location.replace("Login.html");
+    } catch (error) {
+        console.error("Logout error:", error);
+
+        alert("Could not log out. Please try again.");
+    }
+});
+
+// ==========================================
+// 11. CHANGE PASSWORD - FIREBASE AUTH
+// ==========================================
+
+$("changePasswordForm")?.addEventListener(
+    "submit",
+    async (event) => {
         event.preventDefault();
 
-        const currentPassword = $("currentPassword")?.value || "";
-        const newPassword = $("newPassword")?.value || "";
-        const confirmPassword = $("confirmPassword")?.value || "";
+        const currentPassword =
+            $("currentPassword")?.value || "";
+
+        const newPassword =
+            $("newPassword")?.value || "";
+
+        const confirmPassword =
+            $("confirmPassword")?.value || "";
 
         const message = $("passwordMessage");
         const button = $("changePasswordBtn");
-        const auth = window.firebaseAuth;
 
-        if (newPassword !== confirmPassword) {
-            showMessage(message, "New passwords do not match.", true);
+        if (!currentPassword) {
+            showMessage(
+                message,
+                "Enter your current password.",
+                true
+            );
+
             return;
         }
 
@@ -978,22 +1170,27 @@ if (changePasswordForm) {
                 "Password must contain at least 6 characters.",
                 true
             );
+
             return;
         }
 
-        if (!auth?.currentUser) {
+        if (newPassword !== confirmPassword) {
             showMessage(
                 message,
-                "Firebase Authentication is not connected.",
+                "New passwords do not match.",
                 true
             );
+
             return;
         }
 
-        const user = auth.currentUser;
+        if (currentPassword === newPassword) {
+            showMessage(
+                message,
+                "Choose a different new password.",
+                true
+            );
 
-        if (!user.email) {
-            showMessage(message, "Account email is unavailable.", true);
             return;
         }
 
@@ -1004,23 +1201,42 @@ if (changePasswordForm) {
             }
 
             const {
+                auth,
                 EmailAuthProvider,
                 reauthenticateWithCredential,
                 updatePassword
-            } = await import(
-                "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
-            );
+            } = await firebaseAuthReady;
+
+            const user = auth.currentUser;
+
+            if (!user || !user.email) {
+                showMessage(
+                    message,
+                    "Please sign in again before changing your password.",
+                    true
+                );
+
+                return;
+            }
 
             const credential = EmailAuthProvider.credential(
                 user.email,
                 currentPassword
             );
 
-            await reauthenticateWithCredential(user, credential);
+            await reauthenticateWithCredential(
+                user,
+                credential
+            );
+
             await updatePassword(user, newPassword);
 
-            changePasswordForm.reset();
-            showMessage(message, "Password changed successfully!");
+            $("changePasswordForm").reset();
+
+            showMessage(
+                message,
+                "Password changed successfully!"
+            );
 
         } catch (error) {
             console.error("Change password error:", error);
@@ -1028,41 +1244,53 @@ if (changePasswordForm) {
             const errors = {
                 "auth/invalid-credential":
                     "Current password is incorrect.",
+
                 "auth/wrong-password":
                     "Current password is incorrect.",
+
                 "auth/weak-password":
                     "New password is too weak.",
+
                 "auth/requires-recent-login":
-                    "Sign in again before changing your password.",
+                    "Please sign in again and retry.",
+
                 "auth/too-many-requests":
                     "Too many attempts. Try again later.",
+
                 "auth/network-request-failed":
-                    "Check your internet connection."
+                    "Check your internet connection.",
+
+                "auth/operation-not-allowed":
+                    "Email and password sign-in is not enabled."
             };
 
             showMessage(
                 message,
-                errors[error.code] || "Could not change password.",
+                errors[error.code] ||
+                    "Could not change password. Please try again.",
                 true
             );
 
         } finally {
             if (button) {
                 button.disabled = false;
-                button.textContent = "Change Password";
+
+                button.innerHTML =
+                    '<i class="fa-solid fa-shield-halved"></i> Change Password';
             }
         }
-    });
-}
+    }
+);
 
 // ==========================================
-// INITIALIZE DASHBOARD
+// 12. INITIALIZE DASHBOARD
 // ==========================================
 
 function initializeDashboard() {
     loadSettings();
     renderBlogs();
     renderProjects();
+    renderContacts();
     showPage("dashboard");
 }
 

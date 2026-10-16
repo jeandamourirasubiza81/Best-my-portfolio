@@ -839,10 +839,12 @@
                     <i class="fa-solid fa-plus"></i>
                     <span>Add Blog</span>
                 </li>
+
                 <li data-page="edit-blog">
                     <i class="fa-solid fa-pen"></i>
                     <span>Edit Blog</span>
                 </li>
+
                 <li data-page="delete-blog">
                     <i class="fa-solid fa-trash"></i>
                     <span>Delete Blog</span>
@@ -860,10 +862,12 @@
                     <i class="fa-solid fa-plus"></i>
                     <span>Add Project</span>
                 </li>
+
                 <li data-page="edit-project">
                     <i class="fa-solid fa-pen"></i>
                     <span>Edit Project</span>
                 </li>
+
                 <li data-page="delete-project">
                     <i class="fa-solid fa-trash"></i>
                     <span>Delete Project</span>
@@ -890,6 +894,7 @@
     <!-- MAIN -->
     <main class="main">
 
+        <!-- TOPBAR -->
         <header class="topbar">
             <div>
                 <h1 id="pageTitle">Dashboard</h1>
@@ -900,6 +905,7 @@
                 <div class="user-icon">
                     <i class="fa-solid fa-user"></i>
                 </div>
+
                 <div>
                     <strong>Jean d'Amour</strong>
                     <small>Administrator</small>
@@ -911,51 +917,94 @@
 
             <!-- DASHBOARD PAGE -->
             <div class="page dashboard-page active" id="dashboardPage">
+
                 <div class="cards">
+
                     <div class="card">
-                        <div class="card-icon"><i class="fa-solid fa-blog"></i></div>
-                        <div><h3>Blogs</h3><p id="blogCount">0</p></div>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-blog"></i>
+                        </div>
+
+                        <div>
+                            <h3>Blogs</h3>
+                            <p id="blogCount">0</p>
+                        </div>
                     </div>
 
                     <div class="card">
-                        <div class="card-icon"><i class="fa-solid fa-folder"></i></div>
-                        <div><h3>Projects</h3><p id="projectCount">0</p></div>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-folder"></i>
+                        </div>
+
+                        <div>
+                            <h3>Projects</h3>
+                            <p id="projectCount">0</p>
+                        </div>
                     </div>
 
                     <div class="card">
-                        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
-                        <div><h3>Users</h3><p>1</p></div>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <div>
+                            <h3>Users</h3>
+                            <p>1</p>
+                        </div>
                     </div>
 
                     <div class="card">
-                        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
-                        <div><h3>Views</h3><p>1,250</p></div>
+                        <div class="card-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+
+                        <div>
+                            <h3>Views</h3>
+                            <p>1,250</p>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="welcome-box">
                     <h2>Welcome to your Dashboard</h2>
-                    <p>Manage your profile, blogs and projects from this dashboard.</p>
+                    <p>
+                        Manage your profile, blogs and projects from this dashboard.
+                    </p>
                 </div>
+
             </div>
 
-            <!-- PROFILE PAGE -->
-            <div class="page simple-page" id="profilePage">
-                <div class="simple-box">
-                    <h2>Profile</h2>
-                    <p><strong>Name:</strong> Jean d'Amour</p>
-                    <p><strong>Role:</strong> Administrator</p>
-                    <p>Welcome to your portfolio dashboard.</p>
-                </div>
+        
+      <!-- PROFILE PAGE -->
+      <div class="page simple-page" id="profilePage">
+       <div class="simple-box">
+        <h2>Profile</h2>
+
+          <p>
+            <strong>Name:</strong>
+            <span id="profileAdminName">Jean d'Amour</span>
+          </p>
+
+          <p>
+            <strong>Role:</strong> Administrator
+          </p>
+
+            <p>Welcome to your portfolio dashboard.</p>
+         </div>
             </div>
 
+            
             <!-- CONTACTS PAGE -->
             <div class="page simple-page" id="contactsPage">
+
                 <div class="simple-box">
+
                     <div class="settings-header">
                         <div class="settings-icon">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
+
                         <div>
                             <h2>Contacts</h2>
                             <p>Manage messages sent from your portfolio.</p>
@@ -964,6 +1013,7 @@
 
                     <div class="contacts-table-container">
                         <table class="contacts-table">
+
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -982,21 +1032,26 @@
                                     </td>
                                 </tr>
                             </tbody>
+
                         </table>
                     </div>
 
                     <p id="contactsMessage" role="status"></p>
+
                 </div>
+
             </div>
 
             <!-- SETTINGS PAGE -->
             <div class="page simple-page" id="settingsPage">
+
                 <div class="simple-box settings-box">
 
                     <div class="settings-header">
                         <div class="settings-icon">
                             <i class="fa-solid fa-gear"></i>
                         </div>
+
                         <div>
                             <h2>Settings</h2>
                             <p>Manage your dashboard preferences.</p>
@@ -1004,24 +1059,37 @@
                     </div>
 
                     <form id="settingsForm" class="settings-form">
+
                         <div class="settings-group">
                             <label for="settingsName">
                                 <i class="fa-solid fa-user"></i> Admin Name
                             </label>
-                            <input type="text" id="settingsName"
-                                placeholder="Enter your name" required>
-                            <small>This name will appear on your dashboard.</small>
+
+                            <input
+                                type="text"
+                                id="settingsName"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                            <small>
+                                This name will appear on your dashboard.
+                            </small>
                         </div>
 
                         <div class="settings-group">
                             <label for="settingsTheme">
                                 <i class="fa-solid fa-palette"></i> Dashboard Theme
                             </label>
+
                             <select id="settingsTheme">
                                 <option value="dark">Dark Mode</option>
                                 <option value="light">Light Mode</option>
                             </select>
-                            <small>Choose the appearance of your dashboard.</small>
+
+                            <small>
+                                Choose the appearance of your dashboard.
+                            </small>
                         </div>
 
                         <button type="submit" class="settings-save-btn">
@@ -1029,6 +1097,7 @@
                         </button>
 
                         <p id="settingsMessage" role="status"></p>
+
                     </form>
 
                     <!-- CHANGE PASSWORD -->
@@ -1036,6 +1105,7 @@
                         <div class="settings-icon">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
+
                         <div>
                             <h2>Security</h2>
                             <p>Change your account password securely.</p>
@@ -1043,23 +1113,38 @@
                     </div>
 
                     <form id="changePasswordForm" class="settings-form">
+
                         <div class="settings-group">
                             <label for="currentPassword">
                                 <i class="fa-solid fa-lock"></i> Current Password
                             </label>
-                            <input type="password" id="currentPassword"
+
+                            <input
+                                type="password"
+                                id="currentPassword"
                                 placeholder="Enter current password"
-                                autocomplete="current-password" required>
+                                autocomplete="current-password"
+                                required
+                            >
                         </div>
 
                         <div class="settings-group">
                             <label for="newPassword">
                                 <i class="fa-solid fa-key"></i> New Password
                             </label>
-                            <input type="password" id="newPassword"
-                                placeholder="Enter new password" minlength="6"
-                                autocomplete="new-password" required>
-                            <small>Password must contain at least 6 characters.</small>
+
+                            <input
+                                type="password"
+                                id="newPassword"
+                                placeholder="Enter new password"
+                                minlength="6"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <small>
+                                Password must contain at least 6 characters.
+                            </small>
                         </div>
 
                         <div class="settings-group">
@@ -1067,116 +1152,205 @@
                                 <i class="fa-solid fa-check-circle"></i>
                                 Confirm New Password
                             </label>
-                            <input type="password" id="confirmPassword"
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
                                 placeholder="Confirm your new password"
-                                minlength="6" autocomplete="new-password" required>
+                                minlength="6"
+                                autocomplete="new-password"
+                                required
+                            >
                         </div>
 
-                        <button type="submit" class="settings-save-btn"
-                            id="changePasswordBtn">
-                            <i class="fa-solid fa-shield-halved"></i> Change Password
+                        <button
+                            type="submit"
+                            class="settings-save-btn"
+                            id="changePasswordBtn"
+                        >
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Change Password
                         </button>
 
                         <p id="passwordMessage" role="status"></p>
+
                     </form>
 
                 </div>
+
             </div>
 
             <!-- BLOGS PAGE -->
             <div class="page add-blog-page" id="addBlogPage">
+
                 <div class="blog-form-box">
+
                     <h2 id="blogFormHeading">Add New Blog</h2>
-                    <p class="form-intro">Create and manage blog posts for your portfolio.</p>
+
+                    <p class="form-intro">
+                        Create and manage blog posts for your portfolio.
+                    </p>
 
                     <form id="blogForm">
+
                         <div class="blog-form-group">
                             <label for="blogTitle">Blog Title</label>
-                            <input id="blogTitle" type="text"
-                                placeholder="Enter blog title" required>
+
+                            <input
+                                id="blogTitle"
+                                type="text"
+                                placeholder="Enter blog title"
+                                required
+                            >
                         </div>
 
                         <div class="blog-form-group">
                             <label for="blogImage">Blog Image</label>
-                            <input id="blogImage" type="file" accept="image/*">
-                            <img alt="Blog image preview"
-                                class="blog-image-preview" id="blogImagePreview">
+
+                            <input
+                                id="blogImage"
+                                type="file"
+                                accept="image/*"
+                            >
+
+                            <img
+                                alt="Blog image preview"
+                                class="blog-image-preview"
+                                id="blogImagePreview"
+                            >
                         </div>
 
                         <div class="blog-form-group">
                             <label for="blogContent">Blog Content</label>
-                            <textarea id="blogContent"
-                                placeholder="Write your blog here..." required></textarea>
+
+                            <textarea
+                                id="blogContent"
+                                placeholder="Write your blog here..."
+                                required
+                            ></textarea>
                         </div>
 
-                        <button class="add-blog-btn" id="blogSubmitBtn" type="submit">
+                        <button
+                            class="add-blog-btn"
+                            id="blogSubmitBtn"
+                            type="submit"
+                        >
                             <i class="fa-solid fa-plus"></i> Add Blog
                         </button>
 
-                        <button class="add-blog-btn cancel-btn"
-                            id="cancelBlogEdit" style="display:none" type="button">
+                        <button
+                            class="add-blog-btn cancel-btn"
+                            id="cancelBlogEdit"
+                            style="display:none"
+                            type="button"
+                        >
                             Cancel Edit
                         </button>
 
                         <p class="blog-message" id="blogMessage" role="status"></p>
+
                     </form>
 
                     <div class="saved-blogs">
                         <h2>My Blogs</h2>
                         <div id="savedBlogs"></div>
                     </div>
+
                 </div>
+
             </div>
 
             <!-- PROJECTS PAGE -->
             <div class="page add-project-page" id="addProjectPage">
+
                 <div class="project-form-box">
+
                     <h2 id="projectFormHeading">Add New Project</h2>
-                    <p class="form-intro">Add, edit, update or delete your projects.</p>
+
+                    <p class="form-intro">
+                        Add, edit, update or delete your projects.
+                    </p>
 
                     <form id="projectForm">
+
                         <div class="project-form-group">
                             <label for="projectTitle">Project Title</label>
-                            <input id="projectTitle" type="text"
-                                placeholder="Enter project title" required>
+
+                            <input
+                                id="projectTitle"
+                                type="text"
+                                placeholder="Enter project title"
+                                required
+                            >
                         </div>
 
                         <div class="project-form-group">
                             <label for="projectImage">Project Image</label>
-                            <input id="projectImage" type="file" accept="image/*">
-                            <img alt="Project image preview"
-                                class="project-image-preview" id="projectImagePreview">
+
+                            <input
+                                id="projectImage"
+                                type="file"
+                                accept="image/*"
+                            >
+
+                            <img
+                                alt="Project image preview"
+                                class="project-image-preview"
+                                id="projectImagePreview"
+                            >
                         </div>
 
                         <div class="project-form-group">
-                            <label for="projectDescription">Project Description</label>
-                            <textarea id="projectDescription"
-                                placeholder="Describe your project..." required></textarea>
+                            <label for="projectDescription">
+                                Project Description
+                            </label>
+
+                            <textarea
+                                id="projectDescription"
+                                placeholder="Describe your project..."
+                                required
+                            ></textarea>
                         </div>
 
-                        <button class="project-action-btn"
-                            id="projectSubmitBtn" type="submit">
+                        <button
+                            class="project-action-btn"
+                            id="projectSubmitBtn"
+                            type="submit"
+                        >
                             <i class="fa-solid fa-plus"></i> Add Project
                         </button>
 
-                        <button class="project-action-btn cancel-btn"
-                            id="cancelProjectEdit" style="display:none" type="button">
+                        <button
+                            class="project-action-btn cancel-btn"
+                            id="cancelProjectEdit"
+                            style="display:none"
+                            type="button"
+                        >
                             Cancel Edit
                         </button>
 
-                        <p class="project-message" id="projectMessage" role="status"></p>
+                        <p
+                            class="project-message"
+                            id="projectMessage"
+                            role="status"
+                        ></p>
+
                     </form>
 
                     <div class="saved-projects">
                         <h2>My Projects</h2>
                         <div id="savedProjects"></div>
                     </div>
+
                 </div>
+
             </div>
 
         </section>
+
     </main>
 
     <script src="./index.js"></script>
+
 </body>
 </html>
